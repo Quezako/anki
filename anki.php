@@ -5,10 +5,6 @@
 
 <body>
 	<?php
-	// error_reporting(E_ALL);
-	// set_time_limit(600);
-	// ini_set("display_errors", 1);
-	
 	$html = <<<HTML
 	<span style="display:none;">
 <span class='mnemo'></span>
@@ -125,10 +121,9 @@ HTML;
 	}
 
 	$kanji = $_GET['kanji'];
-	$stm = $pdo->query("SELECT * FROM Quezako WHERE kanji_only = '$kanji' AND (key LIKE '".$kanji."[%' OR key = '".$kanji."')");
+	$stm = $pdo->query("SELECT * FROM Quezako WHERE kanji_only = '$kanji' AND (key LIKE '{$kanji}[%' OR key = '$kanji')");
 	$res = $stm->fetch(PDO::FETCH_NUM);
 	preg_match_all('/./u', $kanji, $matches);
-	// var_dump($matches);
 	$kanji = htmlspecialchars(($_GET['kanji']));
 
 	echo "<title>$kanji - Anki</title>";
@@ -141,12 +136,6 @@ HTML;
 			}
 		}
 
-		// if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
-			// foreach ($m[1] as $i => $varname) {
-				// $html = str_replace($m[0][$i], sprintf('%s', $res[$col[$varname]]), $html);
-			// }
-		// }
-
 		echo $html;
 		die;
 	}
@@ -155,12 +144,7 @@ HTML;
 		$column = $stm->getColumnMeta($i);
 		$col[$column['name']] = $i;
 	}
-	
-	
-	
-	
-	// echo str_replace("{{", "{\$res[\$col['", str_replace("}}", "']]}", $html));
-	
+
 	if (preg_match_all("/(\[sound:.*\])/", $html, $m)) {
 		foreach ($m[1] as $i => $varname) {
 			$html = str_replace($m[0][$i], "", $html);
@@ -179,59 +163,52 @@ HTML;
 		}
 	}
 
-	// if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
-		// foreach ($m[1] as $i => $varname) {
-			// $html = str_replace($m[0][$i], sprintf('%s', $res[$col[$varname]]), $html);
-		// }
-	// }
-
 	echo $html;
 	?>
-	
-	
-	
-	
-<script type='text/javascript' src="../quezako.js"></script>
-<script src="../sql-wasm.js"></script>
-<script src="../dict2.js"></script>
-<script type='text/javascript'>
-$('#KanjiBack').html($('#KanjiFront span').html());
-document.getElementsByClassName('mnemo')[0].style.display = 'block';
-document.getElementsByClassName('back')[0].innerHTML = document.getElementsByClassName('back')[0].innerHTML.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/Anki/anki.php?kanji=$1">$1</a>');
 
-$('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, '<br>$1  <a href="https://quezako.com/tools/Anki/anki.php?kanji=$1"><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako</a> <a href="https://quezako.com/tools/kanji/details/$1"><img src="favicon-7798b8e0eb61d7375c245af78bbf5c916932bf13.png" width=16 style="vertical-align:middle">ChMn</a> <a href="https://rtega.be/chmn/?c=$1"><img src="favicon.png" width=16 style="vertical-align:middle">Rtega</a> <a href="https://kanji.koohii.com/study/kanji/$1?_x_tr_sl=en&_x_tr_tl=fr"><img src="favicon-16x16.png" width=16 style="vertical-align:middle">Koohii</a> <a href="https://www.wanikani.com/kanji/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Kanji</a> <a href="https://www.wanikani.com/vocabulary/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Voc</a> <a href="https://en.wiktionary.org/wiki/$1"><img src="en.ico" width=16 style="vertical-align:middle">Wiktionary</a>'));
 
-//start();
-</script>
 
-<style>
-body {
-	background: #333333 !important;
-	color: #ffffff;
-}
-#flyout {
-	position: absolute;
-	width: 100%;
-	min-height: 300px;
-	background: black;
-	/* overflow: hidden; */
-	display: none;
-	z-index: 10000;
-}
 
-.kanjiHover {
-	font-size: 30px;
-	color: #aaaaff;
-	font-family:hgrkk;
-}
+	<script type='text/javascript' src="../quezako.js"></script>
+	<script src="../sql-wasm.js"></script>
+	<script src="../dict2.js"></script>
+	<script type='text/javascript'>
+		$('#KanjiBack').html($('#KanjiFront span').html());
+		document.getElementsByClassName('mnemo')[0].style.display = 'block';
+		document.getElementsByClassName('back')[0].innerHTML = document.getElementsByClassName('back')[0].innerHTML.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/Anki/anki.php?kanji=$1">$1</a>');
 
-a {
-	color: #00ddff;
-}
+		$('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, '<br>$1  <a href="https://quezako.com/tools/Anki/anki.php?kanji=$1"><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako</a> <a href="https://quezako.com/tools/kanji/details/$1"><img src="favicon-7798b8e0eb61d7375c245af78bbf5c916932bf13.png" width=16 style="vertical-align:middle">ChMn</a> <a href="https://rtega.be/chmn/?c=$1"><img src="favicon.png" width=16 style="vertical-align:middle">Rtega</a> <a href="https://kanji.koohii.com/study/kanji/$1?_x_tr_sl=en&_x_tr_tl=fr"><img src="favicon-16x16.png" width=16 style="vertical-align:middle">Koohii</a> <a href="https://www.wanikani.com/kanji/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Kanji</a> <a href="https://www.wanikani.com/vocabulary/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Voc</a> <a href="https://en.wiktionary.org/wiki/$1"><img src="en.ico" width=16 style="vertical-align:middle">Wiktionary</a>'));
+	</script>
 
-.replay-button {
-	display: none;
-}
-</style>
+	<style>
+		body {
+			background: #333333 !important;
+			color: #ffffff;
+		}
+
+		#flyout {
+			position: absolute;
+			width: 100%;
+			min-height: 300px;
+			background: black;
+			/* overflow: hidden; */
+			display: none;
+			z-index: 10000;
+		}
+
+		.kanjiHover {
+			font-size: 30px;
+			color: #aaaaff;
+			font-family: hgrkk;
+		}
+
+		a {
+			color: #00ddff;
+		}
+
+		.replay-button {
+			display: none;
+		}
+	</style>
 
 </html>
