@@ -60,19 +60,17 @@ ruby:hover rt {
 }
 html:not(.android) .ankidroidtts {
   display: none;
-} 
-
-
-
-
+}
 
 /** kanji **/
 @media only screen and (orientation: portrait) {
   * {
     font-size: 3vw;
   }
-  #KanjiFront, #KanjiFront *,
-  #KanjiBack, #KanjiBack * {
+  #KanjiFront,
+  #KanjiFront *,
+  #KanjiBack,
+  #KanjiBack * {
     font-size: 45vw;
     line-height: 45vw;
   }
@@ -94,18 +92,20 @@ html:not(.android) .ankidroidtts {
     font-size: 4vw;
   }
   .furi rb {
-		font-size: 10vw;
+    font-size: 10vw;
   }
   .furi rt {
-		font-size: 5vw;
+    font-size: 5vw;
   }
 }
 @media only screen and (orientation: landscape) {
   * {
     font-size: 1vw;
   }
-  #KanjiFront, #KanjiFront *,
-  #KanjiBack, #KanjiBack * {
+  #KanjiFront,
+  #KanjiFront *,
+  #KanjiBack,
+  #KanjiBack * {
     font-size: 10vw;
     line-height: 10vw;
   }
@@ -127,13 +127,12 @@ html:not(.android) .ankidroidtts {
     margin: 2px !important;
   }
   .furi rb {
-		font-size: 4vw;
+    font-size: 4vw;
   }
   .furi rt {
-		font-size: 2vw;
+    font-size: 2vw;
   }
 }
-
 
 .card {
   --title-color: cornflowerblue;
@@ -1065,7 +1064,7 @@ chmn {
 }
 
 .soundLink svg {
-  max-width:50px;
+  max-width: 50px;
 }
 
 #mean {
@@ -1077,47 +1076,51 @@ chmn {
 #read_mnemo_personal {
   color: green;
 }
-#mean, #mnemo_personal, #read_mnemo_personal {
+#mean,
+#mnemo_personal,
+#read_mnemo_personal {
   text-align: left;
   display: inline-block;
 }
 
+#flyout {
+  position: absolute;
+  width: 99%;
+  min-height: 500px;
+  background: black;
+  /* overflow: hidden; */
+  display: none;
+  z-index: 10000;
+}
 
-		#flyout {
-			position: absolute;
-			width: 99%;
-			min-height: 500px;
-			background: black;
-			/* overflow: hidden; */
-			display: none;
-			z-index: 10000;
-		}
-
-		.kanjiHover {
-			font-size: 30px;
-			/*color: #aaaaff;*/
-			/*cursor: help;*/
-     font-family:hgrkk;
-		}
+.kanjiHover {
+  font-size: 30px;
+  /*color: #aaaaff;*/
+  /*cursor: help;*/
+  font-family: hgrkk;
+}
 ruby rt {
   visibility: visible;
 }
 #read_mnemo_personal a {
-font-size:40px;
+  font-size: 40px;
 }
 
-#furigana *, #read_mnemo_personal * {
-font-size:30px;
+#furigana *,
+#read_mnemo_personal * {
+  font-size: 30px;
 }
-#furigana ruby, #read_mnemo_personal ruby {
-font-size:30px;
+#furigana ruby,
+#read_mnemo_personal ruby {
+  font-size: 30px;
   display: inline-flex;
   flex-direction: column-reverse;
 }
-#furigana ruby rt, #read_mnemo_personal ruby rt {
-font-size:15px;
+#furigana ruby rt,
+#read_mnemo_personal ruby rt {
+  font-size: 15px;
   display: inline;
-  line-height: .5;
+  line-height: 0.5;
 }
 
 #furigana.hover ruby rt {
@@ -1130,20 +1133,20 @@ font-size:15px;
   visibility: visible;
 }
 
-
 #read_mnemo_personal u {
- color: yellow !important;
+  color: yellow !important;
 }
-.EFDRC-outline, .EFDRC-ctrl {
-display:inline-block;
-padding-top:10px;
+.EFDRC-outline,
+.EFDRC-ctrl {
+  display: inline-block;
+  padding-top: 10px;
 }
 
 #iframes * {
-vertical-align: top;
+  vertical-align: top;
 }
 
 img {
-max-with:300px;
-max-height:300px;
+  max-with: 300px;
+  max-height: 300px;
 }
