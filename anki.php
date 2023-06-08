@@ -112,7 +112,7 @@ HTML;
 
 
 	try {
-		$pdo = new PDO('sqlite:' . dirname(__FILE__) . '/anki.db');
+		$pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/vocab.db');
 		$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 	} catch (Exception $e) {
