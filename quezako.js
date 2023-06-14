@@ -1,4 +1,81 @@
 $(function () {
+  if (document.querySelector("#mnemo_personal")) {
+    dbSearch();
+  }
+  async function _FileExist(src1, src2) {
+    var strReturn = 'koResult';
+
+    var http = new XMLHttpRequest()
+    http.open('HEAD', src1, false)
+    http.send()
+    if (http.status === 200) {
+      return src1;
+    } else { 
+      return src2;
+    }
+  }
+
+  // Auto fetch kanji details + radical details.
+  async function dbSearch() {
+    var script = document.createElement("script");
+    script.src = await _FileExist('sql-wasm.js', '../../js/sql-wasm.js');
+    document.body.appendChild(script);
+
+    sqlwasm = await _FileExist('sql-wasm.wasm', '../../js/sql-wasm.wasm');
+    const sqlPromise = await initSqlJs({
+      locateFile: (file) => sqlwasm,
+    });
+
+    const dataPromise = fetch(await _FileExist("vocab.db", "../db/vocab.db")).then((res) => res.arrayBuffer());
+    const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
+    const db = new SQL.Database(new Uint8Array(buf));
+
+    const dataPromise2 = fetch(await _FileExist("chmn-full.db", "../db/chmn-full.db")).then((res) => res.arrayBuffer());
+    const [SQL2, buf2] = await Promise.all([sqlPromise, dataPromise2]);
+    const db2 = new SQL.Database(new Uint8Array(buf2));
+
+    strSearch = $('#KanjiFront span:first').text();
+    strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
+    strDetails = '<span id="each_details">';
+
+    Array.from(strKanjiOnly).forEach((element) => {
+      strDetails += `<details><summary>${element} details</summary>`;
+
+      stmt = db.prepare(
+        `SELECT mean, chmn_mean, fr_mean_mnemo_wani, fr_story, fr_story_wani_mean, fr_koohii_story_1, fr_koohii_story_2, fr_mean_mnemo_wani2, fr_chmn_mnemo, Tags FROM Quezako WHERE key = "${element}" OR key LIKE "${element}[%"`
+      );
+      result = stmt.getAsObject({});
+
+      for (var [key, val] of Object.entries(result)) {
+        strDetails += val ? `* ${key}: ${val}<br />` : "";
+      }
+
+      stmt = db.prepare(
+        `SELECT kanji_mnemo_personal FROM Quezako WHERE kanji_mnemo_personal LIKE "%${element} :%"`
+      );
+      result = stmt.getAsObject({});
+
+      for (var [key, val] of Object.entries(result)) {
+        strDetails += val ? `* ${key}: ${val}<br />` : "";
+      }
+
+      stmt = db2.prepare(
+        `SELECT * FROM \`chmn-full2\` WHERE hanzi = "${element}" OR hanzi2 = "${element}" OR alike = "${element}"`
+      );
+      result = stmt.getAsObject({});
+
+      for (var [key, val] of Object.entries(result)) {
+        strDetails += val ? `* ${key}: ${val}<br />` : "";
+      }
+
+      strDetails += "</details>";
+    });
+
+    strDetails += '</span">';
+
+    document.querySelector("#mnemo_personal").innerHTML += strDetails;
+  }
+
   /** JLPT **/
   var keyColorWord = '';
   var isCommon = 0;
@@ -102,65 +179,4 @@ $(function () {
     $('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, strKanjiLinks));
   }
 
-  // Auto fetch kanji details + radical details.
-  async function dbSearch() {
-    // console.log('ok');
-    const sqlPromise = await initSqlJs({
-      locateFile: (file) => "../../js/sql-wasm.wasm",
-    });
-
-    const dataPromise = fetch("../db/vocab.db").then((res) => res.arrayBuffer());
-    const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
-    const db = new SQL.Database(new Uint8Array(buf));
-
-    const dataPromise2 = fetch("../db/chmn-full.db").then((res) => res.arrayBuffer());
-    const [SQL2, buf2] = await Promise.all([sqlPromise, dataPromise2]);
-    const db2 = new SQL.Database(new Uint8Array(buf2));
-
-    // strSearch = $('#kanji_key').text();
-    strSearch = $('#KanjiFront span:first').text()
-    console.log(strSearch);
-
-    strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
-    strDetails = '<span id="each_details">';
-
-    Array.from(strKanjiOnly).forEach((element) => {
-      strDetails += `<details><summary>${element} details</summary>`;
-
-      stmt = db.prepare(
-        `SELECT mean, chmn_mean, fr_mean_mnemo_wani, fr_story, fr_story_wani_mean, fr_koohii_story_1, fr_koohii_story_2, fr_mean_mnemo_wani2, fr_chmn_mnemo, Tags FROM Quezako WHERE key = "${element}" OR key LIKE "${element}[%"`
-      );
-      result = stmt.getAsObject({});
-
-      for (var [key, val] of Object.entries(result)) {
-        strDetails += val ? `* ${key}: ${val}<br />` : "";
-      }
-
-      stmt = db.prepare(
-        `SELECT kanji_mnemo_personal FROM Quezako WHERE kanji_mnemo_personal LIKE "%${element} :%"`
-      );
-      result = stmt.getAsObject({});
-
-      for (var [key, val] of Object.entries(result)) {
-        strDetails += val ? `* ${key}: ${val}<br />` : "";
-      }
-
-      stmt = db2.prepare(
-        `SELECT * FROM \`chmn-full2\` WHERE hanzi = "${element}" OR hanzi2 = "${element}" OR alike = "${element}"`
-      );
-      result = stmt.getAsObject({});
-
-      for (var [key, val] of Object.entries(result)) {
-        strDetails += val ? `* ${key}: ${val}<br />` : "";
-      }
-
-      strDetails += "</details>";
-    });
-
-    strDetails += '</span">';
-
-    document.querySelector("#mnemo_personal").innerHTML += strDetails;
-  }
-
-  dbSearch();
 });
