@@ -101,4 +101,66 @@ $(function () {
     strKanjiLinks += "<a href='https://en.wiktionary.org/wiki/$1'><img src='en.ico' width=16 style='vertical-align:middle'>Wiktionary</a>";
     $('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, strKanjiLinks));
   }
+
+  // Auto fetch kanji details + radical details.
+  async function dbSearch() {
+    // console.log('ok');
+    const sqlPromise = await initSqlJs({
+      locateFile: (file) => "../../js/sql-wasm.wasm",
+    });
+
+    const dataPromise = fetch("../db/vocab.db").then((res) => res.arrayBuffer());
+    const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
+    const db = new SQL.Database(new Uint8Array(buf));
+
+    const dataPromise2 = fetch("../db/chmn-full.db").then((res) => res.arrayBuffer());
+    const [SQL2, buf2] = await Promise.all([sqlPromise, dataPromise2]);
+    const db2 = new SQL.Database(new Uint8Array(buf2));
+
+    // strSearch = $('#kanji_key').text();
+    strSearch = $('#KanjiFront span:first').text()
+    console.log(strSearch);
+
+    strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
+    strDetails = '<span id="each_details">';
+
+    Array.from(strKanjiOnly).forEach((element) => {
+      strDetails += `<details><summary>${element} details</summary>`;
+
+      stmt = db.prepare(
+        `SELECT mean, chmn_mean, fr_mean_mnemo_wani, fr_story, fr_story_wani_mean, fr_koohii_story_1, fr_koohii_story_2, fr_mean_mnemo_wani2, fr_chmn_mnemo, Tags FROM Quezako WHERE key = "${element}" OR key LIKE "${element}[%"`
+      );
+      result = stmt.getAsObject({});
+
+      for (var [key, val] of Object.entries(result)) {
+        strDetails += val ? `* ${key}: ${val}<br />` : "";
+      }
+
+      stmt = db.prepare(
+        `SELECT kanji_mnemo_personal FROM Quezako WHERE kanji_mnemo_personal LIKE "%${element} :%"`
+      );
+      result = stmt.getAsObject({});
+
+      for (var [key, val] of Object.entries(result)) {
+        strDetails += val ? `* ${key}: ${val}<br />` : "";
+      }
+
+      stmt = db2.prepare(
+        `SELECT * FROM \`chmn-full2\` WHERE hanzi = "${element}" OR hanzi2 = "${element}" OR alike = "${element}"`
+      );
+      result = stmt.getAsObject({});
+
+      for (var [key, val] of Object.entries(result)) {
+        strDetails += val ? `* ${key}: ${val}<br />` : "";
+      }
+
+      strDetails += "</details>";
+    });
+
+    strDetails += '</span">';
+
+    document.querySelector("#mnemo_personal").innerHTML += strDetails;
+  }
+
+  dbSearch();
 });
