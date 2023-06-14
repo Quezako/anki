@@ -1,25 +1,27 @@
 $(function () {
-  if (document.querySelector("#mnemo_personal")) {
-    dbSearch();
+
+  async function _sqlwasm() {
+    var script = document.createElement("script");
+    script.src = await _FileExist('sql-wasm.js', '../../js/sql-wasm.js');
+    document.body.appendChild(script);
   }
+  _sqlwasm();
+
   async function _FileExist(src1, src2) {
     var strReturn = 'koResult';
 
-    var http = new XMLHttpRequest()
-    http.open('HEAD', src1, false)
-    http.send()
+    var http = new XMLHttpRequest();
+    http.open('HEAD', src1, false);
+    http.send();
     if (http.status === 200) {
       return src1;
-    } else { 
+    } else {
       return src2;
     }
   }
 
   // Auto fetch kanji details + radical details.
   async function dbSearch() {
-    var script = document.createElement("script");
-    script.src = await _FileExist('sql-wasm.js', '../../js/sql-wasm.js');
-    document.body.appendChild(script);
 
     sqlwasm = await _FileExist('sql-wasm.wasm', '../../js/sql-wasm.wasm');
     const sqlPromise = await initSqlJs({
@@ -177,6 +179,10 @@ $(function () {
     strKanjiLinks += "<a href='https://www.wanikani.com/vocabulary/$1'><img src='favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico' width=16 style='vertical-align:middle'>WaniKani Voc</a>";
     strKanjiLinks += "<a href='https://en.wiktionary.org/wiki/$1'><img src='en.ico' width=16 style='vertical-align:middle'>Wiktionary</a>";
     $('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, strKanjiLinks));
+  }
+
+  if (document.querySelector("#mnemo_personal")) {
+    dbSearch();
   }
 
 });
