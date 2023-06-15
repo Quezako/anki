@@ -4,6 +4,8 @@
  * freeze de 10 secondes sur anki pc.
  * double chargement des details.
  * kanji_mnemo_personal: n'afficher que la ligne concernée, avec regexp.
+ * ajouter mneno read pour chaque kanji.
+ * détails des radiicaux.
  */
 $(function () {
   async function _sqlwasm() {
@@ -55,8 +57,8 @@ $(function () {
         `SELECT chmn_mean, fr_chmn_mnemo, mean, fr_koohii_story_1, fr_koohii_story_2, fr_mean_mnemo_wani, fr_story_wani_mean, fr_mean_mnemo_wani2, fr_story, Tags FROM Quezako WHERE key = "${element}" OR key LIKE "${element}[%"`
       );
       result = stmt.getAsObject({});
-      var strDetails3 = result.chmn_mean ? result.chmn_mean : `${element}: ${result.mean}`;
-      var strDetails4 = result.fr_chmn_mnemo ? `- Mnemo chmn: ${result.fr_chmn_mnemo}` : '';
+      var strDetails3 = result.chmn_mean ? result.chmn_mean : `<u>${element}</u>: ${result.mean}`;
+      var strDetails4 = result.fr_chmn_mnemo ? `- Mnemo chmn:<br>${result.fr_chmn_mnemo}` : '';
 
       strDetails += `<details><summary>${strDetails3}</summary>`;
       strDetails += `${strDetails2}${strDetails4}`;
@@ -82,7 +84,11 @@ $(function () {
 
     strDetails += '</span">';
 
-    document.querySelector("#mnemo_personal").innerHTML += strDetails;
+      
+    if (!document.querySelector("#each_details")) {
+      document.querySelector("#mnemo_personal").innerHTML += strDetails;
+    }
+   
   }
 
   /** JLPT **/
