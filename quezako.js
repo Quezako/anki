@@ -14,8 +14,6 @@ $(function () {
   _sqlwasm();
 
   async function _FileExist(src1, src2) {
-    var strReturn = 'koResult';
-
     var http = new XMLHttpRequest();
     http.open('HEAD', src1, false);
     http.send();
@@ -28,7 +26,6 @@ $(function () {
 
   // Auto fetch kanji details + radical details.
   async function dbSearch() {
-
     sqlwasm = await _FileExist('sql-wasm.wasm', '../../js/sql-wasm.wasm');
     const sqlPromise = await initSqlJs({
       locateFile: (file) => sqlwasm,
@@ -43,7 +40,7 @@ $(function () {
     const db2 = new SQL.Database(new Uint8Array(buf2));
 
     strSearch = $('#KanjiFront span:first').text();
-    strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
+    var strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
     strDetails = '<span id="each_details">';
 
     Array.from(strKanjiOnly).forEach((element) => {
@@ -183,7 +180,7 @@ $(function () {
     $('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, strKanjiLinks));
   }
 
-  if (document.querySelector("#mnemo_personal")) {
+  if (document.querySelector("#mnemo_personal") && !document.querySelector("#each_details")) {
     dbSearch();
   }
 
