@@ -3,6 +3,7 @@
  * sqlwasm introuvable sur anki mobile.
  * freeze de 10 secondes sur anki pc.
  * double chargement des details.
+ * kanji_mnemo_personal: n'afficher que la ligne concernée, avec regexp.
  */
 $(function () {
   async function _sqlwasm() {
@@ -26,7 +27,7 @@ $(function () {
 
   // Auto fetch kanji details + radical details.
   async function dbSearch() {
-    sqlwasm = await _FileExist('sql-wasm.wasm', '../../js/sql-wasm.wasm');
+    var sqlwasm = await _FileExist('sql-wasm.wasm', '../../js/sql-wasm.wasm');
     const sqlPromise = await initSqlJs({
       locateFile: (file) => sqlwasm,
     });
@@ -41,23 +42,24 @@ $(function () {
 
     strSearch = $('#KanjiFront span:first').text();
     var strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
-    strDetails = '<span id="each_details">';
+    var strDetails = '<span id="each_details">';
 
     Array.from(strKanjiOnly).forEach((element) => {
       stmt = db.prepare(
         `SELECT kanji_mnemo_personal FROM Quezako WHERE kanji_mnemo_personal LIKE "%${element} :%"`
       );
       result = stmt.getAsObject({});
-
       var strDetails2 = result.kanji_mnemo_personal ? `- Menmo perso: ${result.kanji_mnemo_personal}<br>` : '';
 
       stmt = db.prepare(
         `SELECT chmn_mean, fr_chmn_mnemo, mean, fr_koohii_story_1, fr_koohii_story_2, fr_mean_mnemo_wani, fr_story_wani_mean, fr_mean_mnemo_wani2, fr_story, Tags FROM Quezako WHERE key = "${element}" OR key LIKE "${element}[%"`
       );
       result = stmt.getAsObject({});
+      var strDetails3 = result.chmn_mean ? result.chmn_mean : `${element}: ${result.mean}`;
+      var strDetails4 = result.fr_chmn_mnemo ? `- Mnemo chmn: ${result.fr_chmn_mnemo}` : '';
 
-      strDetails += `<details><summary>${result.chmn_mean}</summary>`;
-      strDetails += `${strDetails2}- Mnemo chmn: ${result.fr_chmn_mnemo}`;
+      strDetails += `<details><summary>${strDetails3}</summary>`;
+      strDetails += `${strDetails2}${strDetails4}`;
       strDetails += `<details><summary>more info</summary>`;
 
       for (var [key, val] of Object.entries(result)) {
