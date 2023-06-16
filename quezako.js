@@ -8,13 +8,39 @@
  * détails des radiicaux.
  */
 $(function () {
-  async function _sqlwasm() {
-    var script = document.createElement("script");
-    script.src = await _FileExist('sql-wasm.js', '../../js/sql-wasm.js');
-    document.body.appendChild(script);
+  var isLoaded = true;
+
+  if (document.querySelector("#mnemo_personal") && !document.querySelector("#each_details")) {
+    if (window.matchMedia("only screen and (max-width: 760px)").matches) {
+      console.log('mobile');
+      $.getScript("sql-wasm.js2")
+        .fail(function () {
+          $.getScript("https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.2.1/dist/sql-wasm.js")
+            .fail(function (jqxhr, settings, exception) {
+              console.log(jqxhr, settings, exception);
+              isLoaded = false;
+            });
+        });
+    } else {
+      console.log('PC');
+      $.getScript("sql-wasm.js")
+        .fail(function (jqxhr, settings, exception) {
+          console.log(jqxhr, settings, exception);
+          $.getScript("http://localhost/js/sql-wasm.js2")
+            .fail(function (jqxhr, settings, exception) {
+              $.getScript("https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.2.1/dist/sql-wasm.js")
+                .fail(function (jqxhr, settings, exception) {
+                  console.log(jqxhr, settings, exception);
+                  isLoaded = false;
+                });
+            });
+        });
+    }
   }
 
-  _sqlwasm();
+  if (isLoaded) {
+    dbSearch();
+  }
 
   async function _FileExist(src1, src2) {
     var http = new XMLHttpRequest();
@@ -84,11 +110,11 @@ $(function () {
 
     strDetails += '</span">';
 
-      
+
     if (!document.querySelector("#each_details")) {
       document.querySelector("#mnemo_personal").innerHTML += strDetails;
     }
-   
+
   }
 
   /** JLPT **/
@@ -175,10 +201,12 @@ $(function () {
     $('#external_links').append("<a href='https://jisho.org/search/" + kana_key + " ?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico' width=16 style='vertical-align:middle'>Jisho kana</a>");
     $('#external_links').append("<a href='https://uchisen.com/functions?search_term=" + kanji_key + "'><img src='favicon-16x16-7f3ea5f15b8cac1e6fa1f9922c0185debfb72296.png' style='vertical-align:middle'>Uchisen</a>");
     $('#external_links').append("<a href='https://www.wanikani.com/vocabulary/" + kanji_key + "'><img src='favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico' width=16 style='vertical-align:middle'>WaniKani Voc</a>");
+    $('#external_links').append("<a href='http://localhost:8080/js/kanji.html?kanji=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako Kanji JS</a>");
     $('#external_links').append("<a href='https://quezako.com/tools/Anki/vocabulary.php?kanji=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako Voc</a>");
     $('#external_links').append("<a href='https://quezako.com/tools/Anki/anki.php?kanji=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako Kanji</a>");
     $('#external_links').append("<a href='https://www.google.com/search?q=" + kanji_key + " イラスト&tbm=isch&hl=fr&sa=X'><img src='favicon-49263695f6b0cdd72f45cf1b775e660fdc36c606.ico' width=16 style='vertical-align:middle'>Google Img</a>");
 
+    strKanjiLinks = "<br>$1 Kanji: <a href='http://localhost:8080/js/kanji.html?kanji=$1'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako JS</a>";
     strKanjiLinks = "<br>$1 Kanji: <a href='https://quezako.com/tools/Anki/anki.php?kanji=$1'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako</a>";
     strKanjiLinks += "<a href='https://rtega.be/chmn/?c=$1'><img src='favicon.png' width=16 style='vertical-align:middle'>Rtega</a>";
     strKanjiLinks += "<a href='https://kanji.koohii.com/study/kanji/$1?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-16x16.png' width=16 style='vertical-align:middle'>Koohii</a>";
@@ -187,9 +215,4 @@ $(function () {
     strKanjiLinks += "<a href='https://en.wiktionary.org/wiki/$1'><img src='en.ico' width=16 style='vertical-align:middle'>Wiktionary</a>";
     $('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, strKanjiLinks));
   }
-
-  if (document.querySelector("#mnemo_personal") && !document.querySelector("#each_details")) {
-    dbSearch();
-  }
-
 });
