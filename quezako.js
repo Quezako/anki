@@ -13,7 +13,7 @@ $(function () {
   if (document.querySelector("#mnemo_personal") && !document.querySelector("#each_details")) {
     if (window.matchMedia("only screen and (max-width: 760px)").matches) {
       console.log('mobile');
-      $.getScript("sql-wasm.js2")
+      $.getScript("sql-wasm.js")
         .fail(function () {
           $.getScript("https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.2.1/dist/sql-wasm.js")
             .fail(function (jqxhr, settings, exception) {
@@ -26,7 +26,7 @@ $(function () {
       $.getScript("sql-wasm.js")
         .fail(function (jqxhr, settings, exception) {
           console.log(jqxhr, settings, exception);
-          $.getScript("http://localhost/js/sql-wasm.js2")
+          $.getScript("http://localhost/js/sql-wasm.js")
             .fail(function (jqxhr, settings, exception) {
               $.getScript("https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.2.1/dist/sql-wasm.js")
                 .fail(function (jqxhr, settings, exception) {
@@ -207,7 +207,7 @@ $(function () {
     $('#external_links').append("<a href='https://www.google.com/search?q=" + kanji_key + " イラスト&tbm=isch&hl=fr&sa=X'><img src='favicon-49263695f6b0cdd72f45cf1b775e660fdc36c606.ico' width=16 style='vertical-align:middle'>Google Img</a>");
 
     strKanjiLinks = "<br>$1 Kanji: <a href='http://localhost:8080/js/kanji.html?kanji=$1'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako JS</a>";
-    strKanjiLinks = "<br>$1 Kanji: <a href='https://quezako.com/tools/Anki/anki.php?kanji=$1'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako</a>";
+    strKanjiLinks += "<br>$1 Kanji: <a href='https://quezako.com/tools/Anki/anki.php?kanji=$1'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako</a>";
     strKanjiLinks += "<a href='https://rtega.be/chmn/?c=$1'><img src='favicon.png' width=16 style='vertical-align:middle'>Rtega</a>";
     strKanjiLinks += "<a href='https://kanji.koohii.com/study/kanji/$1?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-16x16.png' width=16 style='vertical-align:middle'>Koohii</a>";
     strKanjiLinks += "<a href='https://www.wanikani.com/kanji/$1'><img src='favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico' width=16 style='vertical-align:middle'>WaniKani Kanji</a>";
