@@ -1,11 +1,13 @@
-<html>
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8" />
 <base href='img/'>
 <link rel='stylesheet' href='../anki.css'>
 <script src="../jquery-3.6.3.min.js"></script>
 
 <body>
-	<?php
-	$html = <<<HTML
+    <?php
+    $html = <<<HTML
 	<span style="display:none;">
 <span class='mnemo'></span>
 <div id='KanjiFront'>
@@ -21,11 +23,11 @@
 
 
 <span id="external_links">
-Sound: <a href="https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kanji={{kanji_only}}&kana={{kanji_only}}"><img src="favicon-7bb26f7041394a1ad90ad97f53dda21671c5dffb.ico" width=16 style="vertical-align:middle">Pod101</a> 
-<a href="https://forvo.com/word/{{kanji_only}}/#ja"><img src="favicon-0c20667c2ac4a591da442c639c6b7367aa54fa13.ico" width=16 style="vertical-align:middle">Forvo</a> 
+Sound: <a href="https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kanji={{kanji_only}}&kana={{kanji_only}}"><img src="favicon-7bb26f7041394a1ad90ad97f53dda21671c5dffb.ico" width=16 style="vertical-align:middle">Pod101</a>
+<a href="https://forvo.com/word/{{kanji_only}}/#ja"><img src="favicon-0c20667c2ac4a591da442c639c6b7367aa54fa13.ico" width=16 style="vertical-align:middle">Forvo</a>
 <a href='https://jisho-org.translate.goog/search/{{kanji_only}} {{kanji_only}} ?_x_tr_sl=en&_x_tr_tl=fr'><img src="favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico" width=16 style="vertical-align:middle">Jisho</a>
 <a href='https://www.japandict.com/{{kanji_only}}?lang=fre&_x_tr_sl=en&_x_tr_tl=fr'><img src="favicon-32x32.png" width=16 style="vertical-align:middle">JapanDict</a>
-<a href="https://uchisen.com/functions?search_term={{kanji_only}}"><img src="favicon-16x16-7f3ea5f15b8cac1e6fa1f9922c0185debfb72296.png" style="vertical-align:middle">Uchisen</a> 
+<a href="https://uchisen.com/functions?search_term={{kanji_only}}"><img src="favicon-16x16-7f3ea5f15b8cac1e6fa1f9922c0185debfb72296.png" style="vertical-align:middle">Uchisen</a>
 <a href='https://quezako-com.translate.goog/tools/kanji/details/{{kanji_only}}?_x_tr_sl=en&_x_tr_tl=fr'><img src="favicon-7798b8e0eb61d7375c245af78bbf5c916932bf13.png" width=16 style="vertical-align:middle">Chmn</a>
 <a href='https://quezako.com/tools/Anki/vocabulary.php?kanji={{kanji_only}}&lang=en'><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako Voc</a>
 <a href='https://quezako.com/tools/Anki/anki.php?kanji={{kanji_only}}&lang=en'><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako Kanji</a>
@@ -107,108 +109,108 @@ HTML;
 
 
 
-	try {
-		$pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/vocab.db');
-		$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-	} catch (Exception $e) {
-		echo "Can't access SQLite DB: " . $e->getMessage();
-		die();
-	}
+    try {
+        $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/vocab.db');
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+    } catch (Exception $e) {
+        echo "Can't access SQLite DB: " . $e->getMessage();
+        die();
+    }
 
-	if (!isset($_GET['kanji'])) {
-		die();
-	}
+    if (!isset($_GET['kanji'])) {
+        die();
+    }
 
-	$kanji = $_GET['kanji'];
-	$stm = $pdo->query("SELECT * FROM Quezako WHERE kanji_only = '$kanji' AND (key LIKE '{$kanji}[%' OR key = '$kanji')");
-	$res = $stm->fetch(PDO::FETCH_NUM);
-	preg_match_all('/./u', $kanji, $matches);
-	$kanji = htmlspecialchars(($_GET['kanji']));
+    $kanji = $_GET['kanji'];
+    $stm = $pdo->query("SELECT * FROM Quezako WHERE kanji_only = '$kanji' AND (key LIKE '{$kanji}[%' OR key = '$kanji')");
+    $res = $stm->fetch(PDO::FETCH_NUM);
+    preg_match_all('/./u', $kanji, $matches);
+    $kanji = htmlspecialchars(($_GET['kanji']));
 
-	echo "<title>$kanji - Anki</title>";
+    echo "<title>$kanji - Anki</title>";
 
-	if (!isset($res[0])) {
+    if (!isset($res[0])) {
 
-		if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
-			foreach ($m[1] as $i => $varname) {
-				$html = str_replace($m[0][$i], sprintf('%s', $_GET['kanji']), $html);
-			}
-		}
+        if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
+            foreach ($m[1] as $i => $varname) {
+                $html = str_replace($m[0][$i], sprintf('%s', $_GET['kanji']), $html);
+            }
+        }
 
-		echo $html;
-		die;
-	}
+        echo $html;
+        die;
+    }
 
-	for ($i = 0; $i < $stm->columnCount(); $i++) {
-		$column = $stm->getColumnMeta($i);
-		$col[$column['name']] = $i;
-	}
+    for ($i = 0; $i < $stm->columnCount(); $i++) {
+        $column = $stm->getColumnMeta($i);
+        $col[$column['name']] = $i;
+    }
 
-	if (preg_match_all("/(\[sound:.*\])/", $html, $m)) {
-		foreach ($m[1] as $i => $varname) {
-			$html = str_replace($m[0][$i], "", $html);
-		}
-	}
+    if (preg_match_all("/(\[sound:.*\])/", $html, $m)) {
+        foreach ($m[1] as $i => $varname) {
+            $html = str_replace($m[0][$i], "", $html);
+        }
+    }
 
-	if (preg_match_all("/{{[\/|#](.*?)}}/", $html, $m)) {
-		foreach ($m[1] as $i => $varname) {
-			$html = str_replace($m[0][$i], "", $html);
-		}
-	}
+    if (preg_match_all("/{{[\/|#](.*?)}}/", $html, $m)) {
+        foreach ($m[1] as $i => $varname) {
+            $html = str_replace($m[0][$i], "", $html);
+        }
+    }
 
-	if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
-		foreach ($m[1] as $i => $varname) {
-			$html = str_replace($m[0][$i], sprintf('%s', $res[$col[$varname]]), $html);
-		}
-	}
+    if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
+        foreach ($m[1] as $i => $varname) {
+            $html = str_replace($m[0][$i], sprintf('%s', $res[$col[$varname]]), $html);
+        }
+    }
 
-	echo $html;
-	?>
-
-
+    echo $html;
+    ?>
 
 
-	<script type='text/javascript' src="../quezako.js"></script>
-	<script src="../sql-wasm.js"></script>
-	<script src="../dict2.js"></script>
-	<script type='text/javascript'>
-		$('#KanjiBack').html($('#KanjiFront span').html());
-		document.getElementsByClassName('mnemo')[0].style.display = 'block';
-		document.getElementsByClassName('back')[0].innerHTML = document.getElementsByClassName('back')[0].innerHTML.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/Anki/anki.php?kanji=$1">$1</a>');
 
-		$('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, '<br>$1  <a href="https://quezako.com/tools/Anki/anki.php?kanji=$1"><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako</a> <a href="https://quezako.com/tools/kanji/details/$1"><img src="favicon-7798b8e0eb61d7375c245af78bbf5c916932bf13.png" width=16 style="vertical-align:middle">ChMn</a> <a href="https://rtega.be/chmn/?c=$1"><img src="favicon.png" width=16 style="vertical-align:middle">Rtega</a> <a href="https://kanji.koohii.com/study/kanji/$1?_x_tr_sl=en&_x_tr_tl=fr"><img src="favicon-16x16.png" width=16 style="vertical-align:middle">Koohii</a> <a href="https://www.wanikani.com/kanji/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Kanji</a> <a href="https://www.wanikani.com/vocabulary/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Voc</a> <a href="https://en.wiktionary.org/wiki/$1"><img src="en.ico" width=16 style="vertical-align:middle">Wiktionary</a>'));
-	</script>
 
-	<style>
-		body {
-			background: #333333 !important;
-			color: #ffffff;
-		}
+    <script type='text/javascript' src="../quezako.js"></script>
+    <script src="../sql-wasm.js"></script>
+    <script src="../dict2.js"></script>
+    <script type='text/javascript'>
+        $('#KanjiBack').html($('#KanjiFront span').html());
+        document.getElementsByClassName('mnemo')[0].style.display = 'block';
+        document.getElementsByClassName('back')[0].innerHTML = document.getElementsByClassName('back')[0].innerHTML.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/Anki/anki.php?kanji=$1">$1</a>');
 
-		#flyout {
-			position: absolute;
-			width: 100%;
-			min-height: 300px;
-			background: black;
-			/* overflow: hidden; */
-			display: none;
-			z-index: 10000;
-		}
+        $('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, '<br>$1  <a href="https://quezako.com/tools/Anki/anki.php?kanji=$1"><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako</a> <a href="https://quezako.com/tools/kanji/details/$1"><img src="favicon-7798b8e0eb61d7375c245af78bbf5c916932bf13.png" width=16 style="vertical-align:middle">ChMn</a> <a href="https://rtega.be/chmn/?c=$1"><img src="favicon.png" width=16 style="vertical-align:middle">Rtega</a> <a href="https://kanji.koohii.com/study/kanji/$1?_x_tr_sl=en&_x_tr_tl=fr"><img src="favicon-16x16.png" width=16 style="vertical-align:middle">Koohii</a> <a href="https://www.wanikani.com/kanji/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Kanji</a> <a href="https://www.wanikani.com/vocabulary/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Voc</a> <a href="https://en.wiktionary.org/wiki/$1"><img src="en.ico" width=16 style="vertical-align:middle">Wiktionary</a>'));
+    </script>
 
-		.kanjiHover {
-			font-size: 30px;
-			color: #aaaaff;
-			font-family: hgrkk;
-		}
+    <style>
+        body {
+            background: #333333 !important;
+            color: #ffffff;
+        }
 
-		a {
-			color: #00ddff;
-		}
+        #flyout {
+            position: absolute;
+            width: 100%;
+            min-height: 300px;
+            background: black;
+            /* overflow: hidden; */
+            display: none;
+            z-index: 10000;
+        }
 
-		.replay-button {
-			display: none;
-		}
-	</style>
+        .kanjiHover {
+            font-size: 30px;
+            color: #aaaaff;
+            font-family: hgrkk;
+        }
+
+        a {
+            color: #00ddff;
+        }
+
+        .replay-button {
+            display: none;
+        }
+    </style>
 
 </html>

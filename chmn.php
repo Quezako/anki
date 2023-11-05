@@ -8,24 +8,15 @@ try {
     die();
 }
 
-// $stm = $pdo->query("SELECT * FROM 'chmn-full2' where hanzi='⺌' or hanzi='労'");
 $stm = $pdo->query("SELECT * FROM 'chmn-full2'");
 $res = $stm->fetchAll(PDO::FETCH_NUM);
-// preg_match_all('/./u', $kanji, $matches);
 
 for ($i = 0; $i < $stm->columnCount(); $i++) {
     $column = $stm->getColumnMeta($i);
     $col[$column['name']] = $i;
 }
-
-// echo '<pre>';
-// var_dump($col);
-// var_dump($res);
-
-// <table>
-// <tr><th>hanzi</th><th>alike</th><th>meaning</th><th>mnemonics</th></tr>
 ?>
-hanzi	alike	meaning	mnemonics
+hanzi alike meaning mnemonics
 <?php
 $old = $res[0][$col['hanzi']];
 $hanzi = [];
@@ -34,10 +25,8 @@ $meaning = [];
 $mnemonics = [];
 
 foreach ($res as $row) {
-    if ($old === $row[$col['hanzi']]) {
-    } else {
-        // echo "<tr><td>".implode('<br/>',$hanzi)."</td><td>".implode('<br/>',$alike)."</td><td>".implode('<br/>',$meaning)."</td><td>".implode('<br/>',$mnemonics)."</td></tr>";
-        echo $hanzi[0]."\t".implode('<br/>',$alike)."\t".implode('<br/>',$meaning)."\t".implode('<br/>',$mnemonics)."\n";
+    if ($old !== $row[$col['hanzi']]) {
+        echo $hanzi[0] . "\t" . implode('<br/>', $alike) . "\t" . implode('<br/>', $meaning) . "\t" . implode('<br/>', $mnemonics) . "\n";
         $hanzi = [];
         $alike = [];
         $meaning = [];
@@ -52,7 +41,4 @@ foreach ($res as $row) {
     $old = $row[$col['hanzi']];
 }
 
-echo $hanzi[0]."\t".implode('<br/>',$alike)."\t".implode('<br/>',$meaning)."\t".implode('<br/>',$mnemonics)."\n";
-// </table>
-?>
-
+echo $hanzi[0] . "\t" . implode('<br/>', $alike) . "\t" . implode('<br/>', $meaning) . "\t" . implode('<br/>', $mnemonics) . "\n";

@@ -8,7 +8,7 @@
  * détails des radiicaux.
  */
 $(function () {
-  var isLoaded = true;
+  let isLoaded = true;
 
   if (document.querySelector("#mnemo_personal") && !document.querySelector("#each_details")) {
     if (window.matchMedia("only screen and (max-width: 760px)").matches) {
@@ -43,7 +43,7 @@ $(function () {
   }
 
   async function _FileExist(src1, src2) {
-    var http = new XMLHttpRequest();
+    let http = new XMLHttpRequest();
     http.open('HEAD', src1, false);
     http.send();
     if (http.status === 200) {
@@ -55,7 +55,7 @@ $(function () {
 
   // Auto fetch kanji details + radical details.
   async function dbSearch() {
-    var sqlwasm = await _FileExist('sql-wasm.wasm', '../../js/sql-wasm.wasm');
+    let sqlwasm = await _FileExist('sql-wasm.wasm', '../../js/sql-wasm.wasm');
     const sqlPromise = await initSqlJs({
       locateFile: (file) => sqlwasm,
     });
@@ -66,31 +66,31 @@ $(function () {
 
     const dataPromise2 = fetch(await _FileExist("chmn-full.db", "../db/chmn-full.db")).then((res) => res.arrayBuffer());
     const [SQL2, buf2] = await Promise.all([sqlPromise, dataPromise2]);
-    const db2 = new SQL.Database(new Uint8Array(buf2));
+    const db2 = new SQL2.Database(new Uint8Array(buf2));
 
-    strSearch = $('#KanjiFront span:first').text();
-    var strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
-    var strDetails = '<span id="each_details">';
+    let strSearch = $('#KanjiFront span:first').text();
+    let strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
+    let strDetails = '<span id="each_details">';
 
     Array.from(strKanjiOnly).forEach((element) => {
-      stmt = db.prepare(
+      let stmt = db.prepare(
         `SELECT kanji_mnemo_personal FROM Quezako WHERE kanji_mnemo_personal LIKE "%${element} :%"`
       );
-      result = stmt.getAsObject({});
-      var strDetails2 = result.kanji_mnemo_personal ? `- Menmo perso: ${result.kanji_mnemo_personal}<br>` : '';
+      let result = stmt.getAsObject({});
+      let strDetails2 = result.kanji_mnemo_personal ? `- Menmo perso: ${result.kanji_mnemo_personal}<br>` : '';
 
       stmt = db.prepare(
         `SELECT chmn_mean, fr_chmn_mnemo, mean, fr_koohii_story_1, fr_koohii_story_2, fr_mean_mnemo_wani, fr_story_wani_mean, fr_mean_mnemo_wani2, fr_story, Tags FROM Quezako WHERE key = "${element}" OR key LIKE "${element}[%"`
       );
       result = stmt.getAsObject({});
-      var strDetails3 = result.chmn_mean ? result.chmn_mean : `<u>${element}</u>: ${result.mean}`;
-      var strDetails4 = result.fr_chmn_mnemo ? `- Mnemo chmn:<br>${result.fr_chmn_mnemo}` : '';
+      let strDetails3 = result.chmn_mean ? result.chmn_mean : `<u>${element}</u>: ${result.mean}`;
+      let strDetails4 = result.fr_chmn_mnemo ? `- Mnemo chmn:<br>${result.fr_chmn_mnemo}` : '';
 
       strDetails += `<details><summary>${strDetails3}</summary>`;
       strDetails += `${strDetails2}${strDetails4}`;
       strDetails += `<details><summary>more info</summary>`;
 
-      for (var [key, val] of Object.entries(result)) {
+      for (let [key, val] of Object.entries(result)) {
         if (key != 'chmn_mean' && key != 'fr_chmn_mnemo') {
           strDetails += val ? `* ${key}: ${val}<br />` : "";
         }
@@ -101,7 +101,7 @@ $(function () {
       );
       result = stmt.getAsObject({});
 
-      for (var [key, val] of Object.entries(result)) {
+      for (let [key, val] of Object.entries(result)) {
         strDetails += val ? `* chmn DB ${key}: ${val}<br />` : "";
       }
 
@@ -118,17 +118,19 @@ $(function () {
   }
 
   /** JLPT **/
-  var keyColorWord = '';
-  var isCommon = 0;
-  var arrResult = ['', '', [], ''];
-  var arrColor = ['', 'FF0000', 'FF00FF', 'FFFF00', '00FFFF', '00FF00'];
-  var arrColorBg = ['', '990000', '990099', '999900', '009999', '009900'];
-  var arrKanji = [];
+  let keyColorWord = '';
+  let isCommon = 0;
+  let arrResult = ['', '', [], ''];
+  let arrColor = ['', 'FF0000', 'FF00FF', 'FFFF00', '00FFFF', '00FF00'];
+  let arrColorBg = ['', '990000', '990099', '999900', '009999', '009900'];
+  let arrKanji = [];
 
   if ($('#KanjiFront span').length) {
     arrKanji = $('#KanjiFront span').html().split('');
     $('#KanjiFront, #KanjiFront *').css('font-size', '3rem').css('line-height', '4rem');
   }
+
+  let strTagsElement = '';
 
   if ($('.tags div').length) {
     strTagsElement = '.tags div';
@@ -136,11 +138,12 @@ $(function () {
     strTagsElement = '.tags';
   }
 
-  arrTags = $(strTagsElement).html().split(" ");
+  let arrTags = $(strTagsElement).html().split(" ");
 
-  var re = /([\u4e00-\u9faf\u3400-\u4dbf])/g;
-  var str = $('#KanjiFront span').html();
-  var matches = [];
+  let re = /([\u4e00-\u9faf\u3400-\u4dbf])/g;
+  let str = $('#KanjiFront span').html();
+  let matches = [];
+  let match = '';
 
   while ((match = re.exec(str)) != null) {
     matches.push(match.index);
@@ -150,11 +153,11 @@ $(function () {
     if (arrTags[index] === 'Common') {
       arrResult[0] = '<span style="background: green;">Common</span>';
       isCommon = 1;
-    } else if (/^JLPT::([0-9])$/.test(arrTags[index])) {
-      keyColorWord = arrTags[index].replace(/^JLPT::([0-9])$/, "$1");
+    } else if (/^JLPT::(\d)$/.test(arrTags[index])) {
+      keyColorWord = arrTags[index].replace(/^JLPT::(\d)$/, "$1");
       arrResult[1] = '<span style="color: #' + arrColor[keyColorWord] + ';">' + arrTags[index] + '</span>';
-    } else if (/^JLPT::K([0-9])::([0-9])$/.test(arrTags[index])) {
-      keyColor = arrTags[index].replace(/^JLPT::K([0-9])::([0-9])$/, ["$1", "$2"]);
+    } else if (/^JLPT::K(\d)::(\d)$/.test(arrTags[index])) {
+      let keyColor = arrTags[index].replace(/^JLPT::K(\d)::(\d)$/, ["$1", "$2"]);
       arrResult[2][keyColor[0]] = '<span style="color: #' + arrColor[keyColor[2]] + ';">' + arrTags[index] + '</span>';
       arrKanji[matches[keyColor[0] - 1]] = '<span style="line-height: 110%;color: #' + arrColor[keyColor[2]] + ';">' + arrKanji[matches[keyColor[0] - 1]] + '</span>';
     } else {
@@ -162,7 +165,7 @@ $(function () {
     }
   });
 
-  strKanji = '<span style="line-height: 110%;text-decoration: underline #' + arrColorBg[keyColorWord] + ';' + (isCommon === 1 ? 'background: #004400;' : '') + '; text-underline-offset:.2em;text-decoration-thickness:.01em;">' + arrKanji.join('') + '</span>';
+  let strKanji = '<span style="line-height: 110%;text-decoration: underline #' + arrColorBg[keyColorWord] + ';' + (isCommon === 1 ? 'background: #004400;' : '') + '; text-underline-offset:.2em;text-decoration-thickness:.01em;">' + arrKanji.join('') + '</span>';
 
   if ($('#KanjiFront').length) {
     $("#KanjiFront").children('span').eq(0).html(strKanji);
@@ -191,9 +194,9 @@ $(function () {
   }
 
   if ($('#kanji_key').length) {
-    var kanji_key = $('#kanji_key').text();
-    var kana_key = $('#kana_key').text();
-    var kanji_only = $('#kanji_only').text();
+    let kanji_key = $('#kanji_key').text();
+    let kana_key = $('#kana_key').text();
+    let kanji_only = $('#kanji_only').text();
 
     $('#external_links').html("Sound: <a href='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kanji=" + kanji_key + "&kana=" + kana_key + "'><img src='favicon-7bb26f7041394a1ad90ad97f53dda21671c5dffb.ico' width=16 style='vertical-align:middle'>Pod101</a>");
     $('#external_links').append("<a href='https://forvo.com/word/" + kanji_key + "/#ja'><img src='favicon-0c20667c2ac4a591da442c639c6b7367aa54fa13.ico' width=16 style='vertical-align:middle'>Forvo</a>");
@@ -206,7 +209,7 @@ $(function () {
     $('#external_links').append("<a href='https://quezako.com/tools/Anki/anki.php?kanji=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako Kanji</a>");
     $('#external_links').append("<a href='https://www.google.com/search?q=" + kanji_key + " イラスト&tbm=isch&hl=fr&sa=X'><img src='favicon-49263695f6b0cdd72f45cf1b775e660fdc36c606.ico' width=16 style='vertical-align:middle'>Google Img</a>");
 
-    strKanjiLinks = "<br>$1 Kanji: <a href='http://localhost:8080/js/kanji.html?kanji=$1'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako JS</a>";
+    let strKanjiLinks = "<br>$1 Kanji: <a href='http://localhost:8080/js/kanji.html?kanji=$1'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako JS</a>";
     strKanjiLinks += "<br>$1 Kanji: <a href='https://quezako.com/tools/Anki/anki.php?kanji=$1'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako</a>";
     strKanjiLinks += "<a href='https://rtega.be/chmn/?c=$1'><img src='favicon.png' width=16 style='vertical-align:middle'>Rtega</a>";
     strKanjiLinks += "<a href='https://kanji.koohii.com/study/kanji/$1?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-16x16.png' width=16 style='vertical-align:middle'>Koohii</a>";
