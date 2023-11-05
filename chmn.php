@@ -1,6 +1,6 @@
 <?php
 try {
-    $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/chmn-full2.db');
+    $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/chmn-full.db');
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 } catch (Exception $e) {
@@ -8,7 +8,7 @@ try {
     die();
 }
 
-$stm = $pdo->query("SELECT * FROM 'chmn-full2'");
+$stm = $pdo->query("SELECT * FROM 'chmn-full' LIMIT 5");
 $res = $stm->fetchAll(PDO::FETCH_NUM);
 
 for ($i = 0; $i < $stm->columnCount(); $i++) {
@@ -17,6 +17,7 @@ for ($i = 0; $i < $stm->columnCount(); $i++) {
 }
 ?>
 hanzi alike meaning mnemonics
+<base target="_blank" href="../assets/img/">
 <?php
 $old = $res[0][$col['hanzi']];
 $hanzi = [];

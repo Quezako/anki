@@ -29,15 +29,15 @@ Sound: <a href="https://assets.languagepod101.com/dictionary/japanese/audiomp3.p
 <a href='https://www.japandict.com/{{kanji_only}}?lang=fre&_x_tr_sl=en&_x_tr_tl=fr'><img src="favicon-32x32.png" width=16 style="vertical-align:middle">JapanDict</a>
 <a href="https://uchisen.com/functions?search_term={{kanji_only}}"><img src="favicon-16x16-7f3ea5f15b8cac1e6fa1f9922c0185debfb72296.png" style="vertical-align:middle">Uchisen</a>
 <a href='https://quezako-com.translate.goog/tools/kanji/details/{{kanji_only}}?_x_tr_sl=en&_x_tr_tl=fr'><img src="favicon-7798b8e0eb61d7375c245af78bbf5c916932bf13.png" width=16 style="vertical-align:middle">Chmn</a>
-<a href='https://quezako.com/tools/Anki/vocabulary.php?kanji={{kanji_only}}&lang=en'><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako Voc</a>
-<a href='https://quezako.com/tools/Anki/anki.php?kanji={{kanji_only}}&lang=en'><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako Kanji</a>
+<a href='https://quezako.com/tools/anki/vocabulary.php?kanji={{kanji_only}}&lang=en'><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako Voc</a>
+<a href='https://quezako.com/tools/anki/anki.php?kanji={{kanji_only}}&lang=en'><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako Kanji</a>
 <a href="https://www.deepl.com/translator#ja/fr/{{kanji_only}}"><img src="favicon_16.png" style="vertical-align:middle">Deepl</a>
 <a href="https://www.google.com/search?q={{kanji_only}} イラスト&tbm=isch&tbs=il:cl&hl=fr&sa=X"><img src="favicon-49263695f6b0cdd72f45cf1b775e660fdc36c606.ico" width=16 style="vertical-align:middle">Google Img</a>
 </span>
 <br><br>
 Furigana : <span id="furigana">{{key}}</span><br>
 <br>
-<div class='tags'">{{Tags}}</div>
+<div class='tags'>{{Tags}}</div>
 {{voc_image}}<br>
 <br id="answer">
 <span id='KanjiBack' style='font-family:hgrkk;'></span><br>
@@ -177,9 +177,9 @@ HTML;
     <script type='text/javascript'>
         $('#KanjiBack').html($('#KanjiFront span').html());
         document.getElementsByClassName('mnemo')[0].style.display = 'block';
-        document.getElementsByClassName('back')[0].innerHTML = document.getElementsByClassName('back')[0].innerHTML.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/Anki/anki.php?kanji=$1">$1</a>');
+        document.getElementsByClassName('back')[0].innerHTML = document.getElementsByClassName('back')[0].innerHTML.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/anki/anki.php?kanji=$1">$1</a>');
 
-        $('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, '<br>$1  <a href="https://quezako.com/tools/Anki/anki.php?kanji=$1"><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako</a> <a href="https://quezako.com/tools/kanji/details/$1"><img src="favicon-7798b8e0eb61d7375c245af78bbf5c916932bf13.png" width=16 style="vertical-align:middle">ChMn</a> <a href="https://rtega.be/chmn/?c=$1"><img src="favicon.png" width=16 style="vertical-align:middle">Rtega</a> <a href="https://kanji.koohii.com/study/kanji/$1?_x_tr_sl=en&_x_tr_tl=fr"><img src="favicon-16x16.png" width=16 style="vertical-align:middle">Koohii</a> <a href="https://www.wanikani.com/kanji/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Kanji</a> <a href="https://www.wanikani.com/vocabulary/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Voc</a> <a href="https://en.wiktionary.org/wiki/$1"><img src="en.ico" width=16 style="vertical-align:middle">Wiktionary</a>'));
+        $('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, '<br>$1  <a href="https://quezako.com/tools/anki/anki.php?kanji=$1"><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako</a> <a href="https://quezako.com/tools/kanji/details/$1"><img src="favicon-7798b8e0eb61d7375c245af78bbf5c916932bf13.png" width=16 style="vertical-align:middle">ChMn</a> <a href="https://rtega.be/chmn/?c=$1"><img src="favicon.png" width=16 style="vertical-align:middle">Rtega</a> <a href="https://kanji.koohii.com/study/kanji/$1?_x_tr_sl=en&_x_tr_tl=fr"><img src="favicon-16x16.png" width=16 style="vertical-align:middle">Koohii</a> <a href="https://www.wanikani.com/kanji/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Kanji</a> <a href="https://www.wanikani.com/vocabulary/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Voc</a> <a href="https://en.wiktionary.org/wiki/$1"><img src="en.ico" width=16 style="vertical-align:middle">Wiktionary</a>'));
     </script>
 
     <style>
