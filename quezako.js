@@ -55,16 +55,16 @@ $(function () {
 
   // Auto fetch kanji details + radical details.
   async function dbSearch() {
-    let sqlwasm = await _FileExist('sql-wasm.wasm', '../../js/sql-wasm.wasm');
+    let sqlwasm = await _FileExist('sql-wasm.wasm', '../assets/js/sql-wasm.wasm');
     const sqlPromise = await initSqlJs({
       locateFile: (file) => sqlwasm,
     });
 
-    const dataPromise = fetch(await _FileExist("vocab.db", "../db/vocab.db")).then((res) => res.arrayBuffer());
+    const dataPromise = fetch(await _FileExist("vocab.sqlite", "../assets/db/vocab.sqlite")).then((res) => res.arrayBuffer());
     const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
     const db = new SQL.Database(new Uint8Array(buf));
 
-    const dataPromise2 = fetch(await _FileExist("chmn-full.db", "../db/chmn-full.db")).then((res) => res.arrayBuffer());
+    const dataPromise2 = fetch(await _FileExist("chmn-full.sqlite", "../assets/db/chmn-full.sqlite")).then((res) => res.arrayBuffer());
     const [SQL2, buf2] = await Promise.all([sqlPromise, dataPromise2]);
     const db2 = new SQL2.Database(new Uint8Array(buf2));
 
@@ -97,7 +97,7 @@ $(function () {
       }
 
       stmt = db2.prepare(
-        `SELECT meaning, mnemonics FROM \`chmn-full2\` WHERE hanzi = "${element}" OR hanzi2 = "${element}" OR alike = "${element}"`
+        `SELECT meaning, mnemonics FROM \`chmn-full\` WHERE hanzi = "${element}" OR hanzi2 = "${element}" OR alike = "${element}"`
       );
       result = stmt.getAsObject({});
 

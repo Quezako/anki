@@ -1,26 +1,15 @@
-<!doctype html>
-<html lang="en">
-<meta charset="utf-8" />
-<base href='img/'>
-<link rel='stylesheet' href='../anki.css'>
-<script src="../jquery-3.6.3.min.js"></script>
-
-<body>
-    <?php
-    $html = <<<HTML
-	<span style="display:none;">
+<?php
+$html = <<<HTML
+<span style="display:none;">
 <span class='mnemo'></span>
 <div id='KanjiFront'>
-	<span style='font-family:yumin;'>{{kanji_only}}</span><br>
-	<span style='font-family:yugothb;'>{{kanji_only}}</span><br>
-	<span style='font-family:hgrkk;'>{{kanji_only}}</span><br>
+    <span style='font-family:yumin;'>{{kanji_only}}</span><br>
+    <span style='font-family:yugothb;'>{{kanji_only}}</span><br>
+    <span style='font-family:hgrkk;'>{{kanji_only}}</span><br>
 </div>
 {{#fr_compo_wani_name}}{{fr_compo_wani_name}}<br>{{/fr_compo_wani_name}}
 <br>
 </span>
-
-
-
 
 <span id="external_links">
 Sound: <a href="https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kanji={{kanji_only}}&kana={{kanji_only}}"><img src="favicon-7bb26f7041394a1ad90ad97f53dda21671c5dffb.ico" width=16 style="vertical-align:middle">Pod101</a>
@@ -103,77 +92,83 @@ Furigana : <span id="furigana">{{key}}</span><br>
 {{#voc_sentence_img}}{{voc_sentence_img}}{{/voc_sentence_img}}
 
 <script type='text/javascript'>
-		var kanji_only = "{{kanji_only}}";
+    var kanji_only = "{{kanji_only}}";
 </script>
 HTML;
 
+try {
+    $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/vocab.sqlite');
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+} catch (Exception $e) {
+    echo "Can't access SQLite DB: " . $e->getMessage();
+    die();
+}
 
+if (!isset($_GET['kanji'])) {
+    die();
+}
 
-    try {
-        $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/vocab.db');
-        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-    } catch (Exception $e) {
-        echo "Can't access SQLite DB: " . $e->getMessage();
-        die();
-    }
+$kanji = $_GET['kanji'];
+$stm = $pdo->query("SELECT * FROM Quezako WHERE kanji_only = '$kanji' AND (key LIKE '{$kanji}[%' OR key = '$kanji')");
+$res = $stm->fetch(PDO::FETCH_NUM);
+preg_match_all('/./u', $kanji, $matches);
+$kanji = htmlspecialchars(($_GET['kanji']));
 
-    if (!isset($_GET['kanji'])) {
-        die();
-    }
-
-    $kanji = $_GET['kanji'];
-    $stm = $pdo->query("SELECT * FROM Quezako WHERE kanji_only = '$kanji' AND (key LIKE '{$kanji}[%' OR key = '$kanji')");
-    $res = $stm->fetch(PDO::FETCH_NUM);
-    preg_match_all('/./u', $kanji, $matches);
-    $kanji = htmlspecialchars(($_GET['kanji']));
-
-    echo "<title>$kanji - Anki</title>";
-
-    if (!isset($res[0])) {
-
-        if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
-            foreach ($m[1] as $i => $varname) {
-                $html = str_replace($m[0][$i], sprintf('%s', $_GET['kanji']), $html);
-            }
-        }
-
-        echo $html;
-        die;
-    }
-
-    for ($i = 0; $i < $stm->columnCount(); $i++) {
-        $column = $stm->getColumnMeta($i);
-        $col[$column['name']] = $i;
-    }
-
-    if (preg_match_all("/(\[sound:.*\])/", $html, $m)) {
-        foreach ($m[1] as $i => $varname) {
-            $html = str_replace($m[0][$i], "", $html);
-        }
-    }
-
-    if (preg_match_all("/{{[\/|#](.*?)}}/", $html, $m)) {
-        foreach ($m[1] as $i => $varname) {
-            $html = str_replace($m[0][$i], "", $html);
-        }
-    }
+if (!isset($res[0])) {
 
     if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
         foreach ($m[1] as $i => $varname) {
-            $html = str_replace($m[0][$i], sprintf('%s', $res[$col[$varname]]), $html);
+            $html = str_replace($m[0][$i], sprintf('%s', $_GET['kanji']), $html);
         }
     }
 
     echo $html;
-    ?>
+    die;
+}
 
+for ($i = 0; $i < $stm->columnCount(); $i++) {
+    $column = $stm->getColumnMeta($i);
+    $col[$column['name']] = $i;
+}
 
+if (preg_match_all("/(\[sound:.*\])/", $html, $m)) {
+    foreach ($m[1] as $i => $varname) {
+        $html = str_replace($m[0][$i], "", $html);
+    }
+}
 
+if (preg_match_all("/{{[\/|#](.*?)}}/", $html, $m)) {
+    foreach ($m[1] as $i => $varname) {
+        $html = str_replace($m[0][$i], "", $html);
+    }
+}
 
-    <script type='text/javascript' src="../quezako.js"></script>
-    <script src="../sql-wasm.js"></script>
-    <script src="../dict2.js"></script>
+if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
+    foreach ($m[1] as $i => $varname) {
+        $html = str_replace($m[0][$i], sprintf('%s', $res[$col[$varname]]), $html);
+    }
+}
+?>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>
+        <?= $kanji; ?> - Anki
+    </title>
+    <meta charset="utf-8" />
+    <!-- <base href='/../assets/img/'> -->
+    <!-- <base src='/../assets/'> -->
+    <link rel='stylesheet' href='anki.css'>
+    <script src="../assets/js/jquery-3.6.3.min.js"></script>
+</head>
+
+<body>
+    <script type='text/javascript' src="quezako.js"></script>
+    <script src="sql-wasm.js"></script>
+    <script src="dict.js"></script>
     <script type='text/javascript'>
         $('#KanjiBack').html($('#KanjiFront span').html());
         document.getElementsByClassName('mnemo')[0].style.display = 'block';
@@ -212,5 +207,6 @@ HTML;
             display: none;
         }
     </style>
+    <?= $html; ?>
 
 </html>

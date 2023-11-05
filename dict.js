@@ -3,7 +3,7 @@ async function start() {
         locateFile: file => `../sql-wasm.wasm`
     });
 
-    const dataPromise = fetch("../anki.db").then(res => res.arrayBuffer());
+    const dataPromise = fetch("../assets/db/dict.sqlite").then(res => res.arrayBuffer());
     const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
     const db = new SQL.Database(new Uint8Array(buf));
 

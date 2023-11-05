@@ -1,6 +1,6 @@
 <?php
 try {
-    $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/chmn-full.db');
+    $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/chmn-full.sqlite');
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 } catch (Exception $e) {
