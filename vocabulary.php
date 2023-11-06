@@ -203,6 +203,7 @@ $strHTML = "
 <br />
 <form class='example' action='../vocabulary.php'>
   <input type='text' placeholder='Search..' name='kanji' value='$kanji'>
+  <input type='text' placeholder='Search..' name='kana' value='$kana'>
   <button type='submit'>Search</button>
 </form>
 Number of entries:
