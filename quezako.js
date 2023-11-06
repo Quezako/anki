@@ -196,7 +196,7 @@ $(function () {
     if ($('#kanji_key').length) {
         let kanji_key = $('#kanji_key').text();
         let kana_key = $('#kana_key').text();
-        let kanji_only = $('#kanji_only').text();
+        let dict_key = $('#dict_key').text();
 
         $('#external_links').html("<a href='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kanji=" + kanji_key + "&kana=" + kana_key + "'><img src='favicon-7bb26f7041394a1ad90ad97f53dda21671c5dffb.ico' width=16 style='vertical-align:middle'>Pod101</a>");
         $('#external_links').append("<a href='https://forvo.com/word/" + kanji_key + "/#ja'><img src='favicon-0c20667c2ac4a591da442c639c6b7367aa54fa13.ico' width=16 style='vertical-align:middle'>Forvo</a>");
@@ -207,11 +207,31 @@ $(function () {
         $('#external_links').append("<a href='https://quezako.com/tools/anki/anki.php?kanji=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Kanji</a>");
         $('#external_links').append("<a href='https://www.google.com/search?q=" + kanji_key + " " + kana_key + " イラスト&tbm=isch&hl=fr&sa=X'><img src='favicon-49263695f6b0cdd72f45cf1b775e660fdc36c606.ico' width=16 style='vertical-align:middle'>G Img</a>");
 
-        let strKanjiLinks = "<br>$1 : ";
-        strKanjiLinks += "<a href='https://quezako.com/tools/anki/vocabulary.php?kanji=$1&kana=" + kana_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Voc</a>";
-        strKanjiLinks += "<a href='https://quezako.com/tools/anki/anki.php?kanji=$1'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Kanji</a>";
-        strKanjiLinks += "<a href='https://rtega.be/chmn/?c=$1'><img src='favicon.png' width=16 style='vertical-align:middle'>Rtega</a>";
-        strKanjiLinks += "<a href='https://kanji.koohii.com/study/kanji/$1?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-16x16.png' width=16 style='vertical-align:middle'>Koohii</a>";
-        $('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, strKanjiLinks));
+        function addOffset(match, ...args) {
+            let strKanjiLinks = `<br>${args[0]} : `;
+            strKanjiLinks += `<a href='https://quezako.com/tools/anki/vocabulary.php?kanji=${args[0]}&kana=${arrDict[args[1]]}&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Voc</a>`;
+            strKanjiLinks += `<a href='https://quezako.com/tools/anki/anki.php?kanji=${args[0]}'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Kanji</a>`;
+            strKanjiLinks += `<a href='https://rtega.be/chmn/?c=${args[0]}'><img src='favicon.png' width=16 style='vertical-align:middle'>Rtega</a>`;
+            strKanjiLinks += `<a href='https://kanji.koohii.com/study/kanji/${args[0]}?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-16x16.png' width=16 style='vertical-align:middle'>Koohii</a>`;
+
+            return strKanjiLinks;
+        }
+
+        let strNoFuri = kanji_key;
+        let arrDictTmp = dict_key.split(';');
+        console.log(arrDictTmp);
+        let arrDict = [];
+
+        arrDictTmp.forEach(function (value) {
+            value = value.split(':');
+            value[0].split('-').forEach(function (value2) {
+                arrDict[value2] = value[1];
+            });
+        });
+
+        strNoFuri = strNoFuri.replace(/(\p{Script=Han})/gu, addOffset);
+        strNoFuri = strNoFuri.replace(/(>[\p{Script=Hira}\p{Script=Kana}]+)/gu, '>');
+        strNoFuri = strNoFuri.replace(/([\p{Script=Hira}\p{Script=Kana}]+<)/gu, '<');
+        $('#external_links').append(strNoFuri);
     }
 });
