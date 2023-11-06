@@ -207,7 +207,7 @@ $(function () {
     // $('#external_links').append("<a href='http://localhost:8080/js/kanji.html?kanji=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako Kanji JS</a>");
     $('#external_links').append("<a href='https://quezako.com/tools/anki/vocabulary.php?kanji=" + kanji_key + "&kana=" + kana_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako Voc</a>");
     $('#external_links').append("<a href='https://quezako.com/tools/anki/anki.php?kanji=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako Kanji</a>");
-    $('#external_links').append("<a href='https://www.google.com/search?q=" + kanji_key + " イラスト&tbm=isch&hl=fr&sa=X'><img src='favicon-49263695f6b0cdd72f45cf1b775e660fdc36c606.ico' width=16 style='vertical-align:middle'>Google Img</a>");
+    $('#external_links').append("<a href='https://www.google.com/search?q=" + kanji_key + " " + kana_key + " イラスト&tbm=isch&hl=fr&sa=X'><img src='favicon-49263695f6b0cdd72f45cf1b775e660fdc36c606.ico' width=16 style='vertical-align:middle'>Google Img</a>");
 
     let strKanjiLinks = "<br>$1 Kanji: ";
     // let strKanjiLinks = "<a href='http://localhost:8080/js/kanji.html?kanji=$1'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Quezako JS</a>";
