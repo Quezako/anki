@@ -68,8 +68,16 @@ foreach ($res as $row) {
     $strCommon = '';
     $strMnN = '';
     $strMisc = '';
+    $strVocFuri = '';
 
-    preg_match_all('/([\p{Han}\p{Katakana}\p{Hiragana}]+)(?: [[]([\p{Hiragana}]+)[]] )?/ux', $row[$col['voc_furi']], $matchChar, PREG_SET_ORDER);
+    if ($row[$col['voc_furi']] === null) {
+        $strVocFuri = $row[$col['key']];
+    } else {
+        $strVocFuri = $row[$col['voc_furi']];
+    }
+
+
+    preg_match_all('/([\p{Han}\p{Katakana}\p{Hiragana}]+)(?: [[]([\p{Hiragana}]+)[]] )?/ux', $strVocFuri, $matchChar, PREG_SET_ORDER);
 
     foreach ($matchChar as $char) {
         if (isset($char[2])) {
@@ -91,18 +99,18 @@ foreach ($res as $row) {
     foreach ($arrTags as $tag) {
         if (preg_match('/JLPT::(\d)/', $tag, $matchJLPT, PREG_OFFSET_CAPTURE)) {
             $tmpJLPT = $matchJLPT[1][0];
-            $strJLPT .= " <n$tmpJLPT>{$matchJLPT[0][0]}</n$tmpJLPT>";
+            $strJLPT .= "<n$tmpJLPT>{$matchJLPT[0][0]}</n$tmpJLPT>";
             $intJLPT += $tmpJLPT;
         } elseif (preg_match('/JLPT::K.::(.)/', $tag, $matchJLPTK, PREG_OFFSET_CAPTURE)) {
             $tmpJLPTK = $matchJLPTK[1][0];
-            $strJLPTK .= " <n$tmpJLPTK>{$matchJLPTK[0][0]}</n$tmpJLPTK>";
+            $strJLPTK .= " / <n$tmpJLPTK>{$matchJLPTK[0][0]}</n$tmpJLPTK>";
             $intJLPTK += $tmpJLPTK;
         } elseif (preg_match('/JouYou::K.::(.)/', $tag, $matchJouYou, PREG_OFFSET_CAPTURE)) {
             $tmpJouYou = round((10 - $matchJouYou[1][0]) / 2);
-            $strJouYou .= " <n$tmpJouYou>{$matchJouYou[0][0]}</n$tmpJouYou>";
+            $strJouYou .= " / <n$tmpJouYou>{$matchJouYou[0][0]}</n$tmpJouYou>";
             $intJouYou += $matchJouYou[1][0];
         } elseif ($tag === 'MnN::2-2::99') {
-            $strMnN .= " <n0>{$tag}</n0>";
+            $strMnN .= " / <n0>{$tag}</n0>";
         } elseif (preg_match('/MnN::(\d-\d)(::(\d+))?/', $tag, $matchMnN, PREG_OFFSET_CAPTURE)) {
             $arrMnN = [
                 '1-1' => 5,
@@ -112,9 +120,9 @@ foreach ($res as $row) {
             ];
             $tmpMnN = $arrMnN[$matchMnN[1][0]];
 
-            $strMnN .= " <n$tmpMnN>{$matchMnN[0][0]}</n$tmpMnN>";
+            $strMnN .= " / <n$tmpMnN>{$matchMnN[0][0]}</n$tmpMnN>";
         } elseif ($tag === 'Common') {
-            $strCommon = " <n0><u>$tag</u></n0> /";
+            $strCommon = " / <n0><u>$tag</u></n0> /";
         } else {
             $strMisc .= " <n0>$tag</n0>";
         }
@@ -147,14 +155,14 @@ foreach ($res as $row) {
     }
 
     if ($strJLPTK === '') {
-        $strJLPTK = ' <n0>JLPT::K1::0</n0>';
+        $strJLPTK = ' / <n0>JLPT::K1::0</n0>';
     }
 
     $intJLPTKFull += ($intJLPTK / $iKanji);
     $intJouYouFull += ($intJouYou / $iKanji);
 
     $strHTML .= "<span class='furigana2'>{$row[$col['kun_pre']]}</span>{$strKanjiColored}<span class='furigana2'>{$row[$col['kun_post']]}</span>";
-    $strHTML .= "<br/><span>$strJLPT /$strJLPTK /$strJouYou /$strMnN /$strCommon$strMisc</span><br/><br/>";
+    $strHTML .= "<br/><span>$strJLPT$strJLPTK$strJouYou$strMnN$strCommon$strMisc</span><br/><br/>";
 
     $strHTML .= "<span class='hover'>Furi<span class='furigana'>: ";
     if ($row[$col['kun_pre']] != '') {
@@ -181,7 +189,7 @@ foreach ($res as $row) {
 }
 
 if (count($res) === 0) {
-    $strHTML = "No Jukugo found with this kanji.<br>" . $strHTML;
+    $strHTML = "No Jukugo found with this kanji.<br>$strHTML";
     $count = 0;
     $intJLPT = 0;
     $intJLPTKFull = 0;
@@ -198,6 +206,10 @@ if (count($res) === 0) {
     $intJLPTKPercent = 100 / 5 * $intJLPTKFull;
     $intJouYouPercent = 100 / 9 * $intJouYouFull;
 }
+$int100Count = (100 - ($count));
+$int100JLPT = (100 - $intJLPTPercent);
+$int100JLPTK = (100 - $intJLPTKPercent);
+$int100JouYou = (100 - $intJouYouPercent);
 
 $strHTML = "
 <br />
@@ -206,24 +218,25 @@ $strHTML = "
   <input type='text' placeholder='Search..' name='kana' value='$kana'>
   <button type='submit'>Search</button>
 </form>
-Number of entries:
-<span style='color:rgb(" . (100 - ($count)) . "%," . ($count) . "%, 0%);'>" . $count . "</span> / Avg. JLPT:
-<span style='color:rgb(" . (100 - $intJLPTPercent) . "%," . $intJLPTPercent . "%, 0%);'>" . $intJLPT . "</span>  / Avg. JLPTK:
-<span style='color:rgb(" . (100 - $intJLPTKPercent) . "%," . $intJLPTKPercent . "%, 0%);'>" . $intJLPTKFull . "</span>  / Avg. JouYou:
-<span style='color:rgb(" . ($intJouYouPercent) . "%," . (100 - $intJouYouPercent) . "%, 0%);'>" . $intJouYouFull . "</span> <hr/>" . $strHTML;
+Number of entries:<span style='color:rgb($int100Count%,$count%, 0%);'>$count</span> /
+Avg. JLPT:<span style='color:rgb($int100JLPT%,$intJLPTPercent%, 0%);'>$intJLPT</span>  /
+Avg. JLPTK:<span style='color:rgb($int100JLPTK%,$intJLPTKPercent%, 0%);'>$intJLPTKFull</span>  /
+Avg. JouYou:<span style='color:rgb($intJouYouPercent%,$int100JouYou%, 0%);'>$intJouYouFull</span> <hr/>$strHTML";
 ?>
 
 <!doctype html>
 <html lang="en">
-<meta charset="utf-8" />
-<base href='img/'>
-<link rel='stylesheet' href='../anki.css'>
-<script src="../jquery-3.6.0.slim.min.js"></script>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Vocabulary</title>
+    <base href='img/'>
+    <link rel='stylesheet' href='../anki.css'>
+    <script src="../jquery-3.6.0.slim.min.js"></script>
+</head>
 
 <body>
     <div>
-        <?php
-        echo $strHTML;
-        ?>
+        <?= $strHTML; ?>
     </div>
 </body>
