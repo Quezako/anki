@@ -1,11 +1,5 @@
+<?php header('Access-Control-Allow-Origin: *'); ?>
 <?php
-function varDump($val)
-{
-    echo '<pre>';
-    var_dump($val);
-    echo '</pre>';
-}
-
 try {
     $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/vocab.sqlite');
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -20,6 +14,8 @@ $kanji = '';
 $strStats = '';
 $fields = '*';
 $offset = 0;
+$chmn = '';
+$kanji_mnemo_personal = '';
 
 if (isset($_GET['kana'])) {
     $kana = $_GET['kana'];
@@ -29,7 +25,15 @@ if (isset($_GET['kanji'])) {
     $kanji = $_GET['kanji'];
 }
 
-if (strlen($kana) > 0 || strlen($kanji) > 0) {
+if (isset($_GET['chmn'])) {
+    $chmn = $_GET['chmn'];
+}
+
+if (isset($_GET['kanji_mnemo_personal'])) {
+    $kanji_mnemo_personal = $_GET['kanji_mnemo_personal'];
+}
+
+if (strlen($kana) > 0 || strlen($kanji) > 0 || strlen($chmn) > 0 || strlen($kanji_mnemo_personal) > 0) {
     $query = "SELECT * FROM Quezako LIMIT 1";
     $stm = $pdo->query($query);
 
@@ -42,8 +46,16 @@ if (strlen($kana) > 0 || strlen($kanji) > 0) {
         $fields = $_GET['fields'];
     }
 
-
-    $query = "
+    if (strlen($kanji_mnemo_personal) > 0) {
+        $query = 'SELECT kanji_mnemo_personal FROM Quezako WHERE kanji_mnemo_personal LIKE "%' . $_GET['kanji_mnemo_personal'] . ' :%"';
+        $stm = $pdo->query($query);
+        $res = $stm->fetchAll();
+    } elseif (strlen($chmn) > 0) {
+        $query = 'SELECT chmn_mean, fr_chmn_mnemo, mean FROM Quezako WHERE key = "' . $_GET['chmn'] . '" OR key LIKE "' . $_GET['chmn'] . '[%"';
+        $stm = $pdo->query($query);
+        $res = $stm->fetchAll();
+    } else {
+        $query = "
 SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
 SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
 SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::3%' ORDER BY `Order`) UNION ALL
@@ -55,9 +67,9 @@ SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIK
 AND tags NOT LIKE '%JLPT::0%' AND tags NOT LIKE '%JLPT::1%' AND tags NOT LIKE '%JLPT::2%' AND tags NOT LIKE '%JLPT::3%'
 AND tags NOT LIKE '%JLPT::4%' AND tags NOT LIKE '%JLPT::5%' AND tags NOT LIKE '%Common%' ORDER BY `Order`)
 ";
-
-    $stm = $pdo->query($query);
-    $res = $stm->fetchAll(PDO::FETCH_NUM);
+        $stm = $pdo->query($query);
+        $res = $stm->fetchAll(PDO::FETCH_NUM);
+    }
 
     if (isset($_GET['format']) && $_GET['format'] == 'json') {
         header('Content-Type: application/json; charset=utf-8');

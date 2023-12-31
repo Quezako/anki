@@ -1,100 +1,92 @@
+<?php header('Access-Control-Allow-Origin: *'); ?>
 <?php
 $html = <<<HTML
-<span style="display:none;">
-<span class='mnemo'></span>
-<div id='KanjiFront'>
-    <span style='font-family:yumin;'>{{kanji_only}}</span><br>
-    <span style='font-family:yugothb;'>{{kanji_only}}</span><br>
-    <span style='font-family:hgrkk;'>{{kanji_only}}</span><br>
-</div>
-{{#fr_compo_wani_name}}{{fr_compo_wani_name}}<br>{{/fr_compo_wani_name}}
-<br>
-</span>
-
 <span id="external_links">
-Sound: <a href="https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kanji={{kanji_only}}&kana={{kanji_only}}"><img src="favicon-7bb26f7041394a1ad90ad97f53dda21671c5dffb.ico" width=16 style="vertical-align:middle">Pod101</a>
-<a href="https://forvo.com/word/{{kanji_only}}/#ja"><img src="favicon-0c20667c2ac4a591da442c639c6b7367aa54fa13.ico" width=16 style="vertical-align:middle">Forvo</a>
-<a href='https://jisho-org.translate.goog/search/{{kanji_only}} {{kanji_only}} ?_x_tr_sl=en&_x_tr_tl=fr'><img src="favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico" width=16 style="vertical-align:middle">Jisho</a>
-<a href='https://www.japandict.com/{{kanji_only}}?lang=fre&_x_tr_sl=en&_x_tr_tl=fr'><img src="favicon-32x32.png" width=16 style="vertical-align:middle">JapanDict</a>
-<a href="https://uchisen.com/functions?search_term={{kanji_only}}"><img src="favicon-16x16-7f3ea5f15b8cac1e6fa1f9922c0185debfb72296.png" style="vertical-align:middle">Uchisen</a>
-<a href='https://quezako-com.translate.goog/tools/kanji/details/{{kanji_only}}?_x_tr_sl=en&_x_tr_tl=fr'><img src="favicon-7798b8e0eb61d7375c245af78bbf5c916932bf13.png" width=16 style="vertical-align:middle">Chmn</a>
-<a href='https://quezako.com/tools/anki/vocabulary.php?kanji={{kanji_only}}&lang=en'><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako Voc</a>
-<a href='https://quezako.com/tools/anki/anki.php?kanji={{kanji_only}}&lang=en'><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako Kanji</a>
-<a href="https://www.deepl.com/translator#ja/fr/{{kanji_only}}"><img src="favicon_16.png" style="vertical-align:middle">Deepl</a>
-<a href="https://www.google.com/search?q={{kanji_only}} イラスト&tbm=isch&tbs=il:cl&hl=fr&sa=X"><img src="favicon-49263695f6b0cdd72f45cf1b775e660fdc36c606.ico" width=16 style="vertical-align:middle">Google Img</a>
+  <span id="kanji_key" style="display:none">{{kanji:key}}</span>
+  <span id="kana_key" style="display:none">{{kana:key}}</span>
+  <span id="kanji_only" style="display:none">{{kanji_only}}{{^kanji_only}}{{kanji:key}}{{/kanji_only}}</span>
+  <span id="dict_key" style="display:none">{{dict_key}}</span>
 </span>
-<br><br>
-Furigana : <span id="furigana">{{key}}</span><br>
-<br>
-<div class='tags'>{{Tags}}</div>
-{{voc_image}}<br>
-<br id="answer">
-<span id='KanjiBack' style='font-family:hgrkk;'></span><br>
 
-<div class='back'>
 <br>
-<span style="display:none">[sound:empty.ogg]</span><a class="replay-button soundLink" style="margin-top:-14px" href="#" onclick="pycmd('play:a:0'); return false;"><svg viewBox="0 0 64 64" version="1.1"><circle cx="32" cy="32" r="29"></circle><rect x="17" y="17" width="30" height="30" stroke="#333" fill="#333" stroke-width="5"/></svg></a> <span style="color:#FF99bb;font-size:2em">{{kanji_only}}</span><br>
-<div id="mean">{{#mean}}{{mean}}<br>{{/mean}}{{#chmn_mean}}{{chmn_mean}}<br>{{/chmn_mean}}</div><br>
+
+<a class="replay-button soundLink" href="#" onclick="pycmd('play:a:0'); return false;"><svg viewBox="0 0 64 64" version="1.1"><circle cx="32" cy="32" r="29"></circle><rect x="17" y="17" width="30" height="30" stroke="#333" fill="#333" stroke-width="5"/></svg></a>
+<span style="margin-left:-50px;z-index:10000;opacity:0;display:">[sound:empty.ogg]</span>{{#voc_mp3}}{{edit:voc_mp3}}<br>{{/voc_mp3}}
+
+<details>
+<summary>kana hint</summary>
+<span style='font-size: 2em;'>{{kana:kun_pre}}<span class="furi" style='font-size: 1em;'>{{kana:voc_furi}}{{^voc_furi}}{{kana:key}}{{/voc_furi}}</span>{{kana:kun_post}}</span><br>
+
+</details>
+
+<details>
+<summary>kanji hint</summary>
+<div style=' font-size: 3em;'>
+<span id="KanjiFront" style='font-size: 2em;line-height: 2em;font-family:hgrkk;'>{{kanji:kun_pre}}<span>{{kanji:voc_furi}}{{^voc_furi}}{{kanji:key}}{{/voc_furi}}</span>{{kanji:kun_post}}</span>
+</div>
+</details>
+
+{{#voc_sentence_ja}}<span id="furigana">{{edit:hint:furigana:voc_sentence_ja}}</span><br>{{/voc_sentence_ja}}
+
+{{#voc_notes_personal}}
+<br>
+<details>
+<summary>voc notes</summary><span style="color:pink">{{edit:furigana:voc_notes_personal}}</span>
+</details>
+{{/voc_notes_personal}}
+
+<br>
+<div class='tags'>{{edit:Tags}}</div>
+
+<span id="source"></span>
+
+<style>
+#back {
+  display: block;
+}
+</style>
+
+<hr id=answer>
+{{edit:voc_image}}
+{{^voc_image}}{{edit:voc_sentence_img}}{{/voc_image}}
+
+<div id="back">
+<hr>
+<span style='font-size: 2em;'>{{kana:kun_pre}}<span class="furi" style='font-size: 1em;'>{{kana:voc_furi}}{{^voc_furi}}{{kana:key}}{{/voc_furi}}</span>{{kana:kun_post}}</span><br>
+<span id="KanjiBack" style='font-size: 2em;line-height: 2em;font-family:hgrkk;'></span>
+
+<div id="back" class='back'>
+<span class="furigana">{{edit:furigana:voc_alts}}<br></span>
+<div id="mean">{{edit:mean}}</div><br>
+{{edit:fr_components2}}<br>
+<span id="read_mnemo_personal">{{edit:furigana:read_mnemo_personal}}</span><br>
+<span id="mnemo_personal" class="furigana">{{edit:furigana:kanji_mnemo_personal}}</span>
 <div style="color:#dd99ff">
-{{#fr_components2}}{{fr_components2}}<br>{{/fr_components2}}
-{{#fr_components3}}{{fr_components3}}<br>{{/fr_components3}}
-{{compo_wani}}
-{{#fr_compo_wani_name}}{{fr_compo_wani_name}}<br>{{/fr_compo_wani_name}}
-{{#chmn_simple}}Simple: {{chmn_simple}}<br>{{/chmn_simple}}
+{{edit:compo_wani}}
+{{#fr_compo_wani_name}}{{edit:fr_compo_wani_name}}<br>{{/fr_compo_wani_name}}
 </div>
-<div id="mnemo_personal">{{kanji_mnemo_personal}}<br></div><br>
-<br>
-<div id="read_mnemo_personal">{{read_mnemo_personal}}</div><br>
-<br>
-
-<chmn>{{#en_chmn_mnemo}}{{fr_chmn_mnemo}}{{/en_chmn_mnemo}}</chmn>
-<div style="color:#ffff00">
-{{#fr_mean_mnemo_wani}}{{fr_mean_mnemo_wani}}<br>{{/fr_mean_mnemo_wani}}
-{{#fr_mean_mnemo_wani2}}{{fr_mean_mnemo_wani2}}<br>{{/fr_mean_mnemo_wani2}}
-{{#fr_story_wani_mean}}{{fr_story_wani_mean}}<br>{{/fr_story_wani_mean}}
-{{#fr_mean_mnemo_wani3}}{{fr_mean_mnemo_wani3}}<br>{{/fr_mean_mnemo_wani3}}
+<hr>
+{{edit:hint:en_reading_mnemonic}}<br>
 </div>
+{{edit:voc_sentence_audio}}<br>
+{{#voc_sentence_ja}}<span id="furigana">{{edit:furigana:voc_sentence_ja}}</span><br>{{/voc_sentence_ja}}
+{{edit:voc_sentence_fr}}<br>
+{{#voc_image}}{{edit:voc_sentence_img}}{{/voc_image}}
 <br>
-{{#fr_story}}{{fr_story}}<br>{{/fr_story}}
-{{#fr_component}}{{fr_component}}<br>{{/fr_component}}
-{{#fr_koohii_story_1}}{{fr_koohii_story_1}}<br>{{/fr_koohii_story_1}}
-{{#fr_koohii_story_2}}{{fr_koohii_story_2}}<br>{{/fr_koohii_story_2}}
-{{#fr_koohii_3}}{{fr_koohii_3}}<br>{{/fr_koohii_3}}
-{{#fr_story_rtk}}{{fr_story_rtk}}<br>{{/fr_story_rtk}}
-{{#fr_memrise_hint}}{{fr_memrise_hint}}<br>{{/fr_memrise_hint}}
-{{#fr_story_rtk_comment}}{{fr_story_rtk_comment}}<br>{{/fr_story_rtk_comment}}
-
-{{#fr_notes}}{{fr_notes}}<br>{{/fr_notes}}
-{{#fr_voc_notes}}{{fr_voc_notes}}<br>{{/fr_voc_notes}}
-
-{{#en_heisigcomment}}<br />English Mnemo:<br>{{en_heisigcomment}}{{/en_heisigcomment}}
-{{#kd_used_in_kanjis}}Used in: {{kd_used_in_kanjis}}<br>{{/kd_used_in_kanjis}}
-{{#primitive_of}}primitive of: {{primitive_of}}<br>{{/primitive_of}}
-{{#chmn_ref}}Ref: {{chmn_ref}}<br>{{/chmn_ref}}
-{{#chmn_lookalike}}Lookalike:{{chmn_lookalike}}<br>{{/chmn_lookalike}}
-
-<div style="color:green">
-{{#en_reading_info}}<br>Read:<br>{{en_reading_info}}<br>{{/en_reading_info}}
-{{#en_reading_mnemonic}}{{en_reading_mnemonic}}<br>{{/en_reading_mnemonic}}
-{{#en_reading_mnemonic2}}{{en_reading_mnemonic2}}<br>{{/en_reading_mnemonic2}}
 </div>
-
-</div>
-<br>
-
-{{#voc_mp3}}{{voc_mp3}}{{/voc_mp3}}
-{{#voc_sentence_audio}} Sentence: {{voc_sentence_audio}}{{/voc_sentence_audio}}
-<br>
-{{voc_image}}<br>
-
-{{#voc_sentence_ja}}<span id="furigana">{{voc_sentence_ja}}</span><br>{{/voc_sentence_ja}}
-{{#voc_sentence_fr}}{{voc_sentence_fr}}<br>{{/voc_sentence_fr}}
-{{#voc_sentence_img}}{{voc_sentence_img}}{{/voc_sentence_img}}
 
 <script type='text/javascript'>
     var kanji_only = "{{kanji_only}}";
 </script>
 HTML;
+
+
+$html = str_replace('edit:', '', $html);
+$html = str_replace('kana:', '', $html);
+$html = str_replace('kanji:', '', $html);
+$html = str_replace('furigana:', '', $html);
+$html = str_replace('hint:', '', $html);
+$html = preg_replace('/\{\{\^[a-z_]+\}\}/', '', $html);
 
 try {
     $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/vocab.sqlite');
@@ -132,6 +124,10 @@ for ($i = 0; $i < $stm->columnCount(); $i++) {
     $col[$column['name']] = $i;
 }
 
+if (!isset($col['Tags'])) {
+    $col['Tags'] = $col['tags'];
+}
+
 if (preg_match_all("/(\[sound:.*\])/", $html, $m)) {
     foreach ($m[1] as $i => $varname) {
         $html = str_replace($m[0][$i], "", $html);
@@ -159,16 +155,12 @@ if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
         <?= $kanji; ?> - Anki
     </title>
     <meta charset="utf-8" />
-    <!-- <base href='/../assets/img/'> -->
-    <!-- <base src='/../assets/'> -->
     <link rel='stylesheet' href='anki.css'>
     <script src="../assets/js/jquery-3.6.3.min.js"></script>
 </head>
 
 <body>
     <script type='text/javascript' src="quezako.js"></script>
-    <script src="sql-wasm.js"></script>
-    <script src="dict.js"></script>
     <script type='text/javascript'>
         $('#KanjiBack').html($('#KanjiFront span').html());
         document.getElementsByClassName('mnemo')[0].style.display = 'block';
@@ -181,6 +173,7 @@ if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
         body {
             background: #333333 !important;
             color: #ffffff;
+            text-align: center;
         }
 
         #flyout {
@@ -188,7 +181,6 @@ if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
             width: 100%;
             min-height: 300px;
             background: black;
-            /* overflow: hidden; */
             display: none;
             z-index: 10000;
         }
@@ -207,6 +199,8 @@ if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
             display: none;
         }
     </style>
+
     <?= $html; ?>
+
 
 </html>
