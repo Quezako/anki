@@ -10,66 +10,70 @@
 $(function () {
     // Auto fetch kanji details + radical details.
     function dbSearch() {
-        let strSearch = $('#KanjiFront span:first').text();
-        let strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
-        let strDetails = '';
+        if (document.querySelector("#mnemo_personal")) {
+            let strSearch = $('#KanjiFront span:first').text();
+            let strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
+            let strDetails = '';
 
-        Array.from(strKanjiOnly).forEach((element) => {
-            let strDetails2 = '';
-            let strDetails3 = '';
-            let strDetails4 = '';
+            Array.from(strKanjiOnly).forEach((element) => {
+                let strDetails2 = '';
+                let strDetails3 = '';
+                let strDetails4 = '';
 
-            $.ajax({
-                type: 'GET',
-                dataType: 'json',
-                url: url + 'vocabulary.php?format=json&kanji_mnemo_personal=' + element,
-                success: function (data) {
-                    strDetails2 = data[0] ? `- Menmo perso: ${data[0]['kanji_mnemo_personal']}<br>` : '';
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: url + 'vocabulary.php?format=json&kanji_mnemo_personal=%' + element + '%',
+                    success: function (data) {
 
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: url + 'vocabulary.php?format=json&chmn=' + element,
-                        success: function (data) {
-                            strDetails3 = data[0]['chmn_mean'] ? data[0]['chmn_mean'] : `<u>${element}</u>: ${data[0]['mean']}`;
-                            strDetails4 = data[0]['fr_chmn_mnemo'] ? `- Mnemo chmn:<br>${data[0]['fr_chmn_mnemo']}` : '';
+                        strDetails2 = data[0] ? `- Menmo perso: ${data[0]['kanji_mnemo_personal']}<br>` : '';
+
+                        $.ajax({
+                            type: 'GET',
+                            dataType: 'json',
+                            url: url + 'vocabulary.php?format=json&chmn=' + element,
+                            success: function (data) {
+                                strDetails3 = data[0]['chmn_mean'] ? data[0]['chmn_mean'] : `<u>${element}</u>: ${data[0]['mean']}`;
+                                strDetails4 = data[0]['fr_chmn_mnemo'] ? `- Mnemo chmn:<br>${data[0]['fr_chmn_mnemo']}` : '';
 
 
-                            strDetails += `<details><summary>${strDetails3}</summary>`;
-                            strDetails += `${strDetails2}${strDetails4}`;
-                            strDetails += `<details><summary>more info</summary>`;
+                                strDetails += `<details><summary>${strDetails3}</summary>`;
+                                strDetails += `${strDetails2}${strDetails4}`;
+                                strDetails += `<details><summary>more info</summary>`;
 
-                            for (let [key, val] of Object.entries(data)) {
-                                if (key != 'chmn_mean' && key != 'fr_chmn_mnemo') {
-                                    strDetails += val ? `* ${key}: ${val['mean']}<br />` : "";
-                                }
-                            }
-
-                            $.ajax({
-                                type: 'GET',
-                                dataType: 'json',
-                                url: url + 'chmn.php?format=json&hanzi=' + element,
-                                success: function (data) {
-
-                                    for (let [key, val] of Object.entries(data)) {
-                                        strDetails += val ? `* chmn DB ${key}:<br /> meaning: ${val['meaning']}<br /> mnemonics: ${val['mnemonics']}<br />` : "";
+                                for (let [key, val] of Object.entries(data)) {
+                                    if (key != 'chmn_mean' && key != 'fr_chmn_mnemo') {
+                                        strDetails += val ? `* ${key}: ${val['mean']}<br />` : "";
                                     }
-
-                                    strDetails += "</details></details><hr>";
-                                    document.querySelector("#mnemo_personal").innerHTML += strDetails;
-
-                                    main();
                                 }
-                            });
-                        }
-                    });
-                }
+
+                                $.ajax({
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    url: url + 'chmn.php?format=json&hanzi=' + element,
+                                    success: function (data) {
+                                        for (let [key, val] of Object.entries(data)) {
+                                            strDetails += val ? `* chmn DB ${key}:<br /> meaning: ${val['meaning']}<br /> mnemonics: ${val['mnemonics']}<br />` : "";
+                                        }
+
+                                        strDetails += "</details></details><hr>";
+                                        document.querySelector("#mnemo_personal").innerHTML += strDetails;
+
+                                        main();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
             });
-        });
+        } else {
+            main();
+        }
     }
 
     function main() {
-        /** JLPT **/
+        // JLPT
         let keyColorWord = '';
         let isCommon = 0;
         let arrResult = ['', '', [], ''];
@@ -127,7 +131,7 @@ $(function () {
         arrResult[2] = arrResult[2].join(' ');
         $(strTagsElement).html(arrResult.join(' '));
 
-        /** IMG **/
+        // IMG
         $("img").bind("error", function (e) {
             $(this).parent().hide();
         });
@@ -201,7 +205,7 @@ $(function () {
             $.ajax({
                 type: 'GET',
                 url: url + 'vocabulary.php',
-                timeout: 300,
+                timeout: 1000,
                 success: function () {
                     dbSearch();
                 },
