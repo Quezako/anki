@@ -13,36 +13,13 @@ $(function () {
         if (document.querySelector("#mnemo_personal")) {
             let strSearch = $('#KanjiFront span:first').text();
             let strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
-            // let arrPrevKanji = [];
 
             Array.from(strKanjiOnly).forEach((element, index) => {
-                // console.log(element);
                 let isLastElement = index == strKanjiOnly.length - 1;
-                // console.log(isLastElement);
-                // console.log(arrPrevKanji);
-                // console.log($.inArray(element, arrPrevKanji));
-
-                // if ($.inArray(element, arrPrevKanji) != -1) {
-                //     //main();
-                //     // return;
-                //     // break;
-                //     console.log('return');
-                //     console.log(element);
-                //     console.log(arrPrevKanji);
-                //     return false;
-                // }
-
-                // arrPrevKanji.push(element);
-                // $('#kanji_detail').append(element);
-                // console.log(arrPrevKanji);
-                // return false;
-
                 let strDetails = '';
                 let strDetails2 = '';
                 let strDetails3 = '';
                 let strDetails4 = '';
-                // console.log(url + 'vocabulary.php?format=json&kanji_mnemo_personal=%' + element + '%');
-
                 $.ajax({
                     type: 'GET',
                     dataType: 'json',
@@ -51,7 +28,6 @@ $(function () {
 
                         strDetails2 = data[0] ? `- Menmo perso: ${data[0]['kanji_mnemo_personal']}<br>` : '';
 
-                        // console.log(url + 'vocabulary.php?format=json&chmn=' + element);
                         $.ajax({
                             type: 'GET',
                             dataType: 'json',
@@ -70,7 +46,6 @@ $(function () {
                                     }
                                 }
 
-                                // console.log(url + 'chmn.php?format=json&hanzi=' + element);
                                 $.ajax({
                                     type: 'GET',
                                     dataType: 'json',
@@ -81,13 +56,9 @@ $(function () {
                                         }
 
                                         strDetails += "</details></details><hr>";
-                                        // if (isLastElement) {
                                         strDetails = strDetails.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/anki/anki.php?kanji=$1">$1</a>');
                                         document.querySelector("#mnemo_personal").innerHTML += strDetails;
                                         strDetails = '';
-                                        // }
-
-                                        // main();
                                     }
                                 });
                             }
@@ -95,8 +66,6 @@ $(function () {
                     }
                 });
             });
-        } else {
-            // main();
         }
     }
 
