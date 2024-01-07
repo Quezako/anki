@@ -53,14 +53,15 @@ $html = <<<HTML
 <div id="back">
 <hr>
 <span style='font-size: 2em;'>{{kana:kun_pre}}<span class="furi" style='font-size: 1em;'>{{kana:voc_furi}}{{^voc_furi}}{{kana:key}}{{/voc_furi}}</span>{{kana:kun_post}}</span><br>
+<div id="mean">{{edit:mean}}</div><br>
+<span id="read_mnemo_personal" class="furigana"><span style="text-decoration: underline;">Read mnemonics:</span><br>{{edit:furigana:read_mnemo_personal}}</span><br>
+
 <span id="KanjiBack" style='font-size: 2em;line-height: 2em;font-family:hgrkk;'></span>
 
 <div id="back" class='back'>
 <span class="furigana">{{edit:furigana:voc_alts}}<br></span>
-<div id="mean">{{edit:mean}}</div><br>
 {{edit:fr_components2}}<br>
-<span id="read_mnemo_personal">{{edit:furigana:read_mnemo_personal}}</span><br>
-<span id="mnemo_personal" class="furigana">{{edit:furigana:kanji_mnemo_personal}}</span>
+<span id="kanji_mnemo_personal" class="furigana"><span style="text-decoration: underline;">Kanji mnemonics:</span><br>{{edit:furigana:kanji_mnemo_personal}}</span>
 <div style="color:#dd99ff">
 {{edit:compo_wani}}
 {{#fr_compo_wani_name}}{{edit:fr_compo_wani_name}}<br>{{/fr_compo_wani_name}}
@@ -74,7 +75,6 @@ $html = <<<HTML
 {{#voc_image}}{{edit:voc_sentence_img}}{{/voc_image}}
 <br>
 </div>
-
 <script type='text/javascript'>
     var kanji_only = "{{kanji_only}}";
 </script>
@@ -162,11 +162,17 @@ if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
 <body>
     <script type='text/javascript' src="anki-loader.js"></script>
     <script type='text/javascript'>
-        $('#KanjiBack').html($('#KanjiFront span').html());
-        document.getElementsByClassName('mnemo')[0].style.display = 'block';
-        document.getElementsByClassName('back')[0].innerHTML = document.getElementsByClassName('back')[0].innerHTML.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/anki/anki.php?kanji=$1">$1</a>');
+        $(function () {
+            $('#KanjiBack').html($('#KanjiFront span').html());
+            setTimeout(
+                function () {
+                    $('body').show();
+                    $('#back').show();
+                    // $('#back').first().html($('#back').first().html().replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/anki/anki.php?kanji=$1">$1</a>'));
 
-        $('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, '<br>$1  <a href="https://quezako.com/tools/anki/anki.php?kanji=$1"><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako</a> <a href="https://quezako.com/tools/kanji/details/$1"><img src="favicon-7798b8e0eb61d7375c245af78bbf5c916932bf13.png" width=16 style="vertical-align:middle">ChMn</a> <a href="https://rtega.be/chmn/?c=$1"><img src="favicon.png" width=16 style="vertical-align:middle">Rtega</a> <a href="https://kanji.koohii.com/study/kanji/$1?_x_tr_sl=en&_x_tr_tl=fr"><img src="favicon-16x16.png" width=16 style="vertical-align:middle">Koohii</a> <a href="https://www.wanikani.com/kanji/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Kanji</a> <a href="https://www.wanikani.com/vocabulary/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Voc</a> <a href="https://en.wiktionary.org/wiki/$1"><img src="en.ico" width=16 style="vertical-align:middle">Wiktionary</a>'));
+                    $('#external_links').append(kanji_only.replace(/(\p{Script=Han})/gu, '<br>$1  <a href="https://quezako.com/tools/anki/anki.php?kanji=$1"><img src="favicon-f435b736ab8486b03527fbce945f3b765428a315.ico" width=16 style="vertical-align:middle">Quezako</a> <a href="https://quezako.com/tools/kanji/details/$1"><img src="favicon-7798b8e0eb61d7375c245af78bbf5c916932bf13.png" width=16 style="vertical-align:middle">ChMn</a> <a href="https://rtega.be/chmn/?c=$1"><img src="favicon.png" width=16 style="vertical-align:middle">Rtega</a> <a href="https://kanji.koohii.com/study/kanji/$1?_x_tr_sl=en&_x_tr_tl=fr"><img src="favicon-16x16.png" width=16 style="vertical-align:middle">Koohii</a> <a href="https://www.wanikani.com/kanji/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Kanji</a> <a href="https://www.wanikani.com/vocabulary/$1"><img src="favicon-36371d263f6e14d1cc3b9f9c97d19f7e84e7aa856560c5ebec1dd2e738690714.ico" width=16 style="vertical-align:middle">WaniKani Voc</a> <a href="https://en.wiktionary.org/wiki/$1"><img src="en.ico" width=16 style="vertical-align:middle">Wiktionary</a>'));
+                }, 500);
+        });
     </script>
 
     <style>
