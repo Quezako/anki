@@ -424,20 +424,12 @@ input:focus+.slider {
 	src:url(_StrokeOrder.ttf)
 }
 @font-face {
-	font-family:HGRKK;
-	src:url(_HGRKK.ttc)
-}
-@font-face {
 	font-family:YUGOTHB;
 	src:url(_YUGOTHB.ttc)
 }
 @font-face {
 	font-family:myfont;
 	src:url(_NotoSansJP-Medium.otf)
-}
-@font-face {
-	font-family:Mplus;
-	src:url(_mplus-2p-regular.ttf)
 }
 @font-face {
 	font-family:"Hiragino Kaku Gothic Pro W3";
@@ -596,17 +588,6 @@ ul {
 ul li,#components {
 	display:inline
 }
-@font-face {
-	font-family:WakaFont;
-	font-style:normal;
-	font-weight:400;
-	src:url(_WakaFont.eot);
-	src:url(_WakaFont.eot?#iefix) format("embedded-opentype"),url(_WakaFont.ttf) format("truetype"),url(_WakaFont.svg#WakaFont) format("svg")
-}
-@font-face {
-	font-family:WakaFont;
-	src:url(_WakaFont.svg#WakaFont) format("svg")
-}
 #flyout {
 	background:#000;
 	display:none;
@@ -616,7 +597,7 @@ ul li,#components {
 	z-index:10000
 }
 #furigana *,#read_mnemo_personal * {
-	font-size:30px
+	font-size:30px;
 }
 #furigana ruby rt,#read_mnemo_personal ruby rt {
 	display:inline;
@@ -642,7 +623,8 @@ ul li,#components {
 	text-align:left
 }
 #read_mnemo_personal {
-	color:green
+	/* color:rgb(56, 151, 56); */
+	background:rgb(1, 46, 1);
 }
 #read_mnemo_personal a {
 	font-size:40px
@@ -672,7 +654,6 @@ ul li,#components {
 	-webkit-font-smoothing:antialiased;
 	content:attr(data-icon);
 	display:inline-block;
-	font-family:WakaFont;
 	font-style:normal;
 	font-variant:normal;
 	font-weight:400;
@@ -709,20 +690,12 @@ ruby:active rt,ruby:hover rt,#furigana.hover ruby:active rt,#furigana.hover ruby
 	src:url(_StrokeOrder.ttf)
 }
 @font-face {
-	font-family:HGRKK;
-	src:url(_HGRKK.woff2)
-}
-@font-face {
 	font-family:YUGOTHB;
 	src:url(_YUGOTHB.ttc)
 }
 @font-face {
 	font-family:myfont;
 	src:url(_NotoSansJP-Medium.otf)
-}
-@font-face {
-	font-family:Mplus;
-	src:url(_mplus-2p-regular.ttf)
 }
 @font-face {
 	font-family:"Hiragino Kaku Gothic Pro W3";
@@ -966,17 +939,6 @@ ul {
 }
 ul li,.hover:hover .furigana,.hover:hover .french,#components {
 	display:inline
-}
-@font-face {
-	font-family:WakaFont;
-	font-style:normal;
-	font-weight:400;
-	src:url(_WakaFont.eot);
-	src:url(_WakaFont.eot?#iefix) format("embedded-opentype"),url(_WakaFont.ttf) format("truetype"),url(_WakaFont.svg#WakaFont) format("svg")
-}
-@font-face {
-	font-family:WakaFont;
-	src:url(_WakaFont.svg#WakaFont) format("svg")
 }
 .radical-animal:before {
 	content:"\f100"
@@ -1235,17 +1197,4 @@ ul li,.hover:hover .furigana,.hover:hover .french,#components {
 }
 [data-icon]:before {
 	content:attr(data-icon)
-}
-[data-icon]:before,.radical-animal:before,.radical-arrows:before,.radical-bar:before,.radical-bear:before,.radical-beggar:before,.radical-black-hole:before,.radical-blackjack:before,.radical-boob:before,.radical-bookshelf:before,.radical-butcher:before,.radical-cactus:before,.radical-cat-pirate:before,.radical-chester:before,.radical-chinese:before,.radical-circus:before,.radical-cleat:before,.radical-cloak:before,.radical-clown:before,.radical-coffin:before,.radical-comb:before,.radical-corn:before,.radical-cow-god:before,.radical-creeper:before,.radical-death-star:before,.radical-egg:before,.radical-explosion:before,.radical-fish-stick:before,.radical-fish-tail:before,.radical-flowers:before,.radical-football:before,.radical-four:before,.radical-gambler:before,.radical-geoduck:before,.radical-grass:before,.radical-greenhouse:before,.radical-gun:before,.radical-hat:before,.radical-hercules:before,.radical-hick:before,.radical-hills:before,.radical-horns:before,.radical-key:before,.radical-kick:before,.radical-lantern:before,.radical-leaf:before,.radical-mohawk:before,.radical-morning:before,.radical-mustache:before,.radical-nailbat:before,.radical-ox:before,.radical-pi:before,.radical-poem:before,.radical-pool:before,.radical-pope:before,.radical-potato:before,.radical-propaganda:before,.radical-psychopath:before,.radical-ribs:before,.radical-rocket:before,.radical-roof:before,.radical-sauron:before,.radical-saw:before,.radical-shark:before,.radical-sick:before,.radical-signpost:before,.radical-slice:before,.radical-slinky:before,.radical-sock:before,.radical-spikes:before,.radical-splinter:before,.radical-squid:before,.radical-stick:before,.radical-superman:before,.radical-tofu:before,.radical-tombstone:before,.radical-train:before,.radical-triceratops:before,.radical-trident:before,.radical-tsunami:before,.radical-umbrella:before,.radical-viking:before,.radical-water-slide:before,.radical-womb:before,.radical-worm:before,.radical-zombie:before {
-	-moz-osx-font-smoothing:grayscale;
-	-webkit-font-smoothing:antialiased;
-	display:inline-block;
-	font-family:"WakaFont";
-	font-style:normal;
-	font-variant:normal;
-	font-weight:400;
-	line-height:1;
-	text-decoration:inherit;
-	text-rendering:optimizeLegibility;
-	text-transform:none
 }

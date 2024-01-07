@@ -90,6 +90,7 @@ $(function () {
 
         Array.from(strKanjiOnly).forEach((element, index) => {
             let strDetails = '';
+
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
@@ -97,15 +98,33 @@ $(function () {
                 success: function (data) {
                     data.forEach(word => {
                         let jlpt = word[2].match(/JLPT::[0-5]/g);
-                        jlpt = jlpt[0] ? '(' + jlpt[0].replace('::', ' ') + ') ' : '';
-                        strDetails += '- ' + jlpt + word[0] + ' : ' + word[1] + '.<br>';
+
+                        if (jlpt !== null) {
+                            let intJlpt = jlpt[0].split('::')[1];
+
+                            if (intJlpt > 2) {
+                                let color = 'lightgreen';
+
+                                if (intJlpt == 4) {
+                                    color = 'lightblue';
+                                } else if (intJlpt == 3) {
+                                    color = 'yellow';
+                                }
+
+                                jlpt = '(<span style="color:' + color + '">' + jlpt[0].replace('::', ' ') + '</span>) ';
+                                let kana = word[0].replace(/[一-龯々ヶ\[\]]/gi, "");
+                                let re = new RegExp('(' + arrDict[index] + ')');
+                                kana = kana.replace(re, "<i>$1</i>");
+                                strDetails += '- ' + jlpt + kana + ' : ' + word[1] + '.<br>';
+                            }
+                        }
                     });
 
                     if ($("#read_mnemo_personal").html() == 'Loading...') {
                         $("#read_mnemo_personal").html('');
                     }
 
-                    $("#read_mnemo_personal").append(element + '[' + arrDict[index] + ']<br>');
+                    $("#read_mnemo_personal").append('<b>' + arrDict[index] + '</b><br>');
                     $("#read_mnemo_personal").append(strDetails);
                 }
             });
