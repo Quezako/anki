@@ -160,7 +160,7 @@ if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
 </head>
 
 <body>
-    <script type='text/javascript' src="quezako.js"></script>
+    <script type='text/javascript' src="anki-loader.js"></script>
     <script type='text/javascript'>
         $('#KanjiBack').html($('#KanjiFront span').html());
         document.getElementsByClassName('mnemo')[0].style.display = 'block';

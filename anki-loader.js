@@ -1,75 +1,137 @@
 /**
  * TODO:
- * freeze de 10 secondes sur anki pc.
- * double chargement des details.
  * kanji_mnemo_personal: n'afficher que la ligne concernée, avec regexp.
- * ajouter mnemo read pour chaque kanji.
  * détails des radicaux.
  * ne charger qu'au click, avec loader visible.
+ * charger les kanji ajax en parallèle, pas séquentiel. détails chmn sur sub click.
  */
 $(function () {
     // Auto fetch kanji details + radical details.
-    function dbSearch() {
-        if (document.querySelector("#mnemo_personal")) {
-            let strSearch = $('#KanjiFront span:first').text();
-            let strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
+    function kanjiMnemoAjax() {
+        $("#kanji_mnemo_personal").off("click", kanjiMnemoAjax);
+        $("#kanji_mnemo_personal").html('Loading...');
+        let strSearch = $('#KanjiFront span:first').text();
+        let strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
 
-            Array.from(strKanjiOnly).forEach((element, index) => {
-                let isLastElement = index == strKanjiOnly.length - 1;
-                let strDetails = '';
-                let strDetails2 = '';
-                let strDetails3 = '';
-                let strDetails4 = '';
-                $.ajax({
-                    type: 'GET',
-                    dataType: 'json',
-                    url: url + 'vocabulary.php?format=json&kanji_mnemo_personal=%' + element + '%',
-                    success: function (data) {
+        Array.from(strKanjiOnly).forEach((element) => {
+            let strDetails = '';
+            let strDetails2 = '';
+            let strDetails3 = '';
+            let strDetails4 = '';
 
-                        strDetails2 = data[0] ? `- Menmo perso: ${data[0]['kanji_mnemo_personal']}<br>` : '';
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: url + 'vocabulary.php?format=json&kanji_mnemo_personal=%' + element + '%',
+                success: function (data) {
+                    strDetails2 = data[0] ? `- Menmo perso: ${data[0]['kanji_mnemo_personal']}<br>` : '';
 
-                        $.ajax({
-                            type: 'GET',
-                            dataType: 'json',
-                            url: url + 'vocabulary.php?format=json&chmn=' + element,
-                            success: function (data) {
-                                strDetails3 = data[0]['chmn_mean'] ? data[0]['chmn_mean'] : `<u>${element}</u>: ${data[0]['mean']}`;
-                                strDetails4 = data[0]['fr_chmn_mnemo'] ? `- Mnemo chmn:<br>${data[0]['fr_chmn_mnemo']}` : '';
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: url + 'vocabulary.php?format=json&chmn=' + element,
+                        success: function (data) {
+                            strDetails3 = data[0]['chmn_mean'] ? data[0]['chmn_mean'] : `<u>${element}</u>: ${data[0]['mean']}`;
+                            strDetails4 = data[0]['fr_chmn_mnemo'] ? `- Mnemo chmn:<br>${data[0]['fr_chmn_mnemo']}` : '';
 
-                                strDetails += `<details><summary>${strDetails3}</summary>`;
-                                strDetails += `${strDetails2}${strDetails4}`;
-                                strDetails += `<details><summary>more info</summary>`;
+                            strDetails += `<details><summary>${strDetails3}</summary>`;
+                            strDetails += `${strDetails2}${strDetails4}`;
+                            strDetails += `<details><summary>more info</summary>`;
 
-                                for (let [key, val] of Object.entries(data)) {
-                                    if (key != 'chmn_mean' && key != 'fr_chmn_mnemo') {
-                                        strDetails += val ? `* ${key}: ${val['mean']}<br />` : "";
-                                    }
+                            for (let [key, val] of Object.entries(data)) {
+                                if (key != 'chmn_mean' && key != 'fr_chmn_mnemo') {
+                                    strDetails += val ? `* ${key}: ${val['mean']}<br />` : "";
                                 }
-
-                                $.ajax({
-                                    type: 'GET',
-                                    dataType: 'json',
-                                    url: url + 'chmn.php?format=json&hanzi=' + element,
-                                    success: function (data) {
-                                        for (let [key, val] of Object.entries(data)) {
-                                            strDetails += val ? `* chmn DB ${key}:<br /> meaning: ${val['meaning']}<br /> mnemonics: ${val['mnemonics']}<br />` : "";
-                                        }
-
-                                        strDetails += "</details></details><hr>";
-                                        strDetails = strDetails.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/anki/anki.php?kanji=$1">$1</a>');
-                                        document.querySelector("#mnemo_personal").innerHTML += strDetails;
-                                        strDetails = '';
-                                    }
-                                });
                             }
-                        });
-                    }
-                });
+
+                            $.ajax({
+                                type: 'GET',
+                                dataType: 'json',
+                                url: url + 'chmn.php?format=json&hanzi=' + element,
+                                success: function (data) {
+                                    for (let [key, val] of Object.entries(data)) {
+                                        strDetails += val ? `* chmn DB ${key}:<br /> meaning: ${val['meaning']}<br /> mnemonics: ${val['mnemonics']}<br />` : "";
+                                    }
+
+                                    strDetails += "</details></details><hr>";
+                                    strDetails = strDetails.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/anki/anki.php?kanji=$1">$1</a>');
+
+                                    if ($("#kanji_mnemo_personal").html() == 'Loading...') {
+                                        $("#kanji_mnemo_personal").html('');
+                                    }
+
+                                    $("#kanji_mnemo_personal").append(strDetails);
+                                    strDetails = '';
+                                }
+                            });
+                        }
+                    });
+                }
             });
-        }
+        });
     }
 
-    main();
+    function readMnemoAjax() {
+        $("#read_mnemo_personal").off("click", readMnemoAjax);
+        $("#read_mnemo_personal").html('Loading...');
+        let strSearch = $('#KanjiFront span:first').text();
+        let dict_key = $('#dict_key').text();
+        let arrDictTmp = dict_key.split(';');
+        let arrDict = [];
+
+        arrDictTmp.forEach(function (value) {
+            value = value.split(':');
+            value[0].split('-').forEach(function (value2) {
+                arrDict[value2] = value[1];
+            });
+        });
+
+        let strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
+
+        Array.from(strKanjiOnly).forEach((element, index) => {
+            let strDetails = '';
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: url + 'vocabulary.php?format=json&kanji=' + element + '&kana=' + arrDict[index] + '&page=1&fields=key,mean,tags&limit=10',
+                success: function (data) {
+                    data.forEach(word => {
+                        let jlpt = word[2].match(/JLPT::[0-5]/g);
+                        jlpt = jlpt[0] ? '(' + jlpt[0].replace('::', ' ') + ') ' : '';
+                        strDetails += '- ' + jlpt + word[0] + ' : ' + word[1] + '.<br>';
+                    });
+
+                    if ($("#read_mnemo_personal").html() == 'Loading...') {
+                        $("#read_mnemo_personal").html('');
+                    }
+
+                    $("#read_mnemo_personal").append(element + '[' + arrDict[index] + ']<br>');
+                    $("#read_mnemo_personal").append(strDetails);
+                }
+            });
+        });
+    }
+
+    function addOffset(match, ...args) {
+        let dict_key = $('#dict_key').text();
+        let arrDictTmp = dict_key.split(';');
+        let arrDict = [];
+
+        arrDictTmp.forEach(function (value) {
+            value = value.split(':');
+            value[0].split('-').forEach(function (value2) {
+                arrDict[value2] = value[1];
+            });
+        });
+
+        let strKanjiLinks = `<br>${args[0]} : `;
+        strKanjiLinks += `<a href='https://quezako.com/tools/anki/vocabulary.php?kanji=${args[0]}&kana=${arrDict[args[1]]}&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Voc</a>`;
+        strKanjiLinks += `<a href='https://quezako.com/tools/anki/anki.php?kanji=${args[0]}'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Kanji</a>`;
+        strKanjiLinks += `<a href='https://rtega.be/chmn/?c=${args[0]}'><img src='favicon.png' width=16 style='vertical-align:middle'>Rtega</a>`;
+        strKanjiLinks += `<a href='https://kanji.koohii.com/study/kanji/${args[0]}?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-16x16.png' width=16 style='vertical-align:middle'>Koohii</a>`;
+
+        return strKanjiLinks;
+    }
 
     function main() {
         // JLPT
@@ -140,19 +202,18 @@ $(function () {
         }
 
         if ($('.mnemo').length) {
-            document.getElementsByClassName('mnemo')[0].style.display = 'block';
+            $('.mnemo').first().style.display = 'block';
         }
 
-        if ($('.back').length && $('.kanjiHover').length == 0) {
-            document.getElementsByClassName('back')[0].innerHTML = document.getElementsByClassName('back')[0].innerHTML.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/anki/anki.php?kanji=$1">$1</a>');
-        }
+        // if ($('.back').length && $('.kanjiHover').length == 0) {
+        //     $('.back').first().html($('.back').first().html().replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/anki/anki.php?kanji=$1">$1</a>'));
+        // }
 
         if ($('#kanji_key').length) {
             let kanji_key = $('#kanji_key').text();
             let kana_key = $('#kana_key').text();
-            let dict_key = $('#dict_key').text();
 
-            $('#external_links').html("<a href='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kanji=" + kanji_key + "&kana=" + kana_key + "'><img src='favicon-7bb26f7041394a1ad90ad97f53dda21671c5dffb.ico' width=16 style='vertical-align:middle'>Pod101</a>");
+            $('#external_links').append("<a href='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kanji=" + kanji_key + "&kana=" + kana_key + "'><img src='favicon-7bb26f7041394a1ad90ad97f53dda21671c5dffb.ico' width=16 style='vertical-align:middle'>Pod101</a>");
             $('#external_links').append("<a href='https://forvo.com/word/" + kanji_key + "/#ja'><img src='favicon-0c20667c2ac4a591da442c639c6b7367aa54fa13.ico' width=16 style='vertical-align:middle'>Forvo</a>");
             $('#external_links').append("<a href='https://jisho.org/search/" + kanji_key + " " + kana_key + " ?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico' width=16 style='vertical-align:middle'>Jisho</a>");
             $('#external_links').append("<a href='https://jisho.org/search/" + kana_key + " ?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico' width=16 style='vertical-align:middle'>Jisho kana</a>");
@@ -161,31 +222,16 @@ $(function () {
             $('#external_links').append("<a href='https://quezako.com/tools/anki/anki.php?kanji=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Kanji</a>");
             $('#external_links').append("<a href='https://www.google.com/search?q=" + kanji_key + " " + kana_key + " イラスト&tbm=isch&hl=fr&sa=X'><img src='favicon-49263695f6b0cdd72f45cf1b775e660fdc36c606.ico' width=16 style='vertical-align:middle'>G Img</a>");
 
-            function addOffset(match, ...args) {
-                let strKanjiLinks = `<br>${args[0]} : `;
-                strKanjiLinks += `<a href='https://quezako.com/tools/anki/vocabulary.php?kanji=${args[0]}&kana=${arrDict[args[1]]}&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Voc</a>`;
-                strKanjiLinks += `<a href='https://quezako.com/tools/anki/anki.php?kanji=${args[0]}'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Kanji</a>`;
-                strKanjiLinks += `<a href='https://rtega.be/chmn/?c=${args[0]}'><img src='favicon.png' width=16 style='vertical-align:middle'>Rtega</a>`;
-                strKanjiLinks += `<a href='https://kanji.koohii.com/study/kanji/${args[0]}?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-16x16.png' width=16 style='vertical-align:middle'>Koohii</a>`;
+            let strKanjiOnly = kanji_key.replace(/[^一-龯々ヶ]/gi, "");
 
-                return strKanjiLinks;
+            if (strKanjiOnly) {
+                let strNoFuri = $('#kanji_key').text();
+
+                strNoFuri = strNoFuri.replace(/(\p{Script=Han})/gu, addOffset);
+                strNoFuri = strNoFuri.replace(/(>[\p{Script=Hira}\p{Script=Kana}]+)/gu, '>');
+                strNoFuri = strNoFuri.replace(/([\p{Script=Hira}\p{Script=Kana}]+<)/gu, '<');
+                $('#external_links').append(strNoFuri);
             }
-
-            let strNoFuri = kanji_key;
-            let arrDictTmp = dict_key.split(';');
-            let arrDict = [];
-
-            arrDictTmp.forEach(function (value) {
-                value = value.split(':');
-                value[0].split('-').forEach(function (value2) {
-                    arrDict[value2] = value[1];
-                });
-            });
-
-            strNoFuri = strNoFuri.replace(/(\p{Script=Han})/gu, addOffset);
-            strNoFuri = strNoFuri.replace(/(>[\p{Script=Hira}\p{Script=Kana}]+)/gu, '>');
-            strNoFuri = strNoFuri.replace(/([\p{Script=Hira}\p{Script=Kana}]+<)/gu, '<');
-            $('#external_links').append(strNoFuri);
         }
     }
 
@@ -194,25 +240,16 @@ $(function () {
     $.ajax({
         type: 'GET',
         url: url + 'vocabulary.php',
-        timeout: 300,
+        timeout: 200,
         success: function () {
-            dbSearch();
         },
         error: function () {
-            url = 'http://localhost:45267/anki/';
-
-            $.ajax({
-                type: 'GET',
-                url: url + 'vocabulary.php',
-                timeout: 1000,
-                success: function () {
-                    dbSearch();
-                },
-                error: function () {
-                    url = 'https://quezako.com/tools/anki/';
-                    dbSearch();
-                }
-            });
+            url = 'https://quezako.com/tools/anki/';
         }
     });
+
+    $("#kanji_mnemo_personal").on("click", kanjiMnemoAjax);
+    $("#read_mnemo_personal").on("click", readMnemoAjax);
+
+    main();
 });

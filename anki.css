@@ -637,7 +637,7 @@ ul li,#components {
 #mean {
 	color:orange
 }
-#mean,#mnemo_personal,#read_mnemo_personal {
+#mean,#kanji_mnemo_personal,#read_mnemo_personal {
 	display:inline-block;
 	text-align:left
 }
@@ -684,7 +684,7 @@ ul li,#components {
 a {
 	color:#0ff
 }
-chmn,#mnemo_personal {
+chmn,#kanji_mnemo_personal {
 	color:red
 }
 img {
@@ -827,7 +827,7 @@ ruby:active rt,ruby:hover rt,#furigana.hover ruby:active rt,#furigana.hover ruby
 	vertical-align:top
 }
 .tags,tags {
-	opacity:.5;
+	opacity:.8;
 	text-align:center
 }
 .text {
