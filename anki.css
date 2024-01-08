@@ -1,15 +1,26 @@
-@font-face {
-	font-family: HGRKK;
-	src: url(_HGRKK.ttf);
-}
+/******* font size *******/
 
-.card {
-	text-align: center
-}
+@media only screen and (orientation: landscape) {
 
-#KanjiFront,
-#KanjiBack {
-	font-family: hgrkk;
+	#KanjiBack,
+	#KanjiBack *,
+	#KanjiFront,
+	#KanjiFront * {
+		font-size: 10vw;
+		line-height: 10vw;
+	}
+
+	#mean {
+		font-size: 1.5vw;
+	}
+
+	#kana_hint_main,
+	#voc_furi,
+	#kun_post,
+	#kun_pre {
+		font-size: 3vw;
+	}
+
 }
 
 @media only screen and (orientation: portrait) {
@@ -19,19 +30,40 @@
 	#KanjiFront,
 	#KanjiFront * {
 		font-size: 45vw;
-		line-height: 45vw
+		line-height: 45vw;
+	}
+
+	#mean {
+		font-size: 6vw;
+	}
+
+	#kana_hint_main,
+	#voc_furi,
+	#kun_post,
+	#kun_pre {
+		font-size: 12vw;
+	}
+
+	a {
+		color: red;
+		text-decoration: none;
 	}
 }
 
-@media only screen and (orientation: landscape) {
+/********* general *********/
 
-	#KanjiBack,
-	#KanjiBack *,
-	#KanjiFront,
-	#KanjiFront * {
-		font-size: 10vw;
-		line-height: 10vw
-	}
+@font-face {
+	font-family: HGRKK;
+	src: url(_HGRKK.ttf);
+}
+
+.card {
+	text-align: center;
+}
+
+#KanjiFront,
+#KanjiBack {
+	font-family: hgrkk;
 }
 
 #stop_sound {
@@ -41,19 +73,19 @@
 }
 
 #kana_key {
-	display: none
+	display: none;
 }
 
 #kanji_key {
-	display: none
+	display: none;
 }
 
 #kanji_only {
-	display: none
+	display: none;
 }
 
 #dict_key {
-	display: none
+	display: none;
 }
 
 #back {
@@ -69,22 +101,64 @@
 }
 
 #compo_wani {
-	color: #dd99ff
+	color: #dd99ff;
 }
 
 .EFDRC-ctrl,
 .EFDRC-outline {
 	display: inline-block;
-	padding-top: 10px
+	padding-top: 10px;
 }
+
 
 #answer,
 .hide,
 ruby rt {
-	visibility: hidden
+	visibility: hidden;
 }
 
 ruby:active rt,
 ruby:hover rt {
-	visibility: visible
+	visibility: visible;
+}
+
+/*
+#furigana ruby rt,#read_mnemo_personal ruby rt {
+	display:inline;
+}
+#furigana ruby,#read_mnemo_personal ruby {
+	display:inline-flex;
+	flex-direction:column-reverse;
+}
+#furigana.hover ruby rt {
+	visibility:hidden
+}
+ruby rt {
+	visibility:hidden;
+	visibility:visible
+}
+ruby:active rt,ruby:hover rt,#furigana.hover ruby:active rt,#furigana.hover ruby:hover rt {
+	visibility:visible
+}
+*/
+
+img {
+	padding: 2px;
+}
+
+#read_mnemo_personal i {
+	color: #ffaaff;
+}
+
+#read_mnemo_personal,
+#kanji_mnemo_personal,
+#mean {
+	display: inline-block;
+	text-align: left;
+}
+
+/********* mobile *********/
+
+.soundLink svg {
+	max-width: 50px
 }
