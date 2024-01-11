@@ -18,7 +18,7 @@ $chmn = '';
 $kanji_mnemo_personal = '';
 
 if (isset($_GET['kana'])) {
-    $kana = $_GET['kana'];
+    $kana = str_replace("っ", "", $_GET['kana']);
 }
 
 if (isset($_GET['kanji'])) {
@@ -69,7 +69,26 @@ AND tags NOT LIKE '%JLPT::4%' AND tags NOT LIKE '%JLPT::5%' AND tags NOT LIKE '%
 ";
         $stm = $pdo->query($query);
         $res = $stm->fetchAll(PDO::FETCH_NUM);
+
+        if (count($res) < 10) {
+            $kanji = "";
+            $query = "
+    SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
+    SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
+    SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::3%' ORDER BY `Order`) UNION ALL
+    SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::2%' ORDER BY `Order`) UNION ALL
+    SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::1%' ORDER BY `Order`) UNION ALL
+    SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::0%' AND tags LIKE '%Common%' ORDER BY `Order`) UNION ALL
+    SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::0%' AND tags NOT LIKE '%Common%' ORDER BY `Order`) UNION ALL
+    SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%'
+    AND tags NOT LIKE '%JLPT::0%' AND tags NOT LIKE '%JLPT::1%' AND tags NOT LIKE '%JLPT::2%' AND tags NOT LIKE '%JLPT::3%'
+    AND tags NOT LIKE '%JLPT::4%' AND tags NOT LIKE '%JLPT::5%' AND tags NOT LIKE '%Common%' ORDER BY `Order`)
+    ";
+            $stm = $pdo->query($query);
+            $res += $stm->fetchAll(PDO::FETCH_NUM);
+        }
     }
+
 
     if (isset($_GET['format']) && $_GET['format'] == 'json') {
         header('Content-Type: application/json; charset=utf-8');
