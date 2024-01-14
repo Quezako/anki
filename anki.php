@@ -97,18 +97,21 @@ try {
     die();
 }
 
-if (!isset($_GET['kanji'])) {
-    die();
+if (isset($_GET['kanji'])) {
+    $kanji = $_GET['kanji'];
+    $stm = $pdo->query("SELECT * FROM Quezako WHERE kanji_only = '$kanji' AND (key LIKE '{$kanji}[%' OR key = '$kanji')");
+} else {
+    $key = $_GET['key'];
+    $kanji = $key;
+    $stm = $pdo->query("SELECT * FROM Quezako WHERE key LIKE '%$key%'");
 }
 
-$kanji = $_GET['kanji'];
-$stm = $pdo->query("SELECT * FROM Quezako WHERE kanji_only = '$kanji' AND (key LIKE '{$kanji}[%' OR key = '$kanji')");
+
 $res = $stm->fetch(PDO::FETCH_NUM);
 preg_match_all('/./u', $kanji, $matches);
 $kanji = htmlspecialchars(($_GET['kanji']));
 
 if (!isset($res[0])) {
-
     if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
         foreach ($m[1] as $i => $varname) {
             $html = str_replace($m[0][$i], sprintf('%s', $_GET['kanji']), $html);

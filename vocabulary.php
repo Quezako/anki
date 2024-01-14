@@ -55,35 +55,64 @@ if (strlen($kana) > 0 || strlen($kanji) > 0 || strlen($chmn) > 0 || strlen($kanj
         $stm = $pdo->query($query);
         $res = $stm->fetchAll();
     } elseif (isset($_GET['format']) && $_GET['format'] == 'json') {
+        $arrDakuten = [
+            'かが',
+            'きぎ',
+            'くぐ',
+            'けげ',
+            'こご',
+            'さざ',
+            'しじちぢ',
+            'すずつづ',
+            'せぜ',
+            'そぞ',
+            'ただ',
+            'てで',
+            'とど',
+            'はばぱ',
+            'ひびぴ',
+            'ふぶぷ',
+            'へべぺ',
+            'ほぼぽ',
+        ];
+
+        $strKanaFirst = mb_substr($kana, 0, 1);
+        $strKanaRemains = mb_substr($kana, 1);
+
+        foreach ($arrDakuten as $index => $string) {
+            if (strpos($string, $strKanaFirst) !== false) {
+                $kana = implode($strKanaRemains . "%' OR key LIKE '%", mb_str_split($arrDakuten[$index])) . $strKanaRemains;
+            }
+        }
+
         $query = "
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::3%' ORDER BY `Order`)
+SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::3%' ORDER BY `Order`)
 ";
         $stm = $pdo->query($query);
         $res = $stm->fetchAll(PDO::FETCH_NUM);
 
         if (count($res) < 10) {
-            $kanji = "";
             $query = "
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::3%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::0%' AND tags LIKE '%Common%' ORDER BY `Order`)
+SELECT * FROM (SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::3%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::0%' AND tags LIKE '%Common%' ORDER BY `Order`)
     ";
             $stm = $pdo->query($query);
             $res += $stm->fetchAll(PDO::FETCH_NUM);
         }
     } else {
         $query = "
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::3%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::2%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::1%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::0%' AND tags LIKE '%Common%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%' AND tags LIKE '%JLPT::0%' AND tags NOT LIKE '%Common%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND key LIKE '%$kana%'
+SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::3%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::2%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::1%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::0%' AND tags LIKE '%Common%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::0%' AND tags NOT LIKE '%Common%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%')
 AND tags NOT LIKE '%JLPT::0%' AND tags NOT LIKE '%JLPT::1%' AND tags NOT LIKE '%JLPT::2%' AND tags NOT LIKE '%JLPT::3%'
 AND tags NOT LIKE '%JLPT::4%' AND tags NOT LIKE '%JLPT::5%' AND tags NOT LIKE '%Common%' ORDER BY `Order`)
 ";

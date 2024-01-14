@@ -90,6 +90,11 @@ $(function () {
 
         Array.from(strKanjiOnly).forEach((element, index) => {
             let strDetails = '';
+            let isOtherKanji = false;
+
+            if (arrDict[index] === undefined) {
+                arrDict[index] = '';
+            }
 
             $.ajax({
                 type: 'GET',
@@ -112,10 +117,16 @@ $(function () {
                                 }
 
                                 jlpt = '(<span style="color:' + color + '">' + jlpt[0].replace('::', ' ') + '</span>) ';
-                                let kana = word[0].replace(/[一-龯々ヶ\[\]]/gi, "");
+                                let kana = word[0].replace(/[^\[]+\[([^\]]+)\]/gi, "$1");
+                                let matches = word[0].match(element);
                                 let re = new RegExp('(' + arrDict[index] + ')');
                                 kana = kana.replace(re, "<i>$1</i>");
                                 strDetails += '- ' + jlpt + kana + ' : ' + word[1] + '.<br>';
+
+                                if (isOtherKanji == false && matches !== null) {
+                                    isOtherKanji = true;
+                                    strDetails += '-----<br>';
+                                }
                             }
                         }
                     });
@@ -223,10 +234,6 @@ $(function () {
         if ($('.mnemo').length) {
             $('.mnemo').first().style.display = 'block';
         }
-
-        // if ($('.back').length && $('.kanjiHover').length == 0) {
-        //     $('.back').first().html($('.back').first().html().replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/anki/anki.php?kanji=$1">$1</a>'));
-        // }
 
         if ($('#kanji_key').length) {
             let kanji_key = $('#kanji_key').text();
