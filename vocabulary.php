@@ -55,40 +55,40 @@ if (strlen($kana) > 0 || strlen($kanji) > 0 || strlen($chmn) > 0 || strlen($kanj
         $stm = $pdo->query($query);
         $res = $stm->fetchAll();
     } elseif (isset($_GET['format']) && $_GET['format'] == 'json') {
-        $arrDakuten = [
-            'かが',
-            'きぎ',
-            'くぐ',
-            'けげ',
-            'こご',
-            'さざ',
-            'しじちぢ',
-            'すずつづ',
-            'せぜ',
-            'そぞ',
-            'ただ',
-            'てで',
-            'とど',
-            'はばぱ',
-            'ひびぴ',
-            'ふぶぷ',
-            'へべぺ',
-            'ほぼぽ',
-        ];
+        if ($kana != '') {
+            $arrDakuten = [
+                'かが',
+                'きぎ',
+                'くぐ',
+                'けげ',
+                'こご',
+                'さざ',
+                'しじちぢ',
+                'すずつづ',
+                'せぜ',
+                'そぞ',
+                'ただ',
+                'てで',
+                'とど',
+                'はばぱ',
+                'ひびぴ',
+                'ふぶぷ',
+                'へべぺ',
+                'ほぼぽ',
+            ];
 
-        $strKanaFirst = mb_substr($kana, 0, 1);
-        $strKanaRemains = mb_substr($kana, 1);
+            $strKanaFirst = mb_substr($kana, 0, 1);
+            $strKanaRemains = mb_substr($kana, 1);
 
-        foreach ($arrDakuten as $index => $string) {
-            if (strpos($string, $strKanaFirst) !== false) {
-                $kana = implode($strKanaRemains . "%' OR key LIKE '%", mb_str_split($arrDakuten[$index])) . $strKanaRemains;
+            foreach ($arrDakuten as $index => $string) {
+                if (strpos($string, $strKanaFirst) !== false) {
+                    $kana = implode($strKanaRemains . "%' OR key LIKE '%", mb_str_split($arrDakuten[$index])) . $strKanaRemains;
+                }
             }
         }
 
         $query = "
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::3%' ORDER BY `Order`)
+SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND (tags LIKE '%JLPT::5%' OR tags LIKE '%JLPT::4%' OR tags LIKE '%JLPT::3%') ORDER BY `Order` LIMIT 10
 ";
         $stm = $pdo->query($query);
         $res = $stm->fetchAll(PDO::FETCH_NUM);
@@ -96,10 +96,7 @@ SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LI
         if (count($res) < 10) {
             $kana = str_replace("っ", "", $_GET['kana']);
             $query = "
-SELECT * FROM (SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::3%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::0%' AND tags LIKE '%Common%' ORDER BY `Order`)
+SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND (tags LIKE '%JLPT::5%' OR tags LIKE '%JLPT::4%' OR tags LIKE '%JLPT::3%') LIMIT 10
     ";
             $stm = $pdo->query($query);
             $res += $stm->fetchAll(PDO::FETCH_NUM);

@@ -9,7 +9,7 @@ $(function () {
     // Auto fetch kanji details + radical details.
     function kanjiMnemoAjax() {
         $("#kanji_mnemo_personal").off("click", kanjiMnemoAjax);
-        $("#kanji_mnemo_personal").html('Loading...');
+        $("#kanji_mnemo_personal").html('<div class="lds-dual-ring"></div>');
         let strSearch = $('#KanjiFront span:first').text();
         let strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
 
@@ -56,7 +56,7 @@ $(function () {
                                     strDetails += "</details></details><hr>";
                                     strDetails = strDetails.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/anki/anki.php?kanji=$1">$1</a>');
 
-                                    if ($("#kanji_mnemo_personal").html() == 'Loading...') {
+                                    if ($("#kanji_mnemo_personal").html() == '<div class="lds-dual-ring"></div>') {
                                         $("#kanji_mnemo_personal").html('');
                                     }
 
@@ -73,7 +73,7 @@ $(function () {
 
     function readMnemoAjax() {
         $("#read_mnemo_personal").off("click", readMnemoAjax);
-        $("#read_mnemo_personal").html('Loading...');
+        $("#read_mnemo_personal").html('<div class="lds-dual-ring"></div>');
         let strSearch = $('#KanjiFront span:first').text();
         let dict_key = $('#dict_key').text();
         let arrDictTmp = dict_key.split(';');
@@ -100,56 +100,55 @@ $(function () {
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                url: url + 'vocabulary.php?format=json&kanji=' + element + '&kana=' + arrDict[index] + '&page=1&fields=key,mean,tags&limit=10',
+                url: url + 'vocabulary.php?format=json&chmn=' + element,
                 success: function (data) {
-                    data.forEach(word => {
-                        if (word[0] === $('#kanji_key').text() + '[' + $('#kana_key').text() + ']') {
-                            return;
-                        }
-
-                        let jlpt = word[2].match(/JLPT::[0-5]/g);
-
-                        if (jlpt !== null) {
-                            let intJlpt = jlpt[0].split('::')[1];
-
-                            if (intJlpt > 2) {
-                                let color = 'lightgreen';
-
-                                if (intJlpt == 4) {
-                                    color = 'lightblue';
-                                } else if (intJlpt == 3) {
-                                    color = 'yellow';
-                                }
-
-                                jlpt = '(<span style="color:' + color + '">' + jlpt[0].replace('::', ' ') + '</span>) ';
-                                let kana = word[0].replace(/[^\[]+\[([^\]]+)\]/gi, "$1");
-                                let matches = word[0].match(element);
-                                let re = new RegExp('(' + arrDict[index] + ')');
-                                kana = kana.replace(re, "<i>$1</i>");
-
-                                if (!isOtherKanji && matches === null) {
-                                    isOtherKanji = true;
-                                    strDetails += '-----<br>';
-                                }
-
-                                strDetails += '- ' + jlpt + kana + ' : ' + word[1] + '.<br>';
-                            }
-                        }
-                    });
-
+                    arrDetails[index] = '<b>' + arrDict[index] + '</b>: ' + data[0]['mean'] + '<br><div class="lds-dual-ring"></div><br>';
+                    $("#read_mnemo_personal").html(arrDetails.join('************<br>'));
 
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: url + 'vocabulary.php?format=json&chmn=' + element,
+                        url: url + 'vocabulary.php?format=json&kanji=' + element + '&kana=' + arrDict[index] + '&page=1&fields=key,mean,tags&limit=10',
                         success: function (data) {
+                            data.forEach(word => {
+                                if (word[0] === $('#kanji_key').text() + '[' + $('#kana_key').text() + ']') {
+                                    return;
+                                }
 
-                            if ($("#read_mnemo_personal").html() == 'Loading...') {
-                                $("#read_mnemo_personal").html('');
-                            }
+                                let jlpt = word[2].match(/JLPT::[0-5]/g);
 
-                            arrDetails[index] = '<b>' + arrDict[index] + '</b>: ' + data[0]['mean'] + '<br>' + strDetails;
-                            $("#read_mnemo_personal").html(arrDetails.join(''));
+                                if (jlpt !== null) {
+                                    let intJlpt = jlpt[0].split('::')[1];
+
+                                    if (intJlpt > 2) {
+                                        let color = 'lightgreen';
+
+                                        if (intJlpt == 4) {
+                                            color = 'lightblue';
+                                        } else if (intJlpt == 3) {
+                                            color = 'yellow';
+                                        }
+
+                                        jlpt = '(<span style="color:' + color + '">' + jlpt[0].replace('::', ' ') + '</span>) ';
+                                        let kana = word[0].replace(/[^\[]+\[([^\]]+)\]/gi, "$1");
+                                        let matches = word[0].match(element);
+                                        let re = new RegExp('(' + arrDict[index] + ')');
+                                        kana = kana.replace(re, "<i>$1</i>");
+
+                                        if (!isOtherKanji && matches === null) {
+                                            isOtherKanji = true;
+                                            strDetails += '---<br>';
+                                        }
+
+                                        strDetails += '- ' + jlpt + kana + ' : ' + word[1] + '.<br>';
+                                    }
+                                }
+                            });
+
+                            arrDetails[index] = '<b>' + arrDict[index] + '</b>: ' + data[0]['mean'] + '<br>';
+                            arrDetails[index] += strDetails;
+                            $("#read_mnemo_personal").html(arrDetails.join('************<br>'));
+
                         }
                     });
                 }
