@@ -118,7 +118,12 @@ $(function () {
                                 let jlpt = word[2].match(/JLPT::[0-5]/g);
 
                                 if (jlpt !== null) {
-                                    let intJlpt = jlpt[0].split('::')[1];
+                                    let intJlpt = 0;
+                                    jlpt.forEach(jlpt_elm => {
+                                        if (intJlpt < jlpt_elm.split('::')[1]) {
+                                            intJlpt = jlpt_elm.split('::')[1];
+                                        }
+                                    });
 
                                     if (intJlpt > 2) {
                                         let color = 'lightgreen';
@@ -129,7 +134,7 @@ $(function () {
                                             color = 'yellow';
                                         }
 
-                                        jlpt = '(<span style="color:' + color + '">' + jlpt[0].replace('::', ' ') + '</span>) ';
+                                        jlpt = '(<span style="color:' + color + '">N' + intJlpt + '</span>) ';
                                         let kana = word[0].replace(/[^\[]+\[([^\]]+)\]/gi, "$1");
                                         let matches = word[0].match(element);
                                         let re = new RegExp('(' + arrDict[index] + ')');

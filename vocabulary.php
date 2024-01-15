@@ -99,7 +99,8 @@ SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') A
 SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND (tags LIKE '%JLPT::5%' OR tags LIKE '%JLPT::4%' OR tags LIKE '%JLPT::3%') LIMIT 10
     ";
             $stm = $pdo->query($query);
-            $res += $stm->fetchAll(PDO::FETCH_NUM);
+            $res2 = $stm->fetchAll(PDO::FETCH_NUM);
+            $res = array_merge($res, $res2);
         }
     } else {
         $fields = '*';
