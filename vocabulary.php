@@ -1,12 +1,17 @@
-<?php header('Access-Control-Allow-Origin: *'); ?>
 <?php
+header('Access-Control-Allow-Origin: *');
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 try {
-    $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/vocab.sqlite');
+    $pdo = new PDO("mysql:host=quezako.mysql.db;dbname=quezako;charset=utf8mb4", 'quezako', 'TWPnsHsA2CStP2Xt3aUCw8YKngpiPW');
+    $pdo->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, 'SET NAMES utf8');
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 } catch (Exception $e) {
-    echo "Can't access SQLite DB: " . $e->getMessage();
-    die();
+    $pdo = new PDO("mysql:host=localhost;dbname=vocab", 'quezako', 'quezako');
 }
 
 $kana = '';
@@ -34,7 +39,7 @@ if (isset($_GET['kanji_mnemo_personal'])) {
 }
 
 if (strlen($kana) > 0 || strlen($kanji) > 0 || strlen($chmn) > 0 || strlen($kanji_mnemo_personal) > 0) {
-    $query = "SELECT * FROM Quezako LIMIT 1";
+    $query = "SELECT * FROM quezako LIMIT 1";
     $stm = $pdo->query($query);
 
     for ($i = 0; $i < $stm->columnCount(); $i++) {
@@ -43,15 +48,15 @@ if (strlen($kana) > 0 || strlen($kanji) > 0 || strlen($chmn) > 0 || strlen($kanj
     }
 
     if (isset($_GET['fields'])) {
-        $fields = $_GET['fields'];
+        $fields = str_replace('key', '`key`', $_GET['fields']);
     }
 
     if (strlen($kanji_mnemo_personal) > 0) {
-        $query = 'SELECT kanji_mnemo_personal FROM Quezako WHERE kanji_mnemo_personal LIKE "%' . $_GET['kanji_mnemo_personal'] . ' :%"';
+        $query = 'SELECT kanji_mnemo_personal FROM quezako WHERE kanji_mnemo_personal LIKE "%' . $_GET['kanji_mnemo_personal'] . ' :%"';
         $stm = $pdo->query($query);
         $res = $stm->fetchAll();
     } elseif (strlen($chmn) > 0) {
-        $query = 'SELECT chmn_mean, fr_chmn_mnemo, mean FROM Quezako WHERE key = "' . $_GET['chmn'] . '" OR key LIKE "' . $_GET['chmn'] . '[%"';
+        $query = 'SELECT chmn_mean, fr_chmn_mnemo, mean FROM quezako WHERE `key` = "' . $_GET['chmn'] . '" OR `key` LIKE "' . $_GET['chmn'] . '[%"';
         $stm = $pdo->query($query);
         $res = $stm->fetchAll();
     } elseif (isset($_GET['format']) && $_GET['format'] == 'json') {
@@ -82,21 +87,22 @@ if (strlen($kana) > 0 || strlen($kanji) > 0 || strlen($chmn) > 0 || strlen($kanj
 
             foreach ($arrDakuten as $index => $string) {
                 if (strpos($string, $strKanaFirst) !== false) {
-                    $kana = implode($strKanaRemains . "%' OR key LIKE '%", mb_str_split($arrDakuten[$index])) . $strKanaRemains;
+                    $kana = implode($strKanaRemains . "%' OR `key` LIKE '%", mb_str_split($arrDakuten[$index])) . $strKanaRemains;
                 }
             }
         }
 
         $query = "
-SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND (tags LIKE '%JLPT::5%' OR tags LIKE '%JLPT::4%' OR tags LIKE '%JLPT::3%') ORDER BY `Order` LIMIT 10
+SELECT $fields FROM quezako where `key` LIKE '%$kanji%' AND (`key` LIKE '%$kana%') AND (tags LIKE '%JLPT::5%' OR tags LIKE '%JLPT::4%' OR tags LIKE '%JLPT::3%') ORDER BY `Order` LIMIT 10
 ";
+// echo $query;
         $stm = $pdo->query($query);
         $res = $stm->fetchAll(PDO::FETCH_NUM);
 
         if (count($res) < 10) {
             $kana = str_replace("っ", "", $_GET['kana']);
             $query = "
-SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND (tags LIKE '%JLPT::5%' OR tags LIKE '%JLPT::4%' OR tags LIKE '%JLPT::3%') LIMIT 10
+SELECT $fields FROM quezako where `key` NOT LIKE '%$kanji%' AND (`key` LIKE '%$kana%') AND (tags LIKE '%JLPT::5%' OR tags LIKE '%JLPT::4%' OR tags LIKE '%JLPT::3%') LIMIT 10
     ";
             $stm = $pdo->query($query);
             $res2 = $stm->fetchAll(PDO::FETCH_NUM);
@@ -105,14 +111,14 @@ SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%
     } else {
         $fields = '*';
         $query = "
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::3%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::2%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::1%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::0%' AND tags LIKE '%Common%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::0%' AND tags NOT LIKE '%Common%' ORDER BY `Order`) UNION ALL
-SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%')
+SELECT * FROM (SELECT $fields FROM quezako where `key` LIKE '%$kanji%' AND (`key` LIKE '%$kana%') AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM quezako where `key` LIKE '%$kanji%' AND (`key` LIKE '%$kana%') AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM quezako where `key` LIKE '%$kanji%' AND (`key` LIKE '%$kana%') AND tags LIKE '%JLPT::3%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM quezako where `key` LIKE '%$kanji%' AND (`key` LIKE '%$kana%') AND tags LIKE '%JLPT::2%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM quezako where `key` LIKE '%$kanji%' AND (`key` LIKE '%$kana%') AND tags LIKE '%JLPT::1%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM quezako where `key` LIKE '%$kanji%' AND (`key` LIKE '%$kana%') AND tags LIKE '%JLPT::0%' AND tags LIKE '%Common%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM quezako where `key` LIKE '%$kanji%' AND (`key` LIKE '%$kana%') AND tags LIKE '%JLPT::0%' AND tags NOT LIKE '%Common%' ORDER BY `Order`) UNION ALL
+SELECT * FROM (SELECT $fields FROM quezako where `key` LIKE '%$kanji%' AND (`key` LIKE '%$kana%')
 AND tags NOT LIKE '%JLPT::0%' AND tags NOT LIKE '%JLPT::1%' AND tags NOT LIKE '%JLPT::2%' AND tags NOT LIKE '%JLPT::3%'
 AND tags NOT LIKE '%JLPT::4%' AND tags NOT LIKE '%JLPT::5%' AND tags NOT LIKE '%Common%' ORDER BY `Order`)
 ";

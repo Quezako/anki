@@ -89,21 +89,21 @@ $html = str_replace('hint:', '', $html);
 $html = preg_replace('/\{\{\^[a-z_]+\}\}/', '', $html);
 
 try {
-    $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/vocab.sqlite');
+    $pdo = new PDO("mysql:host=quezako.mysql.db;dbname=quezako;charset=utf8mb4", 'quezako', 'TWPnsHsA2CStP2Xt3aUCw8YKngpiPW');
+    $pdo->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, 'SET NAMES utf8');
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 } catch (Exception $e) {
-    echo "Can't access SQLite DB: " . $e->getMessage();
-    die();
+    $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/vocab.sqlite');
 }
 
 if (isset($_GET['kanji'])) {
     $kanji = $_GET['kanji'];
-    $stm = $pdo->query("SELECT * FROM Quezako WHERE kanji_only = '$kanji' AND (key LIKE '{$kanji}[%' OR key = '$kanji')");
+    $stm = $pdo->query("SELECT * FROM quezako WHERE kanji_only = '$kanji' AND (`key` LIKE '{$kanji}[%' OR `key` = '$kanji')");
 } else {
     $key = $_GET['key'];
     $kanji = $key;
-    $stm = $pdo->query("SELECT * FROM Quezako WHERE key LIKE '%$key%'");
+    $stm = $pdo->query("SELECT * FROM quezako WHERE `key` LIKE '%$key%'");
 }
 
 
