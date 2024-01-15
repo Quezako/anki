@@ -94,6 +94,7 @@ SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LI
         $res = $stm->fetchAll(PDO::FETCH_NUM);
 
         if (count($res) < 10) {
+            $kana = str_replace("っ", "", $_GET['kana']);
             $query = "
 SELECT * FROM (SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
 SELECT * FROM (SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
