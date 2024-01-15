@@ -87,6 +87,7 @@ $(function () {
         });
 
         let strKanjiOnly = strSearch.replace(/[^一-龯々ヶ]/gi, "");
+        let arrDetails = [];
 
         Array.from(strKanjiOnly).forEach((element, index) => {
             let strDetails = '';
@@ -102,6 +103,10 @@ $(function () {
                 url: url + 'vocabulary.php?format=json&kanji=' + element + '&kana=' + arrDict[index] + '&page=1&fields=key,mean,tags&limit=10',
                 success: function (data) {
                     data.forEach(word => {
+                        if (word[0] === $('#kanji_key').text() + '[' + $('#kana_key').text() + ']') {
+                            return;
+                        }
+
                         let jlpt = word[2].match(/JLPT::[0-5]/g);
 
                         if (jlpt !== null) {
@@ -121,22 +126,32 @@ $(function () {
                                 let matches = word[0].match(element);
                                 let re = new RegExp('(' + arrDict[index] + ')');
                                 kana = kana.replace(re, "<i>$1</i>");
-                                strDetails += '- ' + jlpt + kana + ' : ' + word[1] + '.<br>';
 
-                                if (isOtherKanji == false && matches !== null) {
+                                if (!isOtherKanji && matches === null) {
                                     isOtherKanji = true;
                                     strDetails += '-----<br>';
                                 }
+
+                                strDetails += '- ' + jlpt + kana + ' : ' + word[1] + '.<br>';
                             }
                         }
                     });
 
-                    if ($("#read_mnemo_personal").html() == 'Loading...') {
-                        $("#read_mnemo_personal").html('');
-                    }
 
-                    $("#read_mnemo_personal").append('<b>' + arrDict[index] + '</b><br>');
-                    $("#read_mnemo_personal").append(strDetails);
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: url + 'vocabulary.php?format=json&chmn=' + element,
+                        success: function (data) {
+
+                            if ($("#read_mnemo_personal").html() == 'Loading...') {
+                                $("#read_mnemo_personal").html('');
+                            }
+
+                            arrDetails[index] = '<b>' + arrDict[index] + '</b>: ' + data[0]['mean'] + '<br>' + strDetails;
+                            $("#read_mnemo_personal").html(arrDetails.join(''));
+                        }
+                    });
                 }
             });
         });

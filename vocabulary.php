@@ -104,6 +104,7 @@ SELECT * FROM (SELECT $fields FROM Quezako where key NOT LIKE '%$kanji%' AND (ke
             $res += $stm->fetchAll(PDO::FETCH_NUM);
         }
     } else {
+        $fields = '*';
         $query = "
 SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::5%' ORDER BY `Order`) UNION ALL
 SELECT * FROM (SELECT $fields FROM Quezako where key LIKE '%$kanji%' AND (key LIKE '%$kana%') AND tags LIKE '%JLPT::4%' ORDER BY `Order`) UNION ALL
