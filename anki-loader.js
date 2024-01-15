@@ -109,8 +109,8 @@ $(function () {
                         type: 'GET',
                         dataType: 'json',
                         url: url + 'vocabulary.php?format=json&kanji=' + element + '&kana=' + arrDict[index] + '&page=1&fields=key,mean,tags&limit=10',
-                        success: function (data) {
-                            data.forEach(word => {
+                        success: function (data2) {
+                            data2.forEach(word => {
                                 if (word[0] === $('#kanji_key').text() + '[' + $('#kana_key').text() + ']') {
                                     return;
                                 }
