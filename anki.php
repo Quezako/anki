@@ -145,6 +145,7 @@ if (preg_match_all("/(\[sound:.+\])/", $html, $matches)) {
         $html = str_replace($matches[0][$i], "", $html);
     }
 }
+$html = str_replace('furigana:', '', $html);
 
 if (preg_match_all("/{{kana:([^}]+)}}/", $html, $matches)) {
     foreach ($matches[1] as $i => $varname) {
@@ -160,18 +161,18 @@ if (preg_match_all("/{{kanji:([^}]+)}}/", $html, $matches)) {
     }
 }
 
-$html = str_replace('furigana:', '', $html);
 
 if (preg_match_all("/{{(.*?)}}/", $html, $matches)) {
     foreach ($matches[1] as $i => $varname) {
-        $html = str_replace($matches[0][$i], sprintf('%s', $kana), $html);
+        $strFuri = preg_replace('/([\p{Han}\p{Katakana}\p{Hiragana}]+)\[([^\]]+)\]/iu', "<ruby>$1<rt>$2</rt></ruby>", $res[$col[$varname]]);
+        $html = str_replace($matches[0][$i], sprintf('%s', $strFuri), $html);
     }
 }
+// die;
 ?>
 
 <!doctype html>
 <html lang="en">
-
 <head>
     <title>
         <?= $kanji; ?> - Anki
