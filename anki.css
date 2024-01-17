@@ -10,6 +10,14 @@
 		line-height: 10vw;
 	}
 
+	.IsKana #KanjiBack,
+	.IsKana #KanjiBack *,
+  .IsKana,
+	.IsKana * {
+		font-size: 5vw;
+		line-height: 5vw;
+	}
+
 	#mean {
 		font-size: 1.5vw;
 	}
@@ -33,7 +41,13 @@
 		line-height: 45vw;
 	}
 
-	#mean {
+	#KanjiBack.IsKana,
+	#KanjiBack.IsKana * {
+		font-size: 22vw;
+		line-height: 22vw;
+	}
+
+	#mean, #furigana {
 		font-size: 6vw;
 	}
 
@@ -110,7 +124,6 @@
 	padding-top: 10px;
 }
 
-
 #answer,
 .hide,
 ruby rt {
@@ -121,26 +134,6 @@ ruby:active rt,
 ruby:hover rt {
 	visibility: visible;
 }
-
-/*
-#furigana ruby rt,#read_mnemo_personal ruby rt {
-	display:inline;
-}
-#furigana ruby,#read_mnemo_personal ruby {
-	display:inline-flex;
-	flex-direction:column-reverse;
-}
-#furigana.hover ruby rt {
-	visibility:hidden
-}
-ruby rt {
-	visibility:hidden;
-	visibility:visible
-}
-ruby:active rt,ruby:hover rt,#furigana.hover ruby:active rt,#furigana.hover ruby:hover rt {
-	visibility:visible
-}
-*/
 
 img {
 	padding: 2px;
@@ -157,8 +150,40 @@ img {
 	text-align: left;
 }
 
+#external_links a {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 /********* mobile *********/
 
 .soundLink svg {
 	max-width: 50px
+}
+
+
+/*********** loader **********/
+.lds-dual-ring {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 2px;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -168,7 +168,6 @@ if (preg_match_all("/{{(.*?)}}/", $html, $matches)) {
         $html = str_replace($matches[0][$i], sprintf('%s', $strFuri), $html);
     }
 }
-// die;
 ?>
 
 <!doctype html>

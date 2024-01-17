@@ -261,15 +261,16 @@ $(function () {
             $('#external_links').append("<a href='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kanji=" + kanji_key + "&kana=" + kana_key + "'><img src='favicon-7bb26f7041394a1ad90ad97f53dda21671c5dffb.ico' width=16 style='vertical-align:middle'>Pod101</a>");
             $('#external_links').append("<a href='https://forvo.com/word/" + kanji_key + "/#ja'><img src='favicon-0c20667c2ac4a591da442c639c6b7367aa54fa13.ico' width=16 style='vertical-align:middle'>Forvo</a>");
             $('#external_links').append("<a href='https://jisho.org/search/" + kanji_key + " " + kana_key + " ?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico' width=16 style='vertical-align:middle'>Jisho</a>");
-            $('#external_links').append("<a href='https://jisho.org/search/" + kana_key + " ?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico' width=16 style='vertical-align:middle'>Jisho kana</a>");
-            $('#external_links').append("<a href='https://uchisen.com/functions?search_term=" + kanji_key + "'><img src='favicon-16x16-7f3ea5f15b8cac1e6fa1f9922c0185debfb72296.png' style='vertical-align:middle'>Uchisen</a>");
-            $('#external_links').append("<a href='https://quezako.com/tools/anki/vocabulary.php?kanji=" + kanji_key + "&kana=" + kana_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Voc</a>");
-            $('#external_links').append("<a href='https://quezako.com/tools/anki/anki.php?kanji=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Kanji</a>");
-            $('#external_links').append("<a href='https://www.google.com/search?q=" + kanji_key + " " + kana_key + " イラスト&tbm=isch&hl=fr&sa=X'><img src='favicon-49263695f6b0cdd72f45cf1b775e660fdc36c606.ico' width=16 style='vertical-align:middle'>G Img</a>");
+            $('#external_links').append("<a href='https://jisho.org/search/" + kana_key + " ?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico' width=16 style='vertical-align:middle'>J kana</a>");
+            $('#external_links').append("<a href='https://sentencesearch.neocities.org/#" + kanji_key +"'><img src='favicon-sentences.png' width=16 style='vertical-align:middle'>Sentences</a>");
+            $('#external_links').append("<a href='https://tatoeba.org/fr/sentences/search?from=jpn&has_audio=yes&native=&orphans=any&sort=relevance&sort_reverse=&tags=&to=&trans_filter=limit&trans_has_audio=&trans_link=&trans_orphan=&trans_to=&trans_unapproved=&trans_user=&unapproved=any&user=&word_count_max=&word_count_min=1&query=" + kanji_key +"'><img src='favicon-tatoeba.ico' width=16 style='vertical-align:middle'>Tatoeba</a>");
+            $('#external_links').append("<a href='https://quezako.com/tools/anki/vocabulary.php?kanji=" + kanji_key + "&kana=" + kana_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q voc</a>");
+            $('#external_links').append("<a href='https://quezako.com/tools/anki/anki.php?key=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q kanji</a>");
+            $('#external_links').append("<a href='https://www.google.com/search?q=-漫画 " + kanji_key + " " + kana_key + " イラスト&tbm=isch&hl=fr&sa=X'><img src='favicon-49263695f6b0cdd72f45cf1b775e660fdc36c606.ico' width=16 style='vertical-align:middle'>G img</a>");
 
             let strKanjiOnly = kanji_key.replace(/[^一-龯々ヶ]/gi, "");
 
-            if (strKanjiOnly) {
+            if (strKanjiOnly && $('#KanjiBack').length) {
                 let strNoFuri = $('#kanji_key').text();
 
                 strNoFuri = strNoFuri.replace(/(\p{Script=Han})/gu, addOffset);
