@@ -80,13 +80,9 @@ $html = <<<HTML
 </script>
 HTML;
 
-
-$html = str_replace('edit:', '', $html);
-$html = str_replace('kana:', '', $html);
-$html = str_replace('kanji:', '', $html);
-$html = str_replace('furigana:', '', $html);
-$html = str_replace('hint:', '', $html);
-$html = preg_replace('/\{\{\^[a-z_]+\}\}/', '', $html);
+function vardump($val) {
+    echo '<pre>', var_dump($val), '</pre>';
+}
 
 try {
     $pdo = new PDO("mysql:host=quezako.mysql.db;dbname=quezako;charset=utf8mb4", 'quezako', 'TWPnsHsA2CStP2Xt3aUCw8YKngpiPW');
@@ -97,28 +93,21 @@ try {
     $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/../assets/db/vocab.sqlite');
 }
 
-if (isset($_GET['kanji'])) {
-    $kanji = $_GET['kanji'];
+if (isset($_GET['kanji']) && $_GET['kanji'] !== '') {
+    $kanji = htmlspecialchars(($_GET['kanji']));
     $stm = $pdo->query("SELECT * FROM quezako WHERE kanji_only = '$kanji' AND (`key` LIKE '{$kanji}[%' OR `key` = '$kanji')");
-} else {
-    $key = $_GET['key'];
+} elseif (isset($_GET['key']) && $_GET['key'] !== '') {
+    $key = htmlspecialchars(($_GET['key']));
     $kanji = $key;
     $stm = $pdo->query("SELECT * FROM quezako WHERE `key` LIKE '%$key%'");
+} else {
+    die;
 }
 
-
 $res = $stm->fetch(PDO::FETCH_NUM);
-preg_match_all('/./u', $kanji, $matches);
-$kanji = htmlspecialchars(($_GET['kanji']));
 
 if (!isset($res[0])) {
-    if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
-        foreach ($m[1] as $i => $varname) {
-            $html = str_replace($m[0][$i], sprintf('%s', $_GET['kanji']), $html);
-        }
-    }
-
-    echo $html;
+    echo "No result for: " . $kanji;
     die;
 }
 
@@ -131,21 +120,51 @@ if (!isset($col['Tags'])) {
     $col['Tags'] = $col['tags'];
 }
 
-if (preg_match_all("/(\[sound:.*\])/", $html, $m)) {
-    foreach ($m[1] as $i => $varname) {
-        $html = str_replace($m[0][$i], "", $html);
+$html = str_replace('edit:', '', $html);
+
+// TODO: replace by summary.
+$html = str_replace('hint:', '', $html);
+
+// conditions: # if, ^ if not.
+if (preg_match_all("/{{([#^])([^}]+)}}(.+){{\/([^}]+)}}/misU", $html, $matches)) {
+    foreach ($matches[2] as $i => $varname) {
+        if ($matches[1][$i] == '#' && isset($res[$col[$varname]]) && $res[$col[$varname]] !== '') {
+            $html = str_replace($matches[0][$i], $matches[3][$i], $html);
+        } elseif ($matches[1][$i] == '^' && (!isset($res[$col[$varname]]) || $res[$col[$varname]] === '')) {
+            $html = str_replace($matches[0][$i], $matches[3][$i], $html);
+        } else {
+            $html = str_replace($matches[0][$i], "", $html);
+        }
     }
 }
 
-if (preg_match_all("/{{[\/|#](.*?)}}/", $html, $m)) {
-    foreach ($m[1] as $i => $varname) {
-        $html = str_replace($m[0][$i], "", $html);
+// sound empty: remove.
+// TODO: transform sound from DB into media.
+if (preg_match_all("/(\[sound:.+\])/", $html, $matches)) {
+    foreach ($matches[1] as $i => $varname) {
+        $html = str_replace($matches[0][$i], "", $html);
     }
 }
 
-if (preg_match_all("/{{(.*?)}}/", $html, $m)) {
-    foreach ($m[1] as $i => $varname) {
-        $html = str_replace($m[0][$i], sprintf('%s', $res[$col[$varname]]), $html);
+if (preg_match_all("/{{kana:([^}]+)}}/", $html, $matches)) {
+    foreach ($matches[1] as $i => $varname) {
+        $kana = preg_replace('/.+\[([^\]]+)\]/i', "$1", $res[$col[$varname]]);
+        $html = str_replace($matches[0][$i], sprintf('%s', $kana), $html);
+    }
+}
+
+if (preg_match_all("/{{kanji:([^}]+)}}/", $html, $matches)) {
+    foreach ($matches[1] as $i => $varname) {
+        $strKanji = preg_replace('/(.+)\[([^\]]+)\]/i', "$1", $res[$col[$varname]]);
+        $html = str_replace($matches[0][$i], sprintf('%s', $strKanji), $html);
+    }
+}
+
+$html = str_replace('furigana:', '', $html);
+
+if (preg_match_all("/{{(.*?)}}/", $html, $matches)) {
+    foreach ($matches[1] as $i => $varname) {
+        $html = str_replace($matches[0][$i], sprintf('%s', $kana), $html);
     }
 }
 ?>
