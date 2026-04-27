@@ -54,7 +54,7 @@ $(function () {
                                     }
 
                                     strDetails += "</details></details><hr>";
-                                    strDetails = strDetails.replace(/(\p{Script=Han})/gu, '<a class="kanjiHover" href="https://quezako.com/tools/anki/anki.php?kanji=$1">$1</a>');
+                                    strDetails = strDetails.replace(/(\p{Script=Han})/gu, `<a class="kanjiHover" href="${url}anki.php?kanji=$1">$1</a>`);
 
                                     if ($("#kanji_mnemo_personal").html() == '<div class="lds-dual-ring"></div>') {
                                         $("#kanji_mnemo_personal").html('');
@@ -174,8 +174,8 @@ $(function () {
         });
 
         let strKanjiLinks = `<br>${args[0]} : `;
-        strKanjiLinks += `<a href='https://quezako.com/tools/anki/vocabulary.php?kanji=${args[0]}&kana=${arrDict[args[1]]}&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Voc</a>`;
-        strKanjiLinks += `<a href='https://quezako.com/tools/anki/anki.php?kanji=${args[0]}'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Kanji</a>`;
+        strKanjiLinks += `<a href='${url}vocabulary.php?kanji=${args[0]}&kana=${arrDict[args[1]]}&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Voc</a>`;
+        strKanjiLinks += `<a href='${url}anki.php?kanji=${args[0]}'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q Kanji</a>`;
         strKanjiLinks += `<a href='https://rtega.be/chmn/?c=${args[0]}'><img src='favicon.png' width=16 style='vertical-align:middle'>Rtega</a>`;
         strKanjiLinks += `<a href='https://kanji.koohii.com/study/kanji/${args[0]}?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-16x16.png' width=16 style='vertical-align:middle'>Koohii</a>`;
 
@@ -264,8 +264,8 @@ $(function () {
             $('#external_links').append("<a href='https://jisho.org/search/" + kana_key + " ?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico' width=16 style='vertical-align:middle'>J kana</a>");
             $('#external_links').append("<a href='https://sentencesearch.neocities.org/#" + kanji_key +"'><img src='favicon-sentences.png' width=16 style='vertical-align:middle'>Sentences</a>");
             $('#external_links').append("<a href='https://tatoeba.org/fr/sentences/search?from=jpn&has_audio=yes&native=&orphans=any&sort=relevance&sort_reverse=&tags=&to=&trans_filter=limit&trans_has_audio=&trans_link=&trans_orphan=&trans_to=&trans_unapproved=&trans_user=&unapproved=any&user=&word_count_max=&word_count_min=1&query=" + kanji_key +"'><img src='favicon-tatoeba.ico' width=16 style='vertical-align:middle'>Tatoeba</a>");
-            $('#external_links').append("<a href='https://quezako.com/tools/anki/vocabulary.php?kanji=" + kanji_key + "&kana=" + kana_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q voc</a>");
-            $('#external_links').append("<a href='https://quezako.com/tools/anki/anki.php?key=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q kanji</a>");
+            $('#external_links').append("<a href='" + url + "vocabulary.php?kanji=" + kanji_key + "&kana=" + kana_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q voc</a>");
+            $('#external_links').append("<a href='" + url + "anki.php?key=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q kanji</a>");
             $('#external_links').append("<a href='https://www.google.com/search?q=-漫画 " + kanji_key + " " + kana_key + " イラスト&tbm=isch&hl=fr&sa=X'><img src='favicon-49263695f6b0cdd72f45cf1b775e660fdc36c606.ico' width=16 style='vertical-align:middle'>G img</a>");
 
             let strKanjiOnly = kanji_key.replace(/[^一-龯々ヶ]/gi, "");
@@ -281,18 +281,7 @@ $(function () {
         }
     }
 
-    let url = 'http://localhost/anki/';
-
-    $.ajax({
-        type: 'GET',
-        url: url + 'vocabulary.php',
-        timeout: 200,
-        success: function () {
-        },
-        error: function () {
-            url = 'https://quezako.com/tools/anki/';
-        }
-    });
+    const url = new URL('./', window.location.href).href;
 
     $("#kanji_mnemo_personal").on("click", kanjiMnemoAjax);
     $("#read_mnemo_personal").on("click", readMnemoAjax);

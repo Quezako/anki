@@ -68,7 +68,7 @@
 
 @font-face {
 	font-family: HGRKK;
-	src: url(_HGRKK.ttf);
+	src: url(../assets/fonts/_HGRKK.ttf);
 }
 
 .card {

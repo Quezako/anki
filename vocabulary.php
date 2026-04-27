@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 try {
     $pdo = new PDO("mysql:host=quezako.mysql.db;dbname=quezako;charset=utf8mb4", 'quezako', 'TWPnsHsA2CStP2Xt3aUCw8YKngpiPW');
-    $pdo->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, 'SET NAMES utf8');
+    $pdo->setAttribute(Pdo\Mysql::ATTR_INIT_COMMAND, 'SET NAMES utf8');
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 } catch (Exception $e) {
@@ -323,6 +323,18 @@ echo "
 <base href='img/'>
 <link rel='stylesheet' href='../anki.css'>
 <script src='../jquery-3.6.0.slim.min.js'></script>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.2em;
+    line-height: 1.6;
+  }
+  
+  div {
+    zoom: 1.3;
+    transform-origin: top left;
+  }
+</style>
 </head>
 
 <body>

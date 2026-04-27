@@ -177,8 +177,8 @@ if (preg_match_all("/{{(.*?)}}/", $html, $matches)) {
         <?= $kanji; ?> - Anki
     </title>
     <meta charset="utf-8" />
-    <link rel='stylesheet' href='anki.css'>
-    <script src="../assets/js/jquery-3.6.3.min.js"></script>
+    <link rel='stylesheet' href='anki.css?v=20260427b'>
+    <script src="../assets/js/jquery-3.5.1.js"></script>
 </head>
 
 <body>

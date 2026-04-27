@@ -9,42 +9,63 @@ try {
     die();
 }
 
-$element = $_GET['hanzi'];
-$sql = "SELECT meaning, mnemonics FROM 'chmn-full' WHERE hanzi = \"$element\" OR hanzi2 = \"$element\" OR alike = \"$element\"";
-$stm = $pdo->query($sql );
+$element = trim((string)($_GET['hanzi'] ?? ''));
+
+if ($element === '') {
+    if (isset($_GET['format']) && $_GET['format'] === 'json') {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode([], JSON_UNESCAPED_UNICODE);
+    } else {
+        echo "Paramètre manquant: hanzi";
+    }
+    die();
+}
+
+$sql = "SELECT hanzi, hanzi2, alike, meaning, mnemonics
+        FROM 'chmn-full'
+        WHERE hanzi = :element OR hanzi2 = :element OR alike = :element";
+$stm = $pdo->prepare($sql);
+$stm->bindValue(':element', $element, PDO::PARAM_STR);
+$stm->execute();
 $res = $stm->fetchAll();
 
 if (isset($_GET['format']) && $_GET['format'] == 'json') {
     header('Content-Type: application/json; charset=utf-8');
 
-    if (isset($_GET['offset'])) {
-        $offset = $_GET['offset'];
-    }
+    $offset = isset($_GET['offset']) ? (int)$_GET['offset'] : 0;
+    $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 0;
 
-    if (isset($_GET['limit'])) {
-        $limit = $_GET['limit'];
+    if ($limit > 0) {
         $res = array_slice($res, $offset, $limit);
     }
 
-    $strReturn = json_encode($res);
+    $strReturn = json_encode($res, JSON_UNESCAPED_UNICODE);
     echo $strReturn;
 } else {
-    for ($i = 0; $i < $stm->columnCount(); $i++) {
-        $column = $stm->getColumnMeta($i);
-        $col[$column['name']] = $i;
-    }
     ?>
     hanzi alike meaning mnemonics<br>
     <base target="_blank" href="../assets/img/">
     <?php
-    $old = $res[0][$col['hanzi']];
+
+    if (count($res) === 0) {
+        echo "Aucun résultat pour: " . htmlspecialchars($element, ENT_QUOTES, 'UTF-8');
+        die();
+    }
+
+    $old = $res[0]['hanzi'] ?? '';
     $hanzi = [];
     $alike = [];
     $meaning = [];
     $mnemonics = [];
 
     foreach ($res as $row) {
-        if ($old !== $row[$col['hanzi']]) {
+        $rowHanzi = $row['hanzi'] ?? '';
+        $rowHanzi2 = $row['hanzi2'] ?? '';
+        $rowAlike = $row['alike'] ?? '';
+        $rowMeaning = $row['meaning'] ?? '';
+        $rowMnemonics = $row['mnemonics'] ?? '';
+
+        if ($old !== $rowHanzi && count($hanzi) > 0) {
             echo $hanzi[0] . "\t" . implode('<br/>', $alike) . "\t" . implode('<br/>', $meaning) . "\t" . implode('<br/>', $mnemonics) . "\n";
             $hanzi = [];
             $alike = [];
@@ -52,13 +73,15 @@ if (isset($_GET['format']) && $_GET['format'] == 'json') {
             $mnemonics = [];
         }
 
-        $hanzi[] = "{$row[$col['hanzi']]}";
-        $alike[] = "{$row[$col['alike']]}";
-        $meaning[] = "<u>{$row[$col['hanzi2']]}</u>: {$row[$col['meaning']]}";
-        $mnemonics[] = "<u>{$row[$col['hanzi2']]}</u>: {$row[$col['mnemonics']]}";
+        $hanzi[] = $rowHanzi;
+        $alike[] = $rowAlike;
+        $meaning[] = "<u>{$rowHanzi2}</u>: {$rowMeaning}";
+        $mnemonics[] = "<u>{$rowHanzi2}</u>: {$rowMnemonics}";
 
-        $old = $row[$col['hanzi']];
+        $old = $rowHanzi;
     }
 
-    echo $hanzi[0] . "\t" . implode('<br/>', $alike) . "\t" . implode('<br/>', $meaning) . "\t" . implode('<br/>', $mnemonics) . "\n";
+    if (count($hanzi) > 0) {
+        echo $hanzi[0] . "\t" . implode('<br/>', $alike) . "\t" . implode('<br/>', $meaning) . "\t" . implode('<br/>', $mnemonics) . "\n";
+    }
 }
