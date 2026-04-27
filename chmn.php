@@ -85,3 +85,4 @@ if (isset($_GET['format']) && $_GET['format'] == 'json') {
         echo $hanzi[0] . "\t" . implode('<br/>', $alike) . "\t" . implode('<br/>', $meaning) . "\t" . implode('<br/>', $mnemonics) . "\n";
     }
 }
+?>

@@ -348,3 +348,4 @@ echo "
     $strStats
 </div>
 </body>";
+?>
