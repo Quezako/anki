@@ -1,0 +1,69 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="application.js"></script>
+<link rel="stylesheet" href="kanjidraw_game.css" media="screen">
+<script src="kanjidrawgame.min.js"></script>
+<script>
+  var kdg;
+          var animator_0, animator_1, animator_2, animator_3, animator_4, animator_5;
+
+  $(document).ready(function () {
+    var strokes = 0;
+    // var str = '果物';
+
+    // for (var i = 0; i < str.length; i++) {
+    //   char = str.charAt(i);
+      var i = 0;
+      var url = decodeURI(window.location.search.substring(1));
+      var pArr = url.split('=');
+      char = pArr[1];
+      var code = char.charCodeAt(0);
+      var codeHex = code.toString(16).toUpperCase();
+
+      while (codeHex.length < 5) {
+        codeHex = "0" + codeHex;
+      }
+
+      var url = ('https://kanjivg.tagaini.net/kanjivg/kanji/' + codeHex + '.svg').toLowerCase();
+
+      $.ajax({
+        type: "GET",
+        url: url,
+        dataType: "xml",
+        async: false,
+        success: function (xml) {
+          strokes = $(xml).find('g').last().children().length;
+          kdg = new KanjiDrawGame(false, strokes);
+          kdg.initializeHighscore(i, 16626, 1, 1, null, null, null);
+
+          eval('animator_'+i+' = new KanjiAnimator()');
+          eval("animator_"+i+".initialize(char, url, '#kanji_' + i, '#kanjibg_' + i, '#svginline_' + i, '#drawbutton_' + i, '#namessage_' + i, '#ka_container_' + i, i)");
+          document.body.addEventListener('animatorloaded', function () {
+            $('#drawbutton_'+i).hide();
+          }, false);
+        }
+      });
+    //   break;
+    // }
+  });
+</script>
+
+<div class="main cd-main-content" id="main-content">
+
+  <div class="bodyarea">
+    <div id="drawarea">
+      <div id="kd_placeholder"></div>
+    </div>
+
+    <div style="visibility:hidden" id="kdDrawPanel_0">
+      <div class="drawarea" id="kd_0">
+        <canvas id="drawCanvas_0" style="max-width:100%;z-index:100;"></canvas>
+        <div id="ka_container_0" class="ka_container" style='display: none;'>
+          <div id="kanji_0" class="ka_kanji"></div>
+          <div id="kanjibg_0" class="ka_kanjibg"></div>
+        </div>
+        <div id="svginline_0" style="display:none;"></div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -258,11 +258,16 @@ $(function () {
       let kanji_key = $('#kanji_key').text();
       let kana_key = $('#kana_key').text();
       let jlpt_level = "N"+$('.tags').text().split('JLPT::')[1].substr(0, 1);
+      //let jlpt_level = "N5";
+
+
+
+
 
       $('#external_links').append(" <a href='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kanji=" + kanji_key + "&kana=" + kana_key + "'><img src='favicon-7bb26f7041394a1ad90ad97f53dda21671c5dffb.ico' width=16 style='vertical-align:middle'>Pod101</a>");
       $('#external_links').append(" <a href='https://forvo.com/word/" + kanji_key + "/#ja'><img src='favicon-0c20667c2ac4a591da442c639c6b7367aa54fa13.ico' width=16 style='vertical-align:middle'>Forvo</a>");
       $('#external_links').append(" <a href='https://jisho.org/search/" + kanji_key + " " + kana_key + " ?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico' width=16 style='vertical-align:middle'>Jisho</a>");
-      $('#external_links').append(" <a href='https://bunpro.jp/vocabs?query=" + kanji_key + "'><img src='favicon-bunpro.png' width=16 style='vertical-align:middle'>Bunpro</a>");
+      $('#external_links').append(" <a href='https://jisho.org/search/" + kana_key + " ?_x_tr_sl=en&_x_tr_tl=fr'><img src='favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico' width=16 style='vertical-align:middle'>J kana</a>");
       $('#external_links').append(" <a href='https://quezako.com/japanese/sentences/?q=" + kanji_key + "&char_len_min=5&char_len_max=25&sort_by=vocab_jlpt_strict&sort_dir=desc&jlpt_no_katakana%5B%5D=" + jlpt_level + "'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Sentences</a>");
       $('#external_links').append(" <a href='https://quezako.com/japanese/anki/vocabulary.php?kanji=" + kanji_key + "&kana=" + kana_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q voc</a>");
       $('#external_links').append(" <a href='https://quezako.com/japanese/anki/anki.php?key=" + kanji_key + "&lang=en'><img src='favicon-f435b736ab8486b03527fbce945f3b765428a315.ico' width=16 style='vertical-align:middle'>Q kanji</a>");
