@@ -1,0 +1,7 @@
+{
+  "name": "Filtered Deck Creator",
+  "mod": 0,
+  "description": "Expose a small local API to create filtered decks using Anki's internal collection API.",
+  "author": "Quezako",
+  "minimumAnkiVersion": "2.1.0"
+}
