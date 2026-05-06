@@ -1,7 +1,13 @@
 import json
+import sys
 from pathlib import Path
 
 import requests
+
+# Ensure UTF-8 output on Windows
+if sys.platform == 'win32':
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 BASE_URL = 'http://127.0.0.1:8766/create_filtered_deck'
 ROOT_DECK = '00-Vocabulary-JLPT::01-audio-to-picture::04-learn-by-syllabus'

@@ -125,10 +125,19 @@ def get_entry_kana(entry):
     kana = entry.get('hiragana') or extract_pronunciation(entry.get('word', ''))
     if not kana:
         word = entry.get('word', '')
+        # Check for kana (hiragana or katakana) in word
         if any('\u3040' <= ch <= '\u30ff' for ch in word):
             kana = word
+    # If still empty, try the word itself as fallback for katakana-only entries
+    if not kana:
+        word = entry.get('word', '')
+        has_katakana = any('\u30A0' <= ch <= '\u30FF' for ch in word)
+        if has_katakana:
+            kana = word
+    # Convert katakana to hiragana FIRST, then normalize long vowel marks
+    kana = kana_to_hiragana(kana)
     kana = normalize_long_vowel_mark(kana)
-    return kana_to_hiragana(kana)
+    return kana
 
 
 def extract_long_vowel_segments(hiragana):
@@ -593,7 +602,7 @@ def filter_groups(groups, min_size=10, max_size=50):
 
 
 def format_entry(entry):
-    hiragana = entry['hiragana'] or extract_pronunciation(entry['word'])
+    hiragana = get_entry_kana(entry)
     kanji = entry['word'].split('[')[0].strip()
     if kanji == hiragana or not kanji:
         return f"{hiragana} - {entry['definition']} - Tags: {entry['tags']}"
@@ -603,7 +612,13 @@ def format_entry(entry):
 def write_grouped_regex_file(filtered, output_file='grouped_syllables_regex.txt'):
     with open(output_file, 'w', encoding='utf-8') as f:
         for group_name, group in filtered.items():
-            regex_values = [re.escape(get_entry_kana(entry)) for entry in group]
+            regex_values = []
+            for entry in group:
+                kana_value = get_entry_kana(entry)
+                regex_values.append(re.escape(kana_value))
+                word = entry.get('word', '')
+                if any('\u30A0' <= ch <= '\u30FF' for ch in word) and not any('\u3040' <= ch <= '\u309F' for ch in word):
+                    regex_values.append(re.escape(word))
             unique_values = sorted(set(regex_values), key=lambda x: (-len(x), x))
             pattern = '|'.join(unique_values)
             f.write(f"{group_name}:re:({pattern})\n")
@@ -702,12 +717,27 @@ def main():
                 word = row[0]
                 definition = row[1]
                 tags = row[63] if len(row) > 63 else ''
+                # Try column 20 first (hiragana), fall back to column 21 (reading) if empty
+                # or if column 20 contains only katakana
                 hiragana = row[20].strip() if len(row) > 20 else ''
-                entries.append({
+                # Check if hiragana col is empty or contains only katakana (no hiragana)
+                has_hiragana_in_col20 = any('\u3040' <= ch <= '\u309F' for ch in hiragana)
+                if not hiragana or not has_hiragana_in_col20:
+                    if len(row) > 21:
+                        alt_reading = row[21].strip()
+                        if not hiragana or not has_hiragana_in_col20:
+                            hiragana = alt_reading
+                normalized_hiragana = get_entry_kana({
                     'word': word,
                     'definition': definition,
                     'tags': tags,
                     'hiragana': hiragana,
+                })
+                entries.append({
+                    'word': word,
+                    'definition': definition,
+                    'tags': tags,
+                    'hiragana': normalized_hiragana,
                 })
 
     segment_counts = Counter()
