@@ -612,16 +612,28 @@ def format_entry(entry):
 def write_grouped_regex_file(filtered, output_file='grouped_syllables_regex.txt'):
     with open(output_file, 'w', encoding='utf-8') as f:
         for group_name, group in filtered.items():
-            regex_values = []
+            bracket_values = []
+            exact_values = []
             for entry in group:
                 kana_value = get_entry_kana(entry)
-                regex_values.append(re.escape(kana_value))
                 word = entry.get('word', '')
-                if any('\u30A0' <= ch <= '\u30FF' for ch in word) and not any('\u3040' <= ch <= '\u309F' for ch in word):
-                    regex_values.append(re.escape(word))
-            unique_values = sorted(set(regex_values), key=lambda x: (-len(x), x))
-            pattern = '|'.join(unique_values)
-            f.write(f"{group_name}:re:({pattern})\n")
+                bracket_reading = extract_pronunciation(word)
+                if bracket_reading:
+                    bracket_values.append(re.escape(bracket_reading))
+                    exact_values.append(re.escape(word))
+                else:
+                    if any('\u3040' <= ch <= '\u309F' or '\u30A0' <= ch <= '\u30FF' for ch in word):
+                        exact_values.append(r"^" + re.escape(word) + r"$")
+                    else:
+                        exact_values.append(r"^" + re.escape(kana_value) + r"$")
+            regex_parts = []
+            if bracket_values:
+                bracket_part = '|'.join(sorted(set(bracket_values), key=lambda x: (-len(x), x)))
+                regex_parts.append(r"\[(?:" + bracket_part + r")\]")
+            if exact_values:
+                regex_parts.extend(sorted(set(exact_values), key=lambda x: (-len(x), x)))
+            pattern = '|'.join(regex_parts)
+            f.write(f"{group_name}:re:(?:{pattern})\n")
 
 
 def group_label(group_name):
