@@ -13,7 +13,7 @@ BASE_URL = 'http://127.0.0.1:8766/create_filtered_deck'
 ROOT_DECK = '00-Vocabulary-JLPT::01-audio-to-picture::04-learn-by-syllabus'
 REGEX_FILE = Path(__file__).resolve().parents[1] / 'smart-srs' / 'output' / 'grouped_syllables_regex.txt'
 ORDER_FILE = Path(__file__).resolve().parents[1] / 'smart-srs' / 'output' / 'grouped_syllables.txt'
-FILTER_PREFIX = 'deck:Quezako card:3 (tag:JLPT::5 OR tag:JLPT::4 OR tag:JLPT::3) prop:due<31 '
+FILTER_PREFIX = 'deck:Quezako card:3 (tag:JLPT::5 OR tag:JLPT::4 OR tag:JLPT::3) (new or prop:due<31) '
 
 
 def parse_regex_file(path):
@@ -48,13 +48,39 @@ def parse_order_file(path):
     return order
 
 
+def get_subgroup(group_name):
+    if group_name.startswith('long_'):
+        return '01-long'
+    elif group_name.startswith('short:geminate:') or group_name.startswith('short:with_n:'):
+        return '02-geminate+n'
+    elif group_name.startswith('short:'):
+        return '03-short'
+    else:
+        return '04-other'  # fallback
+
+
 def create_filtered_deck(group_name, regex, index, limit=9999):
-    deck_name = f'{ROOT_DECK}::{index:02d} - {group_name}'
+    subgroup = get_subgroup(group_name)
+    # Special renames
+    special_names = {
+        'short:with_n:merged': 'short:with_n:misc',
+        'short:geminate:geminate_a': 'geminate_a',
+        'short:geminate:small_1': 'geminate_1',
+        'short:geminate:small_2': 'geminate_2',
+    }
+    if group_name in special_names:
+        display_name = special_names[group_name]
+    elif group_name.startswith('short:geminate:'):
+        display_name = group_name.replace('short:geminate:', '').replace('_', ':')
+    else:
+        display_name = group_name
+    deck_name = f'{ROOT_DECK}::{subgroup}::{index:02d}-{display_name}'
     search = f'{FILTER_PREFIX}"key:re:{regex}"'
     payload = {
         'name': deck_name,
         'search': search,
         'limit': limit,
+        'order': 'interval',
     }
     response = requests.post(BASE_URL, json=payload)
     response.raise_for_status()

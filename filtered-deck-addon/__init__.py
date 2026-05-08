@@ -39,29 +39,55 @@ class FilteredDeckHandler(BaseHTTPRequestHandler):
         self._send_json({'status': 'ok', 'message': 'Filtered deck addon is running.'})
 
     def do_POST(self):
-        if self.path != '/create_filtered_deck':
+        if self.path == '/create_filtered_deck':
+            payload = self._read_json()
+            name = payload.get('name')
+            search = payload.get('search')
+            limit = payload.get('limit', 9999)
+            order = payload.get('order')
+
+            if not name or not search:
+                self._send_json({'error': 'Missing required name or search parameter.'}, status=400)
+                return
+
+            try:
+                did = mw.col.decks.new_filtered(name)
+                deck = mw.col.decks.get(did)
+                deck['terms'] = [[search, limit, 0]]
+                deck['dyn'] = True
+                if order:
+                    # Set the order for the filtered deck
+                    order_map = {
+                        'oldest': 0,
+                        'random': 1,
+                        'interval': 2,
+                        'intervalDesc': 3,
+                        'lapses': 4,
+                    }
+                    order_value = order_map.get(order, 0)  # default to oldest
+                    deck['terms'][0][2] = order_value
+                mw.col.decks.save(deck)
+                mw.col.save()
+                self._send_json({'deck_id': did, 'deckName': name})
+            except Exception as exc:
+                self._send_json({'error': str(exc)}, status=500)
+        elif self.path == '/get_deck_config':
+            payload = self._read_json()
+            deck_name = payload.get('deck')
+            if not deck_name:
+                self._send_json({'error': 'Missing deck parameter.'}, status=400)
+                return
+            try:
+                deck = mw.col.decks.by_name(deck_name)
+                if not deck:
+                    self._send_json({'error': 'Deck not found.'}, status=404)
+                    return
+                config = mw.col.decks.config_dict_for_deck_id(deck['id'])
+                self._send_json(config)
+            except Exception as exc:
+                self._send_json({'error': str(exc)}, status=500)
+        else:
             self.send_error(404)
-            return
-
-        payload = self._read_json()
-        name = payload.get('name')
-        search = payload.get('search')
-        limit = payload.get('limit', 9999)
-
-        if not name or not search:
-            self._send_json({'error': 'Missing required name or search parameter.'}, status=400)
-            return
-
-        try:
-            did = mw.col.decks.new_filtered(name)
-            deck = mw.col.decks.get(did)
-            deck['terms'] = [[search, limit, 0]]
-            deck['dyn'] = True
-            mw.col.decks.save(deck)
-            mw.col.save()
-            self._send_json({'deck_id': did, 'deckName': name})
-        except Exception as exc:
-            self._send_json({'error': str(exc)}, status=500)
 
     def log_message(self, format, *args):
         return
