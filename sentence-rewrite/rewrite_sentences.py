@@ -22,6 +22,20 @@ AMBIGUOUS_KANA_MAP = {
     ],
 }
 
+# Manual preferences for ambiguous kana -> prefered kanji/katakana forms or full annotated strings
+PREFER_MAP = {
+    "しゃいん": "社員[しゃいん]",
+    "びる": "ビル",
+    "きかせて": "聞[き]かせて",
+    "じじょう": "事情[じじょう]",
+    "こうりょ": "考慮[こうりょ]",
+    "みまわした": "見回[みまわ]した",
+    "みまわす": "見回[みまわ]す",
+}
+
+# Words that should remain in kana (do not add kanji)
+NO_KANJI_SET = {"あなた"}
+
 
 def contains_kanji(text: str) -> bool:
     return bool(KANJI_RE.search(text))
@@ -138,7 +152,9 @@ def process_space_segment(segment: str, translation: Optional[str], row_entry: O
     if any(ch in SMALL_HIRAGANA for ch in segment) and is_hiragana(segment):
         return hiragana_to_katakana(segment)
     non_particle_tokens = [tok for tok in tokens if tok.feature.pos1 not in {"助詞", "助動詞", "補助記号", "記号", "接頭辞", "接尾辞"}]
-    if len(tokens) > 1 and len(non_particle_tokens) > 1:
+    # If segment contains many content words, usually skip processing to avoid over-annotation
+    # but still process if we have a row_entry (first-column headword) or if any token matches a manual preference
+    if len(tokens) > 1 and len(non_particle_tokens) > 1 and (row_entry is None) and not any(tok.surface in PREFER_MAP for tok in tokens):
         return segment
     output = ""
     i = 0
@@ -181,6 +197,12 @@ def choose_token_text(tok, translation: Optional[str], row_entry: Optional[Tuple
     surface = tok.surface
     if "[" in surface:
         return surface
+    # Do not force kanji for explicit kana-only common words
+    if surface in NO_KANJI_SET:
+        return surface
+    # apply manual preferred mappings first
+    if surface in PREFER_MAP:
+        return PREFER_MAP[surface]
     if contains_kanji(surface):
         return annotate_surface_with_reading(surface, normalize_reading(tok))
     if row_entry and is_hiragana(surface):
@@ -307,6 +329,22 @@ def process_csv(input_path: str, output_path: str, limit: Optional[int] = None) 
             translation = row[2].strip()
             row_entry = parse_entry(row[0].strip()) if row[0].strip() else None
             normalized = annotate_sentence(original, translation, tagger, row_entry)
+            # Apply a small set of deterministic post-processing corrections based on user feedback
+            CORRECTION_MAP = {
+                "シャイン": "社員[しゃいん]",
+                " ケン 切[せつ]": " 建設[けんせつ]",
+                "ケン 切[せつ]": "建設[けんせつ]",
+                "ハジマッタ": "始[は]じまった",
+                "見回[みまわ]すの": "見回[みまわ]したの",
+                "利[きか]せて": "聞[き]かせて",
+                "ジジョウ": "事情[じじょう]",
+                "コウリョ": "考慮[こうりょ]",
+                "考慮[こうりょ] 為[し]て": "考慮[こうりょ]して",
+                "コウリョ 為[し]て": "考慮[こうりょ]して",
+            }
+            for k, v in CORRECTION_MAP.items():
+                if k in normalized:
+                    normalized = normalized.replace(k, v)
             row = row[:2] + [normalized] + row[2:]
             writer.writerow(row)
             print(f"[{index}/{len(data_rows)}] {original} -> {normalized}")
