@@ -136,7 +136,9 @@ def join_space_segments(parts: List[str]) -> str:
         if output.endswith(" ") or part == "":
             output += part
             continue
-        if contains_kanji(part) or KATAKANA_RE.search(part) or "[" in part:
+        # Insert a space before the part only when it contains kanji or is an explicit annotation.
+        # Do NOT add a space before katakana sequences (e.g. `ビル`).
+        if contains_kanji(part) or "[" in part:
             output += " " + part
         else:
             output += part
@@ -171,7 +173,8 @@ def process_space_segment(segment: str, translation: Optional[str], row_entry: O
         if not output:
             output = part
             continue
-        if contains_kanji(part) or KATAKANA_RE.search(part) or "[" in part:
+        # Only add a space before kanji or explicit annotations; do not add before katakana
+        if contains_kanji(part) or "[" in part:
             output += " " + part
         else:
             output += part
@@ -345,6 +348,12 @@ def process_csv(input_path: str, output_path: str, limit: Optional[int] = None) 
             for k, v in CORRECTION_MAP.items():
                 if k in normalized:
                     normalized = normalized.replace(k, v)
+            # If the sentence ends with a hiragana and has no terminal punctuation, add a Japanese full stop。
+            trimmed = normalized.rstrip()
+            if trimmed:
+                last_char = trimmed[-1]
+                if HIRAGANA_RE.match(last_char) and not re.search(r"[。！？\?\!]$", trimmed):
+                    normalized = trimmed + "。"
             row = row[:2] + [normalized] + row[2:]
             writer.writerow(row)
             print(f"[{index}/{len(data_rows)}] {original} -> {normalized}")
