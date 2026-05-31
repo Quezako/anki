@@ -2,6 +2,7 @@ import argparse
 import csv
 import os
 import re
+import json
 from typing import List, Optional, Tuple
 
 from fugashi import Tagger
@@ -11,30 +12,62 @@ KATAKANA_RE = re.compile(r"[\u30A0-\u30FF]")
 HIRAGANA_RE = re.compile(r"[\u3041-\u3096ー]")
 SMALL_HIRAGANA = set("ぁぃぅぇぉゃゅょっゎゐゑ")
 PUNCTUATION_POS = {"記号"}
-AMBIGUOUS_KANA_MAP = {
-    "しゅよう": [
-        ("主要", ["majeure", "majeur", "industrie", "important", "principale", "principal", "majeures"]),
-        ("腫瘍", ["tumeur", "cancer", "médicale", "médical"]),
-    ],
-    "かんじょう": [
-        ("勘定", ["facture", "payer", "compte", "paiement"]),
-        ("感情", ["émotion", "sentiment", "sentiments"]),
-    ],
-}
+# Load maps from an external JSON config so maintainers can edit Japanese maps
+base_dir = os.path.dirname(os.path.abspath(__file__))
+maps_path = os.path.join(base_dir, "config_maps.json")
+maps_cfg = {}
+if os.path.exists(maps_path):
+    try:
+        with open(maps_path, "r", encoding="utf-8") as fh:
+            maps_cfg = json.load(fh)
+    except Exception:
+        maps_cfg = {}
 
-# Manual preferences for ambiguous kana -> prefered kanji/katakana forms or full annotated strings
-PREFER_MAP = {
-    "しゃいん": "社員[しゃいん]",
-    "びる": "ビル",
-    "きかせて": "聞[き]かせて",
-    "じじょう": "事情[じじょう]",
-    "こうりょ": "考慮[こうりょ]",
-    "みまわした": "見回[みまわ]した",
-    "みまわす": "見回[みまわ]す",
-}
+AMBIGUOUS_KANA_MAP = maps_cfg.get("AMBIGUOUS_KANA_MAP", {})
+PREFER_MAP = maps_cfg.get("PREFER_MAP", {})
+NO_KANJI_SET = set(maps_cfg.get("NO_KANJI_SET", []))
+LEMMA_OVERRIDES = maps_cfg.get("LEMMA_OVERRIDES", {})
+COMMON_COMPOUND_MAP = maps_cfg.get("COMMON_COMPOUND_MAP", {})
+CORRECTION_MAP = maps_cfg.get("CORRECTION_MAP", {})
+EXTRA_USER_CORRECTIONS = maps_cfg.get("EXTRA_USER_CORRECTIONS", {})
+MORE_USER_CORRECTIONS = maps_cfg.get("MORE_USER_CORRECTIONS", {})
+# Apply any ad-hoc additions present in the JSON under a separate key
+for k, v in maps_cfg.get("CORRECTION_MAP_ADDITIONS", {}).items():
+    if k not in CORRECTION_MAP:
+        CORRECTION_MAP[k] = v
+# Merge additional ad-hoc additions (support multiple keys for backwards compatibility)
+for k, v in maps_cfg.get("CORRECTION_MAP_ADDITIONS_2", {}).items():
+    if k not in CORRECTION_MAP:
+        CORRECTION_MAP[k] = v
+# Merge any miscellaneous additions (backwards-compatible spot for small fixes)
+for k, v in maps_cfg.get("MISC_ADDITIONS", {}).items():
+    if k not in CORRECTION_MAP:
+        CORRECTION_MAP[k] = v
 
-# Words that should remain in kana (do not add kanji)
-NO_KANJI_SET = {"あなた"}
+# Merge additional user corrections into main CORRECTION_MAP (preserve existing keys)
+for k, v in MORE_USER_CORRECTIONS.items():
+    if k not in CORRECTION_MAP:
+        CORRECTION_MAP[k] = v
+for k, v in EXTRA_USER_CORRECTIONS.items():
+    if k not in CORRECTION_MAP:
+        CORRECTION_MAP[k] = v
+
+# Keep support for an optional overrides file to tweak maps without editing this code
+try:
+    cfg_path = os.path.join(base_dir, "config_overrides.json")
+    if os.path.exists(cfg_path):
+        with open(cfg_path, "r", encoding="utf-8") as fh:
+            cfg = json.load(fh)
+            PREFER_MAP.update(cfg.get("PREFER_MAP", {}))
+            NO_KANJI_SET.update(cfg.get("NO_KANJI_SET", []))
+            if isinstance(LEMMA_OVERRIDES, dict):
+                LEMMA_OVERRIDES.update(cfg.get("LEMMA_OVERRIDES", {}))
+            if isinstance(COMMON_COMPOUND_MAP, dict):
+                COMMON_COMPOUND_MAP.update(cfg.get("COMMON_COMPOUND_MAP", {}))
+            if isinstance(CORRECTION_MAP, dict):
+                CORRECTION_MAP.update(cfg.get("CORRECTION_MAP", {}))
+except Exception:
+    pass
 
 
 def contains_kanji(text: str) -> bool:
@@ -106,22 +139,16 @@ def annotate_surface_with_reading(surface: str, reading: str, original_surface: 
         if contains_kanji(ch):
             break
         suffix = ch + suffix
-    if suffix:
-        if original_surface and not contains_kanji(original_surface):
-            kanji_part = surface[: len(surface) - len(suffix)]
-            if len(kanji_part) == 1:
-                prefix_len = len(original_surface) - len(suffix)
-                if prefix_len <= 0:
-                    prefix_len = 1
-                reading_prefix = reading[:prefix_len]
-                suffix = original_surface[prefix_len:]
-                if reading_prefix:
-                    return f"{kanji_part}[{reading_prefix}]{suffix}"
-        if len(suffix):
-            reading_prefix = reading[:-len(suffix)]
-        else:
-            reading_prefix = reading
-        kanji_part = surface[: len(surface) - len(suffix)]
+    kanji_part = surface[: len(surface) - len(suffix)] if suffix else surface
+    if original_surface and not contains_kanji(original_surface):
+        if len(original_surface) >= len(reading):
+            suffix_after = original_surface[len(reading) :]
+            return f"{kanji_part}[{reading}]{suffix_after}"
+        if len(reading) > len(original_surface):
+            # Keep the best possible suffix when the original surface is shorter than the reading.
+            return f"{kanji_part}[{reading}]"
+    if len(suffix):
+        reading_prefix = reading[:-len(suffix)]
         if reading_prefix:
             return f"{kanji_part}[{reading_prefix}]{suffix}"
     return f"{surface}[{reading}]"
@@ -162,6 +189,19 @@ def process_space_segment(segment: str, translation: Optional[str], row_entry: O
     i = 0
     while i < len(tokens):
         tok = tokens[i]
+        # handle common multi-token compounds (e.g. かめ + ら -> カメラ)
+        next_tok = tokens[i + 1] if i + 1 < len(tokens) else None
+        if next_tok:
+            combined = tok.surface + next_tok.surface
+            if combined in COMMON_COMPOUND_MAP:
+                mapped = COMMON_COMPOUND_MAP[combined]
+                # do not add a space before katakana compounds
+                if not output:
+                    output = mapped
+                else:
+                    output += mapped
+                i += 2
+                continue
         next_tok = tokens[i + 1] if i + 1 < len(tokens) else None
         if next_tok and tok.feature.pos1 == "動詞" and next_tok.feature.pos1 in {"助詞", "助動詞"}:
             combined_surface = tok.surface + next_tok.surface
@@ -206,6 +246,16 @@ def choose_token_text(tok, translation: Optional[str], row_entry: Optional[Tuple
     # apply manual preferred mappings first
     if surface in PREFER_MAP:
         return PREFER_MAP[surface]
+    # lemma-level overrides to avoid dangerous homophone conversions
+    lemma = tok.feature.lemma or None
+    if lemma and lemma in LEMMA_OVERRIDES:
+        pref = LEMMA_OVERRIDES[lemma]
+        if pref is None:
+            # prefer keeping kana/katakana
+            return original_surface or surface
+        # prefer this kanji for the lemma
+        reading = normalize_reading(tok)
+        return annotate_surface_with_reading(pref, reading, original_surface=original_surface or surface)
     if contains_kanji(surface):
         return annotate_surface_with_reading(surface, normalize_reading(tok))
     if row_entry and is_hiragana(surface):
@@ -317,6 +367,9 @@ def process_csv(input_path: str, output_path: str, limit: Optional[int] = None) 
         reader = csv.reader(infile, delimiter=";")
         writer = csv.writer(outfile, delimiter=";")
         rows = list(reader)
+        # Normalize cells: strip BOM and outer whitespace from all cells
+        if rows:
+            rows = [[cell.lstrip('\ufeff').strip() if isinstance(cell, str) else cell for cell in row] for row in rows]
         if not rows:
             print("Aucune ligne trouvée dans le fichier d'entrée.")
             return
@@ -332,22 +385,19 @@ def process_csv(input_path: str, output_path: str, limit: Optional[int] = None) 
             translation = row[2].strip()
             row_entry = parse_entry(row[0].strip()) if row[0].strip() else None
             normalized = annotate_sentence(original, translation, tagger, row_entry)
-            # Apply a small set of deterministic post-processing corrections based on user feedback
-            CORRECTION_MAP = {
-                "シャイン": "社員[しゃいん]",
-                " ケン 切[せつ]": " 建設[けんせつ]",
-                "ケン 切[せつ]": "建設[けんせつ]",
-                "ハジマッタ": "始[は]じまった",
-                "見回[みまわ]すの": "見回[みまわ]したの",
-                "利[きか]せて": "聞[き]かせて",
-                "ジジョウ": "事情[じじょう]",
-                "コウリョ": "考慮[こうりょ]",
-                "考慮[こうりょ] 為[し]て": "考慮[こうりょ]して",
-                "コウリョ 為[し]て": "考慮[こうりょ]して",
-            }
-            for k, v in CORRECTION_MAP.items():
+            # Apply global deterministic post-processing corrections
+            for k, v in globals().get("CORRECTION_MAP", {}).items():
                 if k in normalized:
                     normalized = normalized.replace(k, v)
+            # Post-processing: normalize common kana spacing issues
+            # Remove spaces that may have been inserted before common hiragana phrases
+            # e.g. 'しては いけない' -> 'してはいけない'
+            normalized = re.sub(r"は\s+いけない", "はいけない", normalized)
+            normalized = re.sub(r"は\s+ならない", "はならない", normalized)
+            normalized = re.sub(r"ては\s+いけない", "てはいけない", normalized)
+            # Specific conjugation correction: 雇[やと]りました -> 雇[やと]いました
+            normalized = normalized.replace("雇[やと]りました。", "雇[やと]いました。")
+            normalized = normalized.replace("雇[やと]りました", "雇[やと]いました")
             # If the sentence ends with a hiragana and has no terminal punctuation, add a Japanese full stop。
             trimmed = normalized.rstrip()
             if trimmed:
