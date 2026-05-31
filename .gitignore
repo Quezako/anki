@@ -2,3 +2,4 @@
 smart-srs/input/*
 smart-srs/output/*
 */__pycache__/*
+sentence-rewrite/output/*
