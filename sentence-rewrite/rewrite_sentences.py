@@ -57,22 +57,61 @@ for k, v in EXTRA_USER_CORRECTIONS.items():
     if k not in CORRECTION_MAP:
         CORRECTION_MAP[k] = v
 
-# Keep support for an optional overrides file to tweak maps without editing this code
-try:
-    cfg_path = os.path.join(base_dir, "config_overrides.json")
-    if os.path.exists(cfg_path):
-        with open(cfg_path, "r", encoding="utf-8") as fh:
-            cfg = json.load(fh)
-            PREFER_MAP.update(cfg.get("PREFER_MAP", {}))
-            NO_KANJI_SET.update(cfg.get("NO_KANJI_SET", []))
-            if isinstance(LEMMA_OVERRIDES, dict):
-                LEMMA_OVERRIDES.update(cfg.get("LEMMA_OVERRIDES", {}))
-            if isinstance(COMMON_COMPOUND_MAP, dict):
-                COMMON_COMPOUND_MAP.update(cfg.get("COMMON_COMPOUND_MAP", {}))
-            if isinstance(CORRECTION_MAP, dict):
-                CORRECTION_MAP.update(cfg.get("CORRECTION_MAP", {}))
-except Exception:
-    pass
+# Particle-space global fix (configurable)
+PARTICLE_SPACE_FIX = maps_cfg.get("PARTICLE_SPACE_FIX", ["を"])  # kept for backward compatibility
+
+
+def apply_simple_space_rule(text: str) -> str:
+    """Apply simplified spacing rule:
+    - Ensure there is exactly one space BEFORE a kanji when the previous
+      character (in the output) exists and is neither a kanji nor a closing
+      bracket `]`.
+    - Ensure there is NO space before non-kanji characters.
+
+    This reconstructs spacing by scanning characters and building a new
+    output buffer so indices remain simple and deterministic.
+    """
+    # Build a regex for kanji/digit block with optional annotation
+    if not text:
+        return text
+    # Build a proper kanji+digit block regex using Unicode ranges
+    KANJI_RANGE = '\\u4E00-\\u9FFF\\u3400-\\u4DBF\\uF900-\\uFAFF'
+    KANJI_DIGIT_BLOCK_RE = re.compile(rf'(?:[0-9０-９{KANJI_RANGE}])+(?:\[[^\]]+\])?')
+
+    out: List[str] = []
+    prev_was_kanji_block = False
+    i = 0
+    L = len(text)
+    while i < L:
+        m = KANJI_DIGIT_BLOCK_RE.match(text, i)
+        if m:
+            token = m.group(0)
+            # find last non-space character already in out
+            prev_char = None
+            if out:
+                j = len(out) - 1
+                while j >= 0 and out[j].isspace():
+                    j -= 1
+                if j >= 0:
+                    prev_char = out[j]
+            # Insert a space before the kanji-digit block only when a previous
+            # character exists and that previous token was NOT a kanji-digit
+            # block and the previous char is not a closing bracket ']'.
+            if prev_char and (not prev_was_kanji_block) and prev_char != ']':
+                out.append(' ')
+            out.append(token)
+            prev_was_kanji_block = True
+            i = m.end()
+            continue
+        ch = text[i]
+        # Skip whitespace; we will only insert spaces deterministically above.
+        if ch.isspace():
+            i += 1
+            continue
+        out.append(ch)
+        prev_was_kanji_block = False
+        i += 1
+    return ''.join(out)
 
 
 def contains_kanji(text: str) -> bool:
@@ -80,6 +119,7 @@ def contains_kanji(text: str) -> bool:
 
 
 def is_punctuation(tok) -> bool:
+    return tok.feature.pos1 in PUNCTUATION_POS or tok.surface.strip() == ""
     return tok.feature.pos1 in PUNCTUATION_POS or tok.surface.strip() == ""
 
 
@@ -407,6 +447,14 @@ def process_csv(input_path: str, output_path: str, limit: Optional[int] = None, 
             for k, v in FINAL_NORMALIZATIONS.items():
                 if k in normalized:
                     normalized = normalized.replace(k, v)
+            # Apply simplified spacing rule (deterministic and conservative):
+            # insert a space before kanji when the previous char is neither kanji nor ']';
+            # remove spaces before non-kanji.
+            try:
+                normalized = apply_simple_space_rule(normalized)
+            except Exception:
+                # fallback: do nothing on unexpected errors
+                pass
             # Post-processing: normalize common kana spacing issues
             # Remove spaces that may have been inserted before common hiragana phrases
             # e.g. 'しては いけない' -> 'してはいけない'
