@@ -44,6 +44,11 @@ for k, v in maps_cfg.get("MISC_ADDITIONS", {}).items():
     if k not in CORRECTION_MAP:
         CORRECTION_MAP[k] = v
 
+# Merge any ADDITIONAL_FIXES into CORRECTION_MAP for targeted row fixes
+for k, v in maps_cfg.get("ADDITIONAL_FIXES", {}).items():
+    if k not in CORRECTION_MAP:
+        CORRECTION_MAP[k] = v
+
 # Merge additional user corrections into main CORRECTION_MAP (preserve existing keys)
 for k, v in MORE_USER_CORRECTIONS.items():
     if k not in CORRECTION_MAP:
@@ -360,7 +365,7 @@ def annotate_sentence(text: str, translation: Optional[str], tagger: Tagger, row
     return output
 
 
-def process_csv(input_path: str, output_path: str, limit: Optional[int] = None) -> None:
+def process_csv(input_path: str, output_path: str, limit: Optional[int] = None, offset: int = 0) -> None:
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     tagger = Tagger()
     with open(input_path, "r", encoding="utf-8", newline="") as infile, open(output_path, "w", encoding="utf-8", newline="") as outfile:
@@ -375,8 +380,13 @@ def process_csv(input_path: str, output_path: str, limit: Optional[int] = None) 
             return
         header = rows[0][:2] + ["phrase_réécrite"] + rows[0][2:]
         writer.writerow(header)
-        data_rows = rows[1: limit + 1] if limit else rows[1:]
-        print(f"Traitement de {len(data_rows)} lignes depuis {input_path}")
+        # Determine start/end using offset (skip header at rows[0]).
+        # `offset` is the number of data rows to skip; e.g. --offset 40 starts
+        # processing at the 41st line of the file (first data row is offset 0).
+        start = max(1, int(offset))
+        end = start + limit if limit else len(rows)
+        data_rows = rows[start:end]
+        print(f"Traitement de {len(data_rows)} lignes depuis {input_path} (offset={offset}, limit={limit})")
         for index, row in enumerate(data_rows, start=1):
             if len(row) < 3:
                 print(f"Ligne {index}: format inattendu, sautée -> {row}")
@@ -387,6 +397,14 @@ def process_csv(input_path: str, output_path: str, limit: Optional[int] = None) 
             normalized = annotate_sentence(original, translation, tagger, row_entry)
             # Apply global deterministic post-processing corrections
             for k, v in globals().get("CORRECTION_MAP", {}).items():
+                if k in normalized:
+                    normalized = normalized.replace(k, v)
+            # Apply final normalizations loaded from config (kept conservative).
+            # This moves the small list of corner-case replacements out of
+            # the code and into `config_maps.json` so maintainers can edit
+            # them without touching Python.
+            FINAL_NORMALIZATIONS = maps_cfg.get("FINAL_NORMALIZATIONS", {})
+            for k, v in FINAL_NORMALIZATIONS.items():
                 if k in normalized:
                     normalized = normalized.replace(k, v)
             # Post-processing: normalize common kana spacing issues
@@ -417,6 +435,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--input", default="input/anki-sentences-export.csv", help="Fichier CSV source dans sentence-rewrite/input")
     parser.add_argument("--output", default="output/anki-sentences-export-processed.csv", help="Fichier CSV de sortie dans sentence-rewrite/output")
     parser.add_argument("--limit", type=int, default=10, help="Nombre de lignes à traiter pour le test initial")
+    parser.add_argument("--offset", type=int, default=0, help="Index de départ (0 = commencer à la première ligne de données). Utiliser 40 pour démarrer à la ligne 41 du fichier.)")
     return parser.parse_args()
 
 
@@ -425,7 +444,7 @@ def main() -> None:
     base_dir = os.path.dirname(os.path.abspath(__file__))
     input_path = os.path.join(base_dir, args.input) if not os.path.isabs(args.input) else args.input
     output_path = os.path.join(base_dir, args.output) if not os.path.isabs(args.output) else args.output
-    process_csv(input_path, output_path, limit=args.limit)
+    process_csv(input_path, output_path, limit=args.limit, offset=args.offset)
 
 
 if __name__ == "__main__":
