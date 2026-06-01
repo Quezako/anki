@@ -475,7 +475,7 @@
 牛乳[ぎゅうにゅう];私[わたし]は 毎朝[まいあさ]、 牛乳[ぎゅうにゅう]を 飲[の]む。;Je bois du lait tous les matins.;481
 水曜日[すいようび];水曜日[すいようび]はバイトがあります。;Le mercredi, j'ai un travail à temps partiel.;482
 辺[へん];かれ は このへん に すんで います;Il vit dans ces environs.;483
-お手洗い[おてあらい];お 手洗[てあら]いはどこですか。|何時までに御手洗からバスに戻らなくてはいけませんか？行列ができているので、遅れないか心配してるんですが。;Où est la salle de bain ?;484
+お手洗い[おてあらい];お 手洗[てあら]いはどこですか。;Où est la salle de bain ?;484
 砂糖[さとう];コーヒーに 砂糖[さとう]は[わ] 入[い]れますか。;Voulez-vous du sucre dans votre café ?;485
 三つ[みっつ];コップを 三[みっ]つ買いました。;J'ai acheté trois verres.;486
 涼しい[すずしい];夕方[ゆうがた]は 涼[すず]しくなりますよ。;Ca se rafraîchit le soir.;487
@@ -1010,7 +1010,7 @@
 恥ずかしい[はずかしい];とても 恥[は]ずかしかった。;C'était très embarrassant.;1023
 下着[したぎ];わたし は したぎ を て で あらう;Je lave mes sous-vêtements à la main.;1024
 寄る[よる];帰[かえ]りに 叔母[おば]の 家[いえ]に 寄[よ]ります りにの;Je vais passer chez ma tante sur le chemin du retour.;1025
-頂く[いただく];お 客様[きゃくさま]にお 菓子[かし]を 頂[いただ]いた。|おきゃくさま に おかし を いただいた;Nous avons reçu des bonbons de la part de notre client. (humble);1026
+頂く[いただく];お 客様[きゃくさま]にお 菓子[かし]を 頂[いただ]いた。;Nous avons reçu des bonbons de la part de notre client. (humble);1026
 人口[じんこう];その 国[くに]の 人口[じんこう]はどのくらいですか。;De combien environ est la population de ce pays ?;1027
 焼く[やく];今[いま]、 魚[さかな]を 焼[や]いています。;En ce moment, je grille du poisson.;1028
 御目出度ございます[おめでとうございます];国際女性の日おめでとうございます！;Bonne Journée internationale (du droit) des femmes !;1029
@@ -1587,7 +1587,7 @@
 外す[はずす];彼[かれ]はメガネを 外[はず]しました。;Il a enlevé ses lunettes.;1604
 中止[ちゅうし];雨[あめ]で 運動会[うんどうかい]が 中止[ちゅうし]になったの。;L'évènement sportif a été annulé à cause de la pluie.;1605
 出来事[できごと];おもしろい できごと が ありました;Un évènement intéressant s'est produit.;1606
-下ろす[おろす];たな から その はこ を おろして ください|彼[かれ]は 車[くるま]から 荷物[にもつ]を 降[お]ろした。;Il a déchargé les bagages de la voiture.;1607
+下ろす[おろす];たな から その はこ を おろして ください;Il a déchargé les bagages de la voiture.;1607
 中学[ちゅうがく];むすこ は ちゅうがく に かよって います;Mon fils va au collège.;1608
 年間[ねんかん];ねんかん ごまんにん が ここ を おとずれます;Cet endroit reçoit 50 000 visiteurs par an.;1609
 話題[わだい];ここが 話題[わだい]のレストランです。;C'est le restaurant dont tout le monde parle.;1610
@@ -1602,7 +1602,7 @@
 作業[さぎょう];作業[さぎょう]するにはもっと 広[ひろ]いスペースが 必要[ひつよう]だ。;J'ai besoin d'un plus grand espace pour travailler.;1619
 不安[ふあん];明日[あす]、 病院[びょういん]に 検査[けんさ]に 行[い]くので 少[すこ]し 不安[ふあん]です。;Je suis un peu inquiet parce que je dois aller à l'hôpital pour des tests demain.;1620
 意識[いしき];かれ は いしき を うしないました;Il a perdu connaissance.;1621
-助ける[たすける];彼女[かのじょ]は 病気[びょうき]の 犬[いぬ]を 助[たす]けた。|かのじょ は びょうき の いぬ を たすけた;Elle a sauvé un chien malade.;1622
+助ける[たすける];彼女[かのじょ]は 病気[びょうき]の 犬[いぬ]を 助[たす]けた。;Elle a sauvé un chien malade.;1622
 作品[さくひん];この 絵[え]はゴッホの 作品[さくひん]だ。;Cette peinture est l'une des œuvres de Van Gogh.;1623
 現実[げんじつ];現実[げんじつ]は 予想[よそう]より 厳[きび]しかった。;La réalité était plus dure que je ne m'y attendais.;1624
 世話[せわ];旅行[りょこう]の 間[あいだ]、 犬[いぬ]の 世話[せわ]をしてください。;Pendant que je suis en voyage, prenez soin de mon chien SVP.;1625
@@ -1817,7 +1817,7 @@
 男の人[おとこのひと];私のドイツ語の先生は男の人です。;Mon professeur d'allemand est un homme.;1834
 日曜[にちよう];毎週日曜日は教会に行きます。;Je vais à l'église tous les dimanches.;1835
 勝ち[かち];うたがっせん は あか ぐみ の かち でした ね;L'équipe rouge a remporté le concours de chant.;1836
-感じる[かんじる];膝[ひざ]に 痛[いた]みを 感[かん]じます。|彼女[かのじょ]の 言葉[ことば]に 愛情[あいじょう]を 感[かん]じた。;Je sens une douleur dans mon genou.;1837
+感じる[かんじる];膝[ひざ]に 痛[いた]みを 感[かん]じます。;Je sens une douleur dans mon genou.;1837
 生命[せいめい];生命[せいめい]は 海[うみ]から 始[はじ]まったと 言[い]われている。;On dit que la vie a commencé dans la mer.;1838
 一家[いっか];あの いっか は なか が いい;Cette famille est très proche.;1839
 物事[ものごと];あるがままに 物事[ものごと]を 見[み]るようにしなさい。;Essayez de voir les choses telles qu'elles sont.;1840
@@ -1945,7 +1945,7 @@
 土[つち];つち を ほって き を うえました;J'ai creusé le sol et planté un arbre.;1963
 食欲[しょくよく];今日[きょう]は 食欲[しょくよく]がありません。;Je n'ai pas d'appétit aujourd'hui.;1964
 限界[げんかい];もう がまん の げんかい です;Je n'en peux plus.;1965
-著者[ちょしゃ];なんと私の姉もその本の著者でした。|この ほん の ちょしゃ は いぎりすじん です;Étonnamment, ma sœur était également l'auteur de ce livre. | L'auteur de ce livre est britannique.;1966
+著者[ちょしゃ];なんと私の姉もその本の著者でした。;Étonnamment, ma sœur était également l'auteur de ce livre. ;1966
 証明[しょうめい];ようぎしゃ の ありばい が しょうめい されました;L'alibi du suspect a été prouvé.;1967
 諦める[あきらめる];彼[かれ]は 留学[りゅうがく]の 夢[ゆめ]を 諦[あきら]めていないよ。;Il n'a pas renoncé à son rêve d'aller étudier à l'étranger.;1968
 注文[ちゅうもん];レストランでピザを 注文[ちゅうもん]しました。;J'ai commandé une pizza au restaurant.;1969
@@ -1981,7 +1981,7 @@
 真似[まね];むすめ は よく わたし の まね を します;Ma fille me copie souvent.;1999
 移動[いどう];その机を左へ移動してください。;Veuillez déplacer ce bureau vers la gauche.;2000
 太陽[たいよう];たいよう が くも に かくれた;Le soleil se cachait derrière les nuages.;2001
-重大[じゅうだい];じゅうだい な はっぴょう が あります|車[くるま]の 会社[かいしゃ]が 重大[じゅうだい]な 発表[はっぴょう]をした。;J'ai une annonce importante.|Le constructeur automobile a fait une annonce importante.;2002
+重大[じゅうだい];じゅうだい な はっぴょう が あります;J'ai une annonce importante.;2002
 制度[せいど];らいねん から あたらしい せいど が はじまります;Un nouveau système démarrera à partir de l'année prochaine.;2003
 現象[げんしょう];村では最近、不思議な現象が起きています。;Récemment, d’étranges phénomènes se sont produits dans le village.;2004
 隠す[かくす];ぼく に かくして いる こと は ない です か;Vous ne me cachez rien, n'est-ce pas ?;2005
@@ -2006,7 +2006,7 @@
 条件[じょうけん];この じょうけん で は きびし すぎます;C'est trop dur dans ces conditions.;2025
 礼[れい];せんせい に おれい の てがみ を かきました;J'ai écrit une lettre de remerciement à mon professeur.;2026
 別に[べつに];わたし は べつに き に なりません;Je ne suis pas particulièrement anxieux.;2027
-裏切る[うらぎる];かれ は なかま を うらぎった の|彼女に裏切られて落ち込んでいるんです。;Il a trahi ses amis.|Elle m'a trahi et je me sens déprimé.;2028
+裏切る[うらぎる];かれ は なかま を うらぎった の;Il a trahi ses amis.;2028
 予算[よさん];予算が減らされた。;Le budget a été réduit.;2029
 不斗[ふと];ふと 昔[むかし]の 事[こと]を 思[おも]い 出[だ]したんだ。;Je me suis soudainement souvenu du passé.;2030
 発展[はってん];あの かいしゃ は めざましく はってん して いる ね;Cette entreprise s'est considérablement développée.;2031
@@ -2041,7 +2041,7 @@
 観察[かんさつ];花[はな]の 成長[せいちょう]を 観察[かんさつ]して 日記[にっき]を 書[か]きなさい。;Observez le développement de la fleur et notez-le dans votre journal.;2060
 才能[さいのう];かれ は げいじゅつてき な さいのう に あふれて いる ね;Il est plein de talent artistique.;2061
 持ち上げる[もちあげる];吉雄は私がその箱を持ち上げるのを手伝ってくれた。;Yoshio m'a aidé à soulever le carton.;2062
-悪口[わるくち];人[ひと]の 悪口[わるぐち]を 言[い]うのは、やめよう。|かれ は けっして ひと の わるくち を いわない の;Arrêtons de dire du mal des gens. Il ne dit jamais du mal des gens.;2063
+悪口[わるくち];人[ひと]の 悪口[わるぐち]を 言[い]うのは、やめよう。;Arrêtons de dire du mal des gens. Il ne dit jamais du mal des gens.;2063
 交換[こうかん];しあい の あいて と ゆにふぉーむ を こうかん した よ;Nous avons échangé des uniformes avec l'équipe adverse au tapis;2064
 大家[おおや];ここ の おおや は ちかく に すんで います よ;Le propriétaire habite près d'ici.;2065
 現代[げんだい];げんだい の かがく の しんぽ に は おどろく よ;L'avancement de la science contemporaine me surprend.;2066
@@ -2146,7 +2146,7 @@
 大陸[たいりく];ゆーらしあ は せかい で もっとも おおきい たいりく です;L'Eurasie est le plus grand continent du monde.;2166
 権利[けんり];わたしたち に は しる けんり が あります;Nous avons le droit de savoir.;2167
 通じる[つうじる];その くに で は えいご は つうじます か;Parlent-ils anglais dans ce pays ?;2168
-袋[ふくろ];袋[ふくろ]は 要[い]りません。|ふくろ は いりません;Le sac n'est pas nécessaire.;2169
+袋[ふくろ];袋[ふくろ]は 要[い]りません。;Le sac n'est pas nécessaire.;2169
 単なる[たんなる];単なる機械的な問題です。;C'est tout simplement un problème mécanique.;2170
 減らす[へらす];さいきん しょくじ を へらして います;Je mange moins depuis peu.;2171
 噂[うわさ];その 噂[うわさ]は 本当[ほんとう]ですか。;La rumeur est-elle vraie ?;2172
@@ -2195,7 +2195,7 @@
 単位[たんい];めーとる は ながさ の たんい です;Le mètre est une unité de longueur.;2215
 腰[こし];きのう から こし が いたい;J'ai mal au bas du dos depuis hier.;2216
 鉄[てつ];この なべ は てつ で できて います;Ce pot est en fer.;2217
-明かり[あかり];へや の あかり を つけましょう|その部屋には、小さなロウソクの灯りだけが灯っていました。;Allumons la lumière de la pièce. Il n'y avait qu'une petite bougie dans la pièce.;2218
+明かり[あかり];へや の あかり を つけましょう;Allumons la lumière de la pièce. Il n'y avait qu'une petite bougie dans la pièce.;2218
 小屋[こや];山小屋で一夜を明かした。;J'ai passé la nuit dans un refuge de montagne.;2219
 冷静[れいせい];れいせい に はなしあいましょう;Parlons calmement.;2220
 ボール;彼[かれ]はボールを 投[な]げた。;Il a lancé la balle.;2221
@@ -2235,7 +2235,7 @@
 燃える[もえる];山[やま]が 燃[も]えています。;La montagne est en train de brûler !;2255
 ダンス;彼女[かのじょ]はダンスが 大好[だいす]きです。;Elle adore danser.;2256
 適用[てきよう];この ばあい ほけん が てきよう されます か;Dans ce cas, l'assurance s'applique-t-elle ?;2257
-恐らく[おそらく];首相[しゅしょう]はおそらく 辞任[じにん]するであろう。|あした は おそらく はれる でしょう;Le premier ministre est susceptible de démissionner.;2258
+恐らく[おそらく];首相[しゅしょう]はおそらく 辞任[じにん]するであろう。;Le premier ministre est susceptible de démissionner.;2258
 道路[どうろ];この どうろ は さんねんまえ に できました;Cette route a été achevée il y a trois ans.;2259
 成功[せいこう];あなたのプロジェクトの成功を願っています。;Je vous souhaite du succès dans votre projet.;2260
 有効[ゆうこう];わたし の めんきょ は らいねん まで ゆうこう です;Ma licence est effective jusqu'à l'année prochaine.;2261
@@ -2250,14 +2250,14 @@
 地位[ちい];かのじょ は かいしゃ で たかい ちい に ついて いる よ;Elle occupe un poste élevé dans l'entreprise.;2270
 罪[つみ];かれ の つみ は おもい な;Son crime est grave.;2271
 通信[つうしん];弟は通信で勉強しています。;Mon jeune frère étudie par correspondance.;2272
-恐れる[おそれる];かれ は じゅけん の しっぱい を おそれて います|目が見えなくなること以外は、何も恐れることはないよ。;Il s'inquiète d'échouer à l'examen. Je n'ai peur de rien sauf de devenir aveugle.;2273
+恐れる[おそれる];かれ は じゅけん の しっぱい を おそれて います;Il s'inquiète d'échouer à l'examen. Je n'ai peur de rien sauf de devenir aveugle.;2273
 管理人[かんりにん];"マンション[;a] に は いつも[;a] 管理人[かんりにん;h,n3] さん が います[,います;k2] 。";Il y a toujours un gardien dans mon immeuble en copropriété.;2274
 商売[しょうばい];かれ の しょうばい は もうかって いる な;Son entreprise est rentable.;2275
 署名[しょめい];書類をよく読んで、署名をしてください。;Veuillez lire attentivement le document et le signer.;2276
 夜明け[よあけ];よあけ と とも に め が さめた ん だ;Je me suis réveillé au point du jour.;2277
 販売[はんばい];まえうりけん は まどぐち で はんばい して います;Les billets à l'avance sont en vente au guichet.;2278
 余分[よぶん];しょくじ は よぶん に ようい して あります;J'ai préparé des portions supplémentaires pour le repas.;2279
-セット;このメニューはサラダと 飲[の]み 物[もの]がセットになっています。|もし 眠[ねむ]るといけないので 目覚し時計[めざましどけい]をセットしなさい。;Pour ce menu, une salade et une boisson deviennent un ensemble.|Si vous dormez, mettez l'alarme du réveil.;2280
+セット;このメニューはサラダと 飲[の]み 物[もの]がセットになっています。;Pour ce menu, une salade et une boisson deviennent un ensemble.;2280
 屋根[やね];やね に からす が とまって います;Il y a un corbeau sur le toit.;2281
 切れ[きれ];この ほうちょう は きれ が いい な;Ce couteau de cuisine coupe bien.;2282
 議長[ぎちょう];ぎちょう が かいかい の あいさつ を しました;Le président a prononcé les salutations d'ouverture de la réunion.;2283
@@ -2326,7 +2326,7 @@
 局[きょく];かのじょ は らじおきょく で はたらいて います;Elle travaille pour une radio.;2346
 気候[きこう];日本[にっぽん]の 気候[きこう]は 温暖[おんだん]です。;Le climat au Japon est tempéré.;2347
 皮[かわ];りんご の かわ を むきました よ;J'ai pelé la peau d'une pomme.;2348
-きちんと;問題[もんだい]についてきちんと 話[はな]し 合[あ]ったよ。;We discussed the problem thoroughly.|Nous avons discuté du problème en profondeur.;2349
+きちんと;問題[もんだい]についてきちんと 話[はな]し 合[あ]ったよ。;We discussed the problem thoroughly.;2349
 信仰[しんこう];しんこう は こころ の ささえ です;La foi élève l'esprit.;2350
 到着[とうちゃく];空港に到着した時、ホストファミリーが待っていた。;Quand je suis arrivé à l'aéroport, ma famille d'accueil m'attendait.;2351
 辞める[やめる];かれ は かいしゃ を やめます;Il quitte l'entreprise.;2352
@@ -2341,7 +2341,7 @@
 貴重[きちょう];第三者からの意見は貴重だ。;Les avis de tiers sont précieux.;2361
 支度[したく];旅行の支度をしています。;Je fais les préparatifs du voyage.;2362
 明ける[あける];もうすぐ よ が あける ね;Ce sera bientôt l'aube.;2363
-鍋[なべ];鍋[なべ]にスープが 入[はい]っているよ。|なべ に すーぷ が はいって いる よ;Il y a de la soupe dans la casserole.;2364
+鍋[なべ];鍋[なべ]にスープが 入[はい]っているよ。;Il y a de la soupe dans la casserole.;2364
 演技[えんぎ];彼女のスケートの演技は素晴らしかった。;Sa performance en patinage était incroyable.;2365
 頭痛[ずつう];きょう は ずつう が します;J'ai mal à la tête aujourd'hui.;2366
 半ば[なかば];かれ は 30 だい の なかば です;Il est dans la trentaine.;2367
@@ -2393,7 +2393,7 @@
 住民[じゅうみん];当局は地域住民の頑強な抵抗にあった。;Les autorités ont fait face à une vive résistance de la part des habitants locaux.;2414
 増す[ます];おおあめ で かわ の みずかさ が まして いる な;La rivière grossit à cause de l'averse.;2415
 酔う[よう];みんなかなり 酔[よ]っていたの。;Tout le monde était ivre.;2416
-瓶[びん];"瓶[びん]ビールを 注文[ちゅうもん]した。|この[;h] 瓶[びん;a] に 何[なに;a]が 入[はい,はいる;k1]って います[,います;k2] か 。";J'ai commandé une bouteille de bière.;2417
+瓶[びん];"瓶[びん]ビールを 注文[ちゅうもん]した。;h] 瓶[びん;a] に 何[なに;a]が 入[はい,はいる;k1]って います[,います;k2] か 。";J'ai commandé une bouteille de bière.;2417
 述べる[のべる];じょうし が いけん を のべた;Notre patron nous a donné son avis.;2418
 叱る[しかる];父親[ちちおや]が 子供[こども]を 叱[しか]っている。;Le père gronde son enfant.;2419
 尊敬[そんけい];そふ は かぞく みんな に そんけい されて います;Mon grand-père est respecté par toute la famille.;2420
@@ -2551,7 +2551,7 @@
 札[さつ];彼[かれ]はカバンから 札[さつ]の 束[たば]を 取[と]り 出[だ]したんだ。;Il a sorti une liasse de billet de son sac.;2573
 章[しょう];この ほん の だいろくしょう が とくに すき です;J'aime particulièrement le chapitre 6 de ce livre.;2574
 輝く[かがやく];彼女[かのじょ]の 瞳[ひとみ]は 喜[よろこ]びで 輝[かがや]いていますね。;Ses yeux brillent de joie.;2575
-グラス;これ は きれい な ぐらす です ね|ビールを 飲[の]むグラスは、どれがいいですか。;C'est un beau verre.|Quel verre est bon pour boire de la bière ?;2576
+グラス;これ は きれい な ぐらす です ね;C'est un beau verre.;2576
 尊重[そんちょう];彼女の気持ちを尊重したい;Je veux respecter ses sentiments;2577
 監督[かんとく];彼は有名な映画監督だ。;C'est un célèbre réalisateur.;2578
 平ら[たいら];その たてもの の やね は たいら だ　ね;Le toit de ce bâtiment est plat.;2579
@@ -2761,7 +2761,7 @@
 デモ;かのじょ は でも に さんか した よ;Elle a participé à la manifestation.;2783
 建築[けんちく];かれら は いえ を けんちくちゅう です;Ils sont en train de construire une maison.;2784
 必ずしも[かならずしも];しんせつ は かならずしも よろこばれる わけ で は ない;La gentillesse ne plaît pas tout le temps aux gens.;2785
-追い付く[おいつく];えき で ようやく かれ に おいつきました|ちょっと 走[はし]ったら、すぐに 追い付[おいつ]いた。;Je l'ai finalement rattrapé à la gare.|Après avoir couru un peu, je l'ai rattrapé tout de suite.;2786
+追い付く[おいつく];えき で ようやく かれ に おいつきました;Je l'ai finalement rattrapé à la gare.;2786
 積もる[つもる];ゆき が つもって います;La neige s'est installée.;2787
 酸素[さんそ];わたしたち は さんそ なし で は いきて いけない;Nous ne pouvons pas vivre sans oxygène.;2788
 衣服[いふく];かれ の かいしゃ は いふく を あつかって いる よ;Son entreprise s'occupe de vêtements.;2789
@@ -2790,7 +2790,7 @@
 一台[いちだい];このテレビは、一台四万九千円です。;Ces téléviseurs coûtent quarante-neuf mille yens chacun;2812
 メモ;何でもかんでもメモをしますがあとで使い物になりません。;Je prends des notes sur tout, mais elles deviennent inutiles par la suite.;2813
 ベルト;べると が きつく なりました;Ma ceinture s'est serrée.;2814
-滅多に[めったに];かのじょ は めったに おこりません 。|彼女[かのじょ]はめったに 怒[おこ]りません。;Elle s'énerve rarement. ;2815
+滅多に[めったに];かのじょ は めったに おこりません 。;Elle s'énerve rarement. ;2815
 袖[そで];この しゃつ は そで が みじかい;Cette chemise a des manches courtes.;2816
 近代[きんだい];きんだい の ぎじゅつ の はってん は ものすごい です;Le développement de la technologie dans cette ère moderne est vraiment incroyable.;2817
 誤り[あやまり];かいとう に あやまり が みっつ あります よ;Il y a trois erreurs dans la réponse.;2818
@@ -2853,7 +2853,7 @@
 具体[ぐたい];具体的には何すんの。;Que ferez-vous exactement ?;2875
 岸[きし];ふね が やっと きし に ついた よ;Le navire a finalement atteint le rivage.;2876
 代える[かえる];しゃちょう に かえて ぶちょう を しゅっせき させます;Je ferai venir le directeur du département à la place du président.;2877
-現れ[あらわれ];それは 彼女[かのじょ]の 性格の表[せいかく]れだ。|それ は かのじょ の きたい の あらわれ です;C'est un indice de son caractère.;2878
+現れ[あらわれ];それは 彼女[かのじょ]の 性格の表[せいかく]れだ。;C'est un indice de son caractère.;2878
 請求[せいきゅう];電話料金の請求書が届いた。;J'ai reçu une facture de téléphone.;2879
 いけない;あそこから、写真を撮ってはいけない。;Il ne faut pas prendre de photos depuis là-bas.;2880
 仏[ほとけ];ほとけ の おしえ を べんきょう しました;J'ai étudié les enseignements de Bouddha.;2881
@@ -2970,7 +2970,7 @@
 実[み];にわ の き が あかい み を つけた;L'arbre du jardin portait des fruits rouges.;2993
 年寄[としより];あの村にはお年寄りがたくさん住んでいます。;De nombreuses personnes âgées vivent dans ce village.;2994
 喋り[しゃべり];いもうと は とても おしゃべり です;Ma petite soeur est très bavarde.;2995
-喋る[しゃべる];いつも 誰[だれ]かが 喋[しゃべ]っている。|かのじょ は よく しゃべる ね;Il y a toujours quelqu'un qui parle.;2996
+喋る[しゃべる];いつも 誰[だれ]かが 喋[しゃべ]っている。;Il y a toujours quelqu'un qui parle.;2996
 渋滞[じゅうたい];この こくどう は よく じゅうたい します;Cette route nationale est souvent congestionnée.;2997
 量る[はかる];はかり で こむぎこ の ぶんりょう を はかった よ;J'ai mesuré la quantité de farine qu'il y avait avec une balance de cuisine.;2998
 納める[おさめる];じどうしゃぜい を おさめた よ;J'ai payé ma taxe automobile.;2999
@@ -3033,7 +3033,7 @@
 場[ば];人によって禁煙すると体重が増える場合がある。;Chez certaines personnes, l'arrêt du tabac peut entraîner une prise de poids.;3056
 修理屋[しゅうりや];この 詩[し]は 誰[だれ]が 書[か]いたのですか。;Par qui ce poème a-t-il été écrit ?;3057
 どうも有難うございます[どうもありがとうございます];親切にしてくださってどうもありがとうございます。;Merci beaucoup d'être si gentil avec moi.;3058
-従兄弟[いとこ];私[わたし]には 弁護士[べんごし]のいとこがいる。|いとこ と わたし は おなじ とし です|従兄弟同士は結婚できるんだぜ。;J'ai un cousin qui est avocat.;3059
+従兄弟[いとこ];私[わたし]には 弁護士[べんごし]のいとこがいる。;J'ai un cousin qui est avocat.;3059
 十六日[じゅうろくにち];選挙は5月16日に行われた。;L'élection a eu lieu le 16 mai.;3060
 十八日[じゅうはちにち];訪問客は18日に来て、20日に発つことになっている。;Les visiteurs devraient arriver le 18 et repartir le 20.;3061
 如何しても[どうしても];どうしても その わけ を しりたい;Je veux vraiment connaître les circonstances.;3062
@@ -3086,12 +3086,12 @@
 勘[かん];おんな の かん を あまく みて は いけません;Ne sous-estimez pas l'intuition d'une femme.;3109
 率[りつ];その しゅじゅつ の せいこうりつ は 90% だ そう です;Apparemment, le taux de réussite de l'opération est de 90 %.;3110
 癖[くせ];つめ を かむ くせ は なおした ほう が いい;Vous devriez arrêter l'habitude de vous ronger les ongles.;3111
-御免なさい[ごめんなさい];おくれて ごめん|御免なさい。このＴシャツのMサイズは売り切れちゃったんです。;Je suis désolé d'être en retard.|Je suis désolé. Nous n'avons plus de tailles moyennes pour cette chemise.;3112
+御免なさい[ごめんなさい];おくれて ごめん;Je suis désolé d'être en retard.;3112
 玉[たま];かれ の かお に たま の よう な あせ が ながれて いた の;Des perles de sueur coulaient sur son visage.;3113
 端[はし];じしょ は ほんだな の はし に あります;Le dictionnaire est au bout de la bibliothèque.;3114
 兎に角[とにかく];とにかく げんば へ いって みましょう;Quoi qu'il en soit, allons sur le site.;3115
 骨[ほね];かれ は あし の ほね を おりました;Il s'est cassé un os du pied.;3116
-可也[かなり];彼[かれ]はかなり 英語[えいご]が 上手[じょうず]です。|日本で初恋の人にバッタリ出くわした時は、可也驚きました。;Il est plutôt doué en anglais.;3117
+可也[かなり];彼[かれ]はかなり 英語[えいご]が 上手[じょうず]です。;Il est plutôt doué en anglais.;3117
 級[きゅう];かれ は しょどう さんきゅう です;Il a un certificat de troisième classe en calligraphie japonaise.;3118
 雷[かみなり];かみなり が なって います;Le tonnerre gronde.;3119
 湖[こ];湖には薄い氷が張っていた。;Une fine couche de glace recouvrait le lac.;3120
@@ -3232,7 +3232,7 @@
 気配[けはい];秋[あき]の 気配[けはい]が 感[かん]じられた。;Il y'a des indice de la venue de l'automne.;3255
 付き合う[つきあう];彼女[かのじょ]と４ 年[ねん]ほど 付[つ]き 合[あ]っています。;Cela fait 4 ans que je vie avec cette femme.;3256
 生える[はえる];むすこ に あたらしい は が はえました;Mon fils a une nouvelle dent qui arrive.;3257
-後輩[こうはい];彼[かれ]は 私[わたし]より３ 年[ねん] 後輩[こうはい]です。|かれ は だいがく の こうはい です;Il est mon plus jeune que moi de trois ans.;3258
+後輩[こうはい];彼[かれ]は 私[わたし]より３ 年[ねん] 後輩[こうはい]です。;Il est mon plus jeune que moi de trois ans.;3258
 取り出す[とりだす];かれ は ぽけっと から さいふ を とりだした の;Il sortit son portefeuille de sa poche.;3259
 気をつける[きをつける];体[からだ]に 気[き]を 付[つ]けてください。;Prends soin de toi s'il te plaît.;3260
 目立つ[めだつ];スーツを 着[き]て 彼[かれ]は 目立[めだ]っていた。;Il se faisait remarquer dans son costume.;3261
@@ -3322,7 +3322,7 @@
 付近[ふきん];じけん げんば ふきん で あやしい じんぶつ を みた;Une personne suspecte a été aperçue à proximité de la scène de crime.;3358
 中間[ちゅうかん];その ふたつ の まち の ちゅうかん に は かわ が ながれて いる の;Une rivière coule entre les deux villes.;3359
 特殊[とくしゅ];かれ は とくしゅ な のうりょく を もって います;Il a une capacité spéciale.;3360
-打つかる[ぶつかる];車[くるま]が 電柱[でんちゅう]にぶつかった。|くるま が でんちゅう に ぶつかった;La voiture s'est écrasée dans le poteau téléphonique.;3361
+打つかる[ぶつかる];車[くるま]が 電柱[でんちゅう]にぶつかった。;La voiture s'est écrasée dans le poteau téléphonique.;3361
 水分[すいぶん];この 野菜[やさい]は 水分[すいぶん]が 多[おお]いですね。;Ces légumes ont une forte teneur en eau.;3362
 学年[がくねん];かれ は わたし より ひと がくねん うえ です;Il est un an au-dessus de moi à l'école.;3363
 工夫[くふう];いろいろ くふう して しごと を やりとげた さ;J'ai fait divers ajustements et réalisé les travaux.;3364
@@ -3343,7 +3343,7 @@
 見本[みほん];みほん は こちら に ございます;Il y a un échantillon ici.;3380
 小学生[しょうがくせい];うちの 息子[むすこ]は 来年[らいねん]、 小学生[しょうがくせい]になります。;Notre fils va rentrer en école primaire l'année prochaine.;3381
 引き受ける[ひきうける];あたらしい しごと を ひきうけた よ;J'ai accepté le nouveau travail.;3384
-一流[いちりゅう];さすが、一流のピアニストは違うね。|かれ は いちりゅう の せんしゅ です;C'est quelque chose que seuls les pianistes de premier ordre peuvent faire. C'est un joueur de premier plan.;3386
+一流[いちりゅう];さすが、一流のピアニストは違うね。;C'est quelque chose que seuls les pianistes de premier ordre peuvent faire. C'est un joueur de premier plan.;3386
 強引[ごういん];ゆうじん の ごういん な さそい を ことわれません でした;Je n'ai pas pu décliner l'invitation persistante de mon ami.;3387
 預かる[あずかる];荷物[にもつ]を 預[あず]かってください。;Veuillez prendre soin de mes bagages.;3389
 知人[ちじん];かれ は むかし から の ちじん です;C'est une vieille connaissance.;3390
@@ -3373,7 +3373,7 @@
 方面[ほうめん];おきなわ ほうめん に おでかけ の かた は たいふう に ごちゅうい ください;Les personnes qui se dirigent vers Okinawa doivent faire attention aux typhons.;3416
 液体[えきたい];せんたく に えきたい の せんざい を つかって います;J'utilise une lessive liquide pour laver les vêtements.;3417
 繋がる[つながる];でんわ が つながりません;Les appels téléphoniques ne passent pas.;3418
-温める[あたためる];いま くるま を あたためています|これは、このままでも 温[あたた]めても、 美味[おい]しいです。|寒[さむ]いので、ヒーターで 暖[あたた]めた。;Je réchauffe la voiture maintenant.|C'est délicieux tel quel, ou réchauffé.|Il fait froid, alors je me suis réchauffé près du radiateur.;3419
+温める[あたためる];いま くるま を あたためています;Je réchauffe la voiture maintenant.;3419
 過程[かてい];ぷろぐらむ の かてい に もんだい が ある の;Il y a un problème dans le processus de programmation.;3420
 役人[やくにん];あの やくにん 役人たちは ぜんぜん 全然、 ざいせい 財政のことはわかっていない。;Those officials don't understand finance at all.;3421
 行列[ぎょうれつ];みせ の まえ に ながい ぎょうれつ が できて います よ;Il y a une longue queue devant le magasin.;3422
@@ -3437,7 +3437,7 @@
 近寄る[ちかよる];かれ に ちかよらない で;Ne vous approchez pas de lui !;3491
 名字[みょうじ];あなた の みょうじ は なん です か;Quel est ton surnom?;3492
 各自[かくじ];ごみ は かくじ で もちかえって ください;Veuillez rapporter vos propres ordures à la maison.;3493
-以後[いご];すみません いご き を つけます|以後こんなことはしません;Je ne referai plus jamais ça.;3494
+以後[いご];すみません いご き を つけます;Je ne referai plus jamais ça.;3494
 好き嫌い[すききらい];たべもの の すききらい は とくに ありません;Je n'ai pas de goûts ou de dégoûts particuliers en matière de nourriture.;3495
 レベル;自分[じぶん]のレベルに 合[あ]った 授業[じゅぎょう]を 選[えら]んでください。;Please choose a class suitable to your level.;3496
 的確[てきかく];間髪を入[かんはつをい]れず、 迅速[じんそく]かつ 的確[てきかく]な 応対[おうたい]、 畏れ入[おそれい]ります。;Une réponse claire et précise. Que puis-je dire?;3497
@@ -3585,7 +3585,7 @@
 名所[めいしょ];ここ は さくら の めいしょ です;Cet endroit est bien connu pour les fleurs de cerisier.;3659
 マスク;花粉[かふん] 症[しょう]の 季節[きせつ]は、マスクをする。;Je porte un masque pendant la saison du rhume des foins.;3660
 反映[はんえい];しんがたしゃ に けんきゅう の せいか が はんえい されて います;Les résultats de nos recherches se reflètent dans le nouveau modèle.;3661
-夫妻[ふさい];きのう の よる しゃちょうごふさい と しょくじ を しました|部長[ぶちょう]ご 夫妻[ふさい]の 家[いえ]に 招待[しょうたい]された。;J'ai dîné avec le président et sa femme hier soir. J'ai été invité chez mon chef de service et chez sa femme.;3662
+夫妻[ふさい];きのう の よる しゃちょうごふさい と しょくじ を しました;J'ai dîné avec le président et sa femme hier soir. J'ai été invité chez mon chef de service et chez sa femme.;3662
 見かけ[みかけ];かれ は みかけ に よらず やさしい ね;Il est gentil malgré son apparence.;3664
 先祖[せんぞ];しんとう で は せんぞ を たいせつ に します;Dans le shintoïsme, nous vénérons nos ancêtres.;3665
 現に[げんに];現にさっきそう言ったじゃありませんか。;Vous ne l'aviez pas dit il y a quelque temps ?;3666
@@ -3599,7 +3599,7 @@
 平仮名[ひらがな];私[わたし]は 平仮名[ひらがな]を 全部[ぜんぶ] 読[よ]めます。;Je peux lire tous les hiragana.;3677
 ずれる;ポスターの 位置[いち]が 少[すこ]しずれているよ。;L'affiche est légèrement en dehors de sa position.;3678
 公式[こうしき];こんご の ほうしん が こうしき に はっぴょう されました;La future politique a été officiellement annoncée.;3679
-基準[きじゅん];あいての きじゅん 基準を うけい 受け入れるのは、そのあいての ちから 力に ふくじゅう 服従することだ。|はんだん の きじゅん が しめされた;Accepting the other's norms is submitting to the other's power.;3680
+基準[きじゅん];あいての きじゅん 基準を うけい 受け入れるのは、そのあいての ちから 力に ふくじゅう 服従することだ。;Accepting the other's norms is submitting to the other's power.;3680
 せめて;せめてこれだけは 約束[やくそく]してください。;At least promise this, please.;3681
 荒い[あらい];かれ は かねづかい が あらい な;Il dépense de l'argent sans compter.;3682
 目覚まし[めざまし];めざまし に こーひー を のんだ の;J'ai bu du café pour me réveiller.;3683
@@ -3785,7 +3785,7 @@
 長所[ちょうしょ];きみ の ちょうしょ は あかるい ところ だ ね;Votre point fort est votre bonne humeur.;3904
 リズム;最近[さいきん] 彼[かれ]は 生活[せいかつ]のリズムが 乱[みだ]れています。;Sa routine quotidienne a été perturbée ces derniers temps.;3905
 パンツ;かのじょ は すかーと より ぱんつ が にあう ね;Elle est plus belle en pantalon qu'en jupe.;3906
-代わる[かわる];じょうし に かわって かいぎ に でた|もしよければ、代わりましょうか。;J'ai assisté à la conférence à la place de mon patron. Si cela ne vous dérange pas, puis-je prendre votre place ?;3907
+代わる[かわる];じょうし に かわって かいぎ に でた;J'ai assisté à la conférence à la place de mon patron. Si cela ne vous dérange pas, puis-je prendre votre place ?;3907
 足跡[あしあと];ゆき の うえ に うさぎ の あしあと が あった;Il y avait des empreintes de pas de lapin dans la neige.;3908
 日陰[ひかげ];あつい の で ひかげ で やすみましょう;Il fait chaud alors reposons-nous à l'ombre.;3909
 面積[めんせき];この とち の めんせき は どれ くらい です か;Quelle est la superficie de ce terrain ?;3910
@@ -3826,7 +3826,7 @@
 理科[りか];わたし は りか が とくい です;Je suis bon en sciences.;3953
 中旬[ちゅうじゅん];らいげつ ちゅうじゅん に ふらんす へ いきます 。;J'irai en France au milieu du mois prochain.;3954
 整う[ととのう];ぱーてぃー の じゅんび が ととのいました;Les préparatifs de la fête sont en ordre.;3955
-騙す[だます];人[ひと]をだましてはいけません。|ひと を だまして は いけません;Ne pas tromper les gens.;3957
+騙す[だます];人[ひと]をだましてはいけません。;Ne pas tromper les gens.;3957
 題名[だいめい];その 小説[しょうせつ]は 聖書[せいしょ]から 題名[だいめい]をとっている。;Le roman tire son titre de la Bible.;3958
 崩す[くずす];かのじょ は たいちょう を くずして います;Elle est sous le temps.;3961
 ボーナス;今年[ことし]はボーナスがたくさん 出[で]ました。;Cette année, beaucoup de bonus ont été donnés.;3962
@@ -3918,7 +3918,7 @@
 儀式[ぎしき];ぎしき に は さほう が あります;Les cérémonies ont leurs règles d'étiquette.;4073
 診断[しんだん];いし は いじょう なし と しんだん した ん だ;D'après le diagnostic du médecin, il n'y a pas d'anomalie.;4074
 ひっくり返す[ひっくりすかえす];ステーキを 焼[や]く 時[とき]は、 途中[とちゅう]でひっくり 返[かえ]す。;Lors de la cuisson d'un steak, retournez-le.;4077
-アイデア;アイディアが 足[た]りないということはない。|かれ が いい あいであ を だした ね;Il n'y a pas de pénurie d'idées.;4078
+アイデア;アイディアが 足[た]りないということはない。;Il n'y a pas de pénurie d'idées.;4078
 鉱物[こうぶつ];これは今までで最高の鉱物さ。これに敵うものはないね。;C'est le meilleur minéral que j'ai jamais vu. Rien ne peut l'égaler.;4079
 続々[ぞくぞく];おきゃくさん が ぞくぞく と やってきました よ;Les invités sont arrivés les uns après les autres.;4080
 団地[だんち];わたし の おとうと は だんち に すんで います;Mon petit frère habite dans un lotissement.;4082
@@ -4054,7 +4054,7 @@
 囁く[ささやく];「 この かいぎ は たいくつ だ 」 と どうりょう が わたし に ささやいた の 。;"Mon collègue m'a chuchoté, ""cette réunion est ennuyeuse.""";4258
 家屋[かおく];わたし は もくぞう の かおく が すき です;J'aime les maisons construites en bois.;4259
 載る[のる];せんせい の ろんぶん が ざっし に のりました よ;L'article de notre professeur a été publié dans la revue.;4264
-追い越す[おいこす];おおき な とらっく が わたしたち を おいこした|前[まえ]の 人[ひと]がゆっくり 歩[ある]いていたので、 追い越[おいこ]した。;Un gros camion nous a dépassés.|La personne devant moi marchait lentement, alors je l'ai dépassée.;4265
+追い越す[おいこす];おおき な とらっく が わたしたち を おいこした;Un gros camion nous a dépassés.;4265
 厳重[げんじゅう];じょうし から げんじゅう に ちゅうい されました;J'ai été sévèrement réprimandé par mon patron.;4266
 恨み[うらみ];かのじょ は ながねん の うらみ を はらした;Elle a réglé un vieux compte.;4267
 童話[どうわ];この童話、意外と泣けるんだよね。;Ce conte de fées va vraiment vous faire pleurer.;4268
@@ -4070,7 +4070,7 @@
 手頃[てごろ];手頃な値段ですね。;C'est un prix raisonnable, n'est-ce pas ?;4283
 家主[やぬし];やぬし は 1 かい に すんで います;Le propriétaire habite au premier étage.;4284
 冷ます[さます];おちゃ が とても あつかった の で さまして から のんだ の;Comme le thé était très chaud, je l'ai laissé refroidir puis je l'ai bu.;4285
-濡らす[ぬらす];けいたい でんわ を みず で ぬらして しまった ん だ|髪をよく濡らしてから、シャンプーをするといいですよ。;J'ai mouillé mon téléphone portable.|C'est bien de se mouiller les cheveux avant le shampoing.;4286
+濡らす[ぬらす];けいたい でんわ を みず で ぬらして しまった ん だ;J'ai mouillé mon téléphone portable.;4286
 焦げる[こげる];シチューが 焦[こ]げたよ。;Le ragoût a brûlé.;4288
 伝記[でんき];この投手の伝記、おも白かったよ。;L'histoire de la vie du lanceur était intéressante.;4289
 薬指[くすりゆび];かのじょ は くすりゆび に ゆびわ を はめて います;Elle porte une bague à l'annulaire.;4291
@@ -4100,7 +4100,7 @@
 プラスチック;この かっぷ は ぷらすちっく です;Ce gobelet est en plastique.;4328
 潜る[もぐる];かれ は ながい あいだ うみ に もぐって いた の;Il a longtemps plongé dans la mer.;4329
 建つ[たつ];ここ に らいねん いえ が たちます;Notre maison sera construite ici l'année prochaine.;4330
-出入り口[でいりぐち];でいりぐち に くるま を とめない で ください|博物館[はくぶつかん]の 出入り口[でいりぐち]に、ポスターが 貼[は]ってある。;Veuillez ne pas arrêter la voiture à l'entrée.|Il y a une affiche affichée à l'entrée du musée;4332
+出入り口[でいりぐち];でいりぐち に くるま を とめない で ください;Veuillez ne pas arrêter la voiture à l'entrée.;4332
 診る[みる];きょう 、 いしゃ に みてもらいました。;J'ai demandé au médecin de m'examiner aujourd'hui.;4333
 ブラシ;いぬ の け を ぶらし で とかして やった の;J'ai brossé les poils du chien avec une brosse.;4335
 錆びる[さびる];包丁[ほうちょう]がさびてしまった。;Le couteau de cuisine a rouillé.;4336
@@ -4263,7 +4263,7 @@
 凹む[へこむ];失恋で凹んでいます。;Je sombre dans un amour non partagé.;4584
 呼び掛ける[よびかける];ゆうじんたち に きょうりょく を よびかけた の;J'ai demandé à des amis leur coopération.;4587
 通ずる[つうずる];海外[かいがい]で 言葉[ことば]が 通[つう]じないのは、とても 不便[ふべん]だ。;C'est vraiment gênant de ne pas pouvoir communiquer à l'étranger.;4588
-バケツ;ばけつ に みず を くんで きて ください|もう 少[すこ]し 大[おお]きなバケツは、ありませんか。;Veuillez aller chercher de l'eau dans le seau.|Avez-vous un seau légèrement plus grand ?;4589
+バケツ;ばけつ に みず を くんで きて ください;Veuillez aller chercher de l'eau dans le seau.;4589
 飢える[うえる];長年日本語を独学してきたんですが、今は誰かと日本語の会話をすることに飢えています。;J'étudie le japonais en autodidacte depuis de nombreuses années et maintenant j'ai faim de conversations en japonais avec quelqu'un.;4591
 溶岩[ようがん];火山が溶岩を吹き出していて危険なので、これ以上近づくことはできません。;On ne peut pas s'approcher car le volcan crache de la lave et c'est dangereux.;4592
 縮める[ちぢめる];かれ は たいむ を 1 びょう ちぢめた の;Il a réduit le temps d'une seconde.;4593
@@ -4296,7 +4296,7 @@
 座布団[ざぶとん];この 座布団[ざぶとん]は 座[すわ]り 心地[ごこち]がいいね。;Ce coussin est confortable pour s'asseoir dessus.;4643
 夕立[ゆうだち];きたくちゅう ゆうだち に あった の;J'ai été surpris sous une douche en rentrant à la maison.;4647
 蛇口[じゃぐち];お 風呂[ふろ]に 蛇口[じゃぐち]が 二[ふた]つ、 付[つ]いている。;Il y a deux robinets dans la salle de bain.;4651
-図々しい[ずうずうしい];彼[かれ]は、 勝手[かって]に 人[ひと]の 辞書[じしょ]を 使[つか]う。 図々[ずうずう]しい 人[ひと]だ。|なんて ずうずうしい ひと なん だろう;Il utilise d'autres dictionnaires sans demander. Quelle personne effrontée.|Quel effronté !;4654
+図々しい[ずうずうしい];彼[かれ]は、 勝手[かって]に 人[ひと]の 辞書[じしょ]を 使[つか]う。 図々[ずうずう]しい 人[ひと]だ。;Il utilise d'autres dictionnaires sans demander. Quelle personne effrontée.;4654
 親類[しんるい];かれ は おさない とき に しんるい に あずけられた ん だ;Il a été confié aux soins de ses proches quand il était petit.;4657
 逆さま[さかさま];それじゃあ 上[うえ]と 下[した]が 逆[さか]さまだよ。;Vous devez l'inverser.;4658
 海水浴[かいすいよく];なつやすみ に は かいすいよく に いきます;Je vais nager dans la mer pendant l'été.;4660
@@ -4333,7 +4333,7 @@
 渇く[かわく];のど が かわきました;J'ai soif.;4723
 部首[ぶしゅ];このかん字の部首は何ですか？;Quel est le radical de ce kanji ?;4724
 休講[きゅうこう];きょう の ふらんすご の こうざ は きゅうこう です;Le cours de français d'aujourd'hui est annulé.;4725
-引き算[ひきざん];むすめ は がっこう で ひきざん を ならって いる|もちろん、わたしは引き算ができます！;Ma fille apprend la soustraction à l'école.|Bien sûr que je sais faire la soustraction !;4728
+引き算[ひきざん];むすめ は がっこう で ひきざん を ならって いる;Ma fille apprend la soustraction à l'école.;4728
 目茶苦茶[めちゃくちゃ];かれ の うんてん は めちゃくちゃ です;Sa conduite est horrible.;4730
 チョーク;ちょーく で こくばん に じ を かきました;J'ai écrit des lettres sur le tableau noir avec de la craie.;4731
 耕す[たがやす];この機械で畑を耕すんですよ。;Je labourerai le champ avec cette machine.;4732
@@ -4376,7 +4376,7 @@
 一昨日[いっさくじつ];いっさくじつ おでんわ を さしあげました;Je t'ai appelé avant-hier.;4801
 統計[とうけい];これ は さくねん の うりあげ の とうけい です;Ce sont les statistiques des ventes de l'année dernière.;4803
 オルガン;ぼくたち は おるがん に あわせて さんびか を うたった んだ;Nous avons chanté des hymnes avec un accompagnement d'orgue.;4804
-牧場[ぼくじょう];おじ は ぼくじょう を もって いる ん だ|この牧場には、絞り立ての牛乳を使った自慢のアイスクリーム屋さんがあるんだ。;Mon oncle a une ran|Cette ferme possède un bon magasin de crème glacée qui utilise du lait frais.;4805
+牧場[ぼくじょう];おじ は ぼくじょう を もって いる ん だ;Mon oncle a une ran;4805
 炊く[たく];薪[たきぎ]を 集[あつ]めて 火[ひ]をたいたよ。;I gathered wood and made a fire.;4806
 矢印[やじるし];矢印[やじるし]にそって 歩[ある]いてください。;Suivez la flèche.;4807
 標準[ひょうじゅん];にゅーす で は ひょうじゅんご が つかわれる の;Le langage standard est utilisé dans les émissions de nouvelles.;4808
@@ -4574,7 +4574,7 @@
 酌む[くむ];急いでバケツに水を酌んできてください。;Veuillez verser de l'eau dans ce seau rapidement.;5234
 殻[から];蟹の殻はこの皿に入れてください。;Veuillez mettre des carapaces de crabe sur cette assiette.;5239
 ご覧[ごらん];娘さんの試験の結果はもうご覧になられましたか。;Avez-vous déjà vu les résultats de l'examen de votre fille ?;5244
-綱[つな];この つな は ちょっけい 20 せんち ある そう です|二つの気球の間を綱渡りした男の人の話はもうお聞きになりましたか？;J'ai entendu dire que le diamètre de la corde est de 20 cm. Avez-vous entendu parler du type qui a marché sur une corde raide entre deux montgolfières ?;5245
+綱[つな];この つな は ちょっけい 20 せんち ある そう です;J'ai entendu dire que le diamètre de la corde est de 20 cm. Avez-vous entendu parler du type qui a marché sur une corde raide entre deux montgolfières ?;5245
 郡[ぐん];この ぐん は らいねん し に なります よ;Ce comté deviendra une ville l'année prochaine.;5246
 若しかすると[もしかすると];もしかすると あなた に いちど おあい してます か;Est-il possible que je vous ai déjà rencontré une fois ?;5247
 鎮まる[しずまる];とりあえず、今は父の怒りが鎮まるのを待ちましょう。;Pour le moment, attendons que la colère de papa se soit calmée.;5248
@@ -4692,8 +4692,8 @@
 扱う[あつかう];心理学[しんりがく]は 人間[にんげん]の 感情[かんじょう]を 扱[あつか]う。;La psychologie traite des émotions humaines.;5512
 決意[けつい];かれ の けつい は かたい な;Sa décision est ferme.;5513
 サイズ;このサイズは 私[わたし]には 小[ちい]さすぎます。;Cette taille est trop petite pour moi.;5514
-天才[てんさい];北野[きたの] 武[たけし]は 映画[えいが]の 天才[てんさい]だと 思[おも]います。|かれ は わらい の てんさい だ ね;Je pense que Takeshi Kitano est un génie du cinéma.;5515
-恋愛[れんあい];彼女[かのじょ]は 恋愛[れんあい]にあこがれる 年[とし]ごろです。|かのじょ は れんあい に あこがれる とし ごろ です;She's at that age when girls yearn for romance.;5516
+天才[てんさい];北野[きたの] 武[たけし]は 映画[えいが]の 天才[てんさい]だと 思[おも]います。;Je pense que Takeshi Kitano est un génie du cinéma.;5515
+恋愛[れんあい];彼女[かのじょ]は 恋愛[れんあい]にあこがれる 年[とし]ごろです。;She's at that age when girls yearn for romance.;5516
 認識[にんしき];その けん は おわった と にんしき して います;Je crois comprendre que l'affaire est terminée.;5518
 地獄[じごく];じしん の あと まち は じごく の よう だった よ;Après le tremblement de terre, la ville ressemblait à un enfer.;5519
 役立つ[やくだつ];がっこう で べんきょう した こと が やくだった;Ce que j'étudiais à l'école était utile.;5520
@@ -4907,7 +4907,7 @@
 漏れる[もれる];かれ の へっどふぉん から おと が もれて いる ね;Le son fuit de ses écouteurs.;5801
 合成[ごうせい];この そふと で がぞう を ごうせい できます;Les images peuvent être synthétisées avec ce logiciel.;5802
 センス;彼[かれ]は 服装[ふくそう]のセンスはないようだ;Il semble n'avoir aucun goût de tenue vestimentaire.;5806
-忠実[ちゅうじつ];私達の子どもはあなたの子と違って、忠実に言うことを聞くんです。|いぬ は かいぬし に ちゅうじつ です;Nos enfants font fidèlement ce qu'on leur dit, contrairement aux vôtres. Les chiens sont fidèles à leur propriétaire.;5807
+忠実[ちゅうじつ];私達の子どもはあなたの子と違って、忠実に言うことを聞くんです。;Nos enfants font fidèlement ce qu'on leur dit, contrairement aux vôtres. Les chiens sont fidèles à leur propriétaire.;5807
 避難[ひなん];あぶない の で ひなん して ください;C'est dangereux ici, alors s'il vous plait, évacuez !;5808
 組み込む[くみこむ];きゃんぺーん に あたらしい いべんと を くみこみました;Nous avons introduit un nouvel événement dans la campagne.;5809
 偏見[へんけん];かれ は よのなか の へんけん と たたかった ん だ;Il s'est battu contre les préjugés dans le monde.;5810
@@ -4989,7 +4989,7 @@
 不在[ふざい];つま の ふざいちゅう おっと は まいにち がいしょく した ん だ;Le mari dînait tous les jours pendant l'absence de sa femme.;5924
 合わす[あわす];あか に きいろ を あわすと なにいろ に なります か;Quelle couleur obtenez-vous si vous ajoutez du jaune au rouge ?;5925
 ホール;市[し]のホールで、よくコンサートが 開[ひら]かれる。;Des concerts ont souvent lieu à la mairie.;5926
-継ぐ[つぐ];おさけ を お つぎ しましょう|かれ は ちちおや の みせ を ついだ の;Laisse-moi te servir à boire.|Il a repris la boutique de son père.;5927
+継ぐ[つぐ];おさけ を お つぎ しましょう;Laisse-moi te servir à boire.;5927
 受け付ける[うけつける];ゆうびんぶつ は ごじ まで うけつけて います;Nous acceptons le courrier jusqu'à cinq heures.;5929
 同盟[どうめい];ああ、そういうことか。Tofuguは一番のライバル会社と同盟を組んだんだよ。;Oh, maintenant je vois ce qui s'est passé. Tofugu a formé une alliance avec son concurrent le plus proche.;5932
 残酷[ざんこく];私は、ひどく残酷な決断を迫られました。;J'ai été pressé d'une décision terriblement cruelle.;5933
@@ -5121,7 +5121,7 @@
 指揮[しき];かれ が その ぷろじぇくと の しき を とった の;Il a pris l'initiative de ce projet.;6133
 滅びる[ほろびる];その ぶんめい は なんぜんねん も まえ に ほろびて しまった の;Cette civilisation a été détruite il y a des milliers d'années.;6134
 領域[りょういき];かのじょ は りょうり の うで が しろうと の りょういき を こえて いる わ;Ses compétences culinaires vont au-delà de la portée d'un amateur.;6135
-設ける[もうける];じゅぎょう の おわり に ふくしゅう の じかん を もうけた|せんげつ は かぶ で 100 まん えん もうけた の;J'ai organisé un temps de révision à la fin du cours. J'ai gagné un million de yens en bourse le mois dernier.;6136
+設ける[もうける];じゅぎょう の おわり に ふくしゅう の じかん を もうけた;J'ai organisé un temps de révision à la fin du cours. J'ai gagné un million de yens en bourse le mois dernier.;6136
 結成[けっせい];あたらしい だいひょう ちーむ が けっせい されました;La nouvelle équipe représentative a été formée.;6138
 無能[むのう];かれ は むのう だ;Il est incapable.;6139
 無知[むち];かのじょ は せいじ に ついて むち でした;Elle ignorait la politique.;6141
@@ -5389,7 +5389,7 @@
 描写[びょうしゃ];アヤは、Tofugu殺人事件を細部に渡って描写した。;Aya a dessiné une description détaillée de l'affaire du meurtre de Tofugu.;6621
 素朴[そぼく];みなさんの素朴な疑問にお答えします。;J'ai répondu aux questions naïves de tout le monde.;6623
 妥協[だきょう];妥協したくないの。;Je ne veux pas céder.;6626
-余程[よほど];あいつがガッツポーズするなんて、よっぽど 嬉[うれ]しかったんだろうな。|今日[きょう]の 遠足[えんそく]はよほど 楽[たの]しかったらしい。;Il a dû être vraiment content de lui pour faire une telle pose triomphante.|The field trip today must have been very fun.;6627
+余程[よほど];あいつがガッツポーズするなんて、よっぽど 嬉[うれ]しかったんだろうな。;Il a dû être vraiment content de lui pour faire une telle pose triomphante.;6627
 募る[つのる];妻への不信感は募るばかりです。;Ma méfiance envers ma femme ne fait que se renforcer.;6629
 賭ける[かける];かれ は あたらしい しごと に じんせい を かけて いる。;Il mise sa fortune sur ce nouveau travail.;6630
 一部分[いちぶぶん];ぼく が しって いる の は いちぶぶん に すぎない;Ce que je sais n'en est qu'une partie.;6631
@@ -5646,7 +5646,7 @@
 山脈[さんみゃく];れっしゃ の まど から ゆうだい な さんみゃく が みえた ん だ よ;J'ai pu voir une magnifique chaîne de montagnes depuis la fenêtre du train.;7135
 色彩[しきさい];先生は、その生徒は鋭い色彩感覚を持っていると判断しました。;L'enseignant a conclu que l'élève avait un sens aigu de la couleur.;7138
 和やか[なごやか];かれら は なごやか に しょくじ を した;Ils ont mangé tranquillement.;7140
-株式会社[かぶしきがいしゃ];４月[しがつ] １日[ついたち]、 南洋[なんよう]フーズ 株式会社[かぶしきがいしゃ]は 横浜[よこはま]の 新[しん] 社屋[しゃおく]に 移転[いてん]します。|Tofugu株式会社に電話を入れて、ファックスの送信がきちんと完了しているかどうか確認してくれる？;Le 1er avril, Nanyo Foods Co. Ltd. se déplacera dans son nouveau bâtiment à Yokohama.;7141
+株式会社[かぶしきがいしゃ];４月[しがつ] １日[ついたち]、 南洋[なんよう]フーズ 株式会社[かぶしきがいしゃ]は 横浜[よこはま]の 新[しん] 社屋[しゃおく]に 移転[いてん]します。;Le 1er avril, Nanyo Foods Co. Ltd. se déplacera dans son nouveau bâtiment à Yokohama.;7141
 固体[こたい];こおり は こたい です;La glace est un solide.;7143
 短大[たんだい];いもうと は たんだい を そつぎょう しました;Ma petite sœur est diplômée du collège junior.;7144
 著書[ちょしょ];これはミラー し 氏の さいしん 最新の ちょしょ 著書ですが、これが さいご 最後のものでないことを のぞ 望みます。;C'est le dernier livre de M. Miller, j'éspère qu'il y en aura d'autre.;7145
@@ -5664,7 +5664,7 @@
 購買[こうばい];私は消費者の購買意欲について研究をしています。;J'étudie les motivations d'achat des clients.;7161
 捕虜[ほりょ];ごぼうを捕虜に食べさせて有罪になった日本兵がいます。;De la grande bardane a été donnée à manger au prisonnier de guerre et le soldat japonais s'est senti coupable.;7162
 軽率[けいそつ];けいそつ な はつげん は しない よう き を つけなさい;Attention à ne pas faire de remarques désinvoltes.;7166
-取り敢えず[とりあえず];取り敢えず枝豆とビールをください。|とりあえず おしらせ して おきます|大学[だいがく]に 合格[ごうかく]したので、 取[と]り 敢[あ]えず 母[はは]に 知[し]らせた。;Edamame et bière pour l'instant s'il vous plaît.|Voici mon rapport, pour l'instant.|J'ai été accepté à l'université, alors j'ai d'abord informé ma mère.;7173
+取り敢えず[とりあえず];取り敢えず枝豆とビールをください。;Edamame et bière pour l'instant s'il vous plaît.;7173
 如何に[いかに];かれ に あえば かれ が いかに いい ひと か わかります;Si vous le rencontriez, vous vous rendriez compte à quel point il est gentil.;7174
 混む[こむ];電車は毎日混みますが、あなたのせいではありません。自分を責める必要はありませんよ。;Le train est bondé tous les matins, mais ce n'est pas ta faute. Il n'y a pas besoin de vous culpabiliser.;7175
 取り分け[とりわけ];取り分けコウイチがどなっている時に、ビエトは一人静かに笑っていました。;Viet riait doucement pour lui-même, surtout quand Koichi criait.;7178
@@ -5710,7 +5710,7 @@
 滞る[とどこおる];家主が六ヶ月間家賃が滞っている男の家に出向くと、男は家の中で死んでいた。;Le propriétaire a rendu visite à un type qui avait six mois de retard dans son loyer et l'a trouvé mort dans la maison.;7288
 運用[うんよう];かいけいし に しきん うんよう に ついて そうだん した よ;J'ai consulté un comptable sur la gestion de mon patrimoine.;7294
 還元[かんげん];我々は円高還元セールを実施します。;Nous allons avoir une forte vente de réduction du yen.;7295
-足し算[たしざん];むすめ は がっこう で たしざん を ならった|大[おお]きな 数字[すうじ]の 足し算[たしざん]は 間違[まちが]えそうだ。;Ma fille a appris l'addition à l'école. Je pense que je pourrais faire une erreur en ajoutant de grands nombres.;7296
+足し算[たしざん];むすめ は がっこう で たしざん を ならった;Ma fille a appris l'addition à l'école. Je pense que je pourrais faire une erreur en ajoutant de grands nombres.;7296
 傷付く[きずつく];わたし は かのじょ の ことば に きずつきました;J'ai été blessé par ses paroles.;7297
 勧告[かんこく];人事部に辞職勧告を受けた後もなお仕事を続けていたら、窓際族に追いやられてしまいました。;Après avoir reçu un avis de démission du service du personnel et que je n'ai toujours pas quitté mon emploi, j'ai été transféré à un poste inutile.;7298
 的[てき];自分的には上手にアメリカ的なスピーチができたと思ってたんだけどな。;Personnellement, je pensais que j'étais capable de faire un discours à l'américaine assez bien.;7300
@@ -5857,7 +5857,7 @@
 排水[はいすい];学校[がっこう]はプールの 水[みず]を 月[つき] 一回[いっかい] 排水[はいすい]する。;L'école draine le bassin une fois par mois.;7668
 夜更かし[よるふかし];さいきん の こども たち は よふかし です;De nos jours, les enfants veillent tard.;7670
 復旧[ふっきゅう];ビエトがTofuguのシステム復旧のために今一生懸命頑張っています。;Viet travaille de son mieux pour restaurer le système Tofugu en ce moment.;7675
-階[かい];店[みせ]は3 階[かい]にあります。|「何階ですか？」「四階をおねがいします。」「このエレベーターはその階には止まりませんよ。」;Le magasin est au 3e étage.;7676
+階[かい];店[みせ]は3 階[かい]にあります。;Le magasin est au 3e étage.;7676
 野党[やとう];やとう が よとう を きびしく ひなん して いました ね;Le parti d'opposition critiquait sévèrement le parti au pouvoir.;7683
 洋風[ようふう];わたし は ようふう の いえ に すんで います;Je vis dans une maison de style occidental.;7686
 我が儘[わがまま];子供[こども]のわがままを 叱[しか]ったの。;J'ai grondé mon enfant pour être égoïste.;7690
@@ -5902,11 +5902,11 @@
 否決[ひけつ];今朝新聞で上院は議案を否決したって読んだよ。;J'ai lu que le sénat a rejeté le projet de loi dans le journal ce matin.;7796
 桟橋[さんばし];船は桟橋に繋いでいます。;Le navire est amarré au quai.;7798
 座談会[ざだんかい];彼[かれ]は 座談[ざだん] 会[かい]のゲストに 呼[よ]ばれた;Il a été convié comme invité à la conférence.;7799
-怠い[だるい];きのう は かぜ で すこし だるかった ん だ|少[すこ]し 寝[ね]たら、 体[からだ]のだるさが 少[すこ]しとれた。;Hier, je me suis senti épuisé parce que j'avais un rhume.|Après avoir dormi un peu, la paresse a quelque peu disparu.;7803
+怠い[だるい];きのう は かぜ で すこし だるかった ん だ;Hier, je me suis senti épuisé parce que j'avais un rhume.;7803
 主任[しゅにん];かのじょ は かいけい しゅにん です;Elle est gestionnaire de compte.;7804
 就業[しゅうぎょう];就業規則についての話し合いをするために、 私たちは月一のペースで会っている。;Nous nous rencontrons mensuellement pour discuter de la réglementation du travail.;7806
 嫌々[いやいや];その こ は いやいや がっこう へ いった の;L'enfant est allé à l'école à contrecœur.;7809
-ローマ字[ローマじ];ローマ 字[じ]で 名前[なまえ]を 書[か]いてください。|ろーまじ で なまえ を かいて ください|ここに、ローマ 字[じ]で 名前[なまえ]を 書[か]いてください。;Veuillez écrire votre nom en lettres romaines.;7810
+ローマ字[ローマじ];ローマ 字[じ]で 名前[なまえ]を 書[か]いてください。;Veuillez écrire votre nom en lettres romaines.;7810
 漁船[ぎょせん];昨夜漁船を盗まれました。;On m'a volé mon bateau de pêche hier soir.;7811
 模範[もはん];かれ は ぜんこう せいと の もはん です;C'est un modèle pour tous les élèves de notre école.;7817
 学説[がくせつ];それ は さいしん の がくせつ ね;C'est la dernière théorie.;7818
@@ -6031,7 +6031,7 @@
 民俗[みんぞく];彼は、歴史民俗資料館の館長です。;Il est le directeur du Musée d'histoire et de folklore.;8224
 徒[ただ];いまさら 後悔[こうかい]しても 無駄[むだ]だ。;Il est inutile de le regretter maintenant.;8226
 飽和[ほうわ];市場は今飽和状態になっているんだよ。;Le marché est désormais saturé.;8240
-値[あたい];えっくす の あたい を もとめなさい|その価には同意できないな。タダ同然じゃないか。;Calculez la valeur de x.|Je ne suis pas d'accord avec ce prix. Ce n'est pas juste.;8241
+値[あたい];えっくす の あたい を もとめなさい;Calculez la valeur de x.;8241
 十字路[じゅうじろ];じゅうじろ で くるま と ばいく が しょうとつ した ぞ;La voiture est entrée en collision avec une moto au carrefour.;8243
 牧師[ぼくし];牧師さんはもう今日は教会を出ちゃいましたか？;Le pasteur a-t-il déjà quitté l'église pour la journée ?;8248
 蔵[くら];今、蔵の掃除をしているんです。;Nous nettoyons notre entrepôt maintenant.;8253
@@ -6043,7 +6043,7 @@
 扉[とびら];かれ は とびら を あけた ん だ;Il ouvrit la porte.;8289
 班[はん];はん の めんばー は 5 にん です;Il y a cinq membres dans le groupe.;8290
 群集[ぐんしゅう];すうひゃくにん の ぐんしゅう が あつまって いる の;Une foule de centaines s'est rassemblée.;8299
-要|要するする[よう|ようするする];このビルは 完成[かんせい]までに２ 年[ねん]を 要[よう]した。;Ce bâtiment nécessitait deux ans pour être achevé.;8303
+要;このビルは 完成[かんせい]までに２ 年[ねん]を 要[よう]した。;Ce bâtiment nécessitait deux ans pour être achevé.;8303
 管[かん];がすかん が ばくはつ しました;Le tuyau de gaz a explosé.;8306
 自動詞[じどうし];自動詞「進む」の可能形は、「進める」です。;"La forme potentielle du verbe intransitif ""avancer"" est ""quelque chose avance"".";8309
 倹約[けんやく];いくらマイホームを買いたいからって、度を過ぎた倹約を強いるのはどうかと思います。;Je ne pense pas que ce soit une bonne idée de s'imposer une plus grande frugalité simplement parce que vous voulez acheter votre propre maison.;8311
@@ -6138,7 +6138,7 @@
 善[ぜん];善悪を見極めることは難しい。;Il est difficile de discerner le bien du mal.;8570
 股[また];じてんしゃ の のりすぎ で また が いたい です;J'ai aussi mal à l'entrejambe de faire du vélo;8574
 硝子[ガラス];フロントガラス、汚れてるよ。;Votre pare-brise est sale.;8575
-荒す[あらす];かれ は ごうとう に いえ の なか を あらされた の|昨夜車上荒らしにあって、マックを盗まれました。;Sa maison a été saccagée par un cambrioleur.|Ma voiture a été cambriolée hier soir et mon mac a été volé.;8577
+荒す[あらす];かれ は ごうとう に いえ の なか を あらされた の;Sa maison a été saccagée par un cambrioleur.;8577
 弓[ゆみ];コウイチの弓がどこにも見当たらないんだ。;Nous ne pouvons trouver l'arc de Koichi nulle part.;8580
 露[つゆ];はな に つゆ が ついて いました;Il y avait de la rosée sur la fleur.;8581
 封[ふう];てがみ に ふう を した よ;J'ai cacheté la lettre.;8585
@@ -6200,13 +6200,13 @@
 漏る[もる];てんじょう から あめ が もる の;La pluie coule du plafond.;8767
 炬燵[こたつ];さむい の で こたつ を だしました;Nous avons sorti le kotatsu car il faisait froid.;8768
 にきび;睡眠[すいみん] 不足[ぶそく]で、にきびができた。;En raison d'un manque de sommeil, des boutons ont éclaté.;8772
-反する|反する[はんする|はんする];かれ の おこない は もらる に はんして います;Ce qu'il fait va à l'encontre de la morale.;8774
+反する;かれ の おこない は もらる に はんして います;Ce qu'il fait va à l'encontre de la morale.;8774
 神聖な[しんせいな];村人たちは、自然に対し神聖な敬意を持っています。;Les villageois ont un saint respect pour la nature.;8779
 参議院[さんぎいん];かれ は さんぎいん ぎいん です;Il est membre de la Chambre des conseillers.;8782
 症[しょう];妻の神経性ヒステリー症について、医者に相談しなくてはいけません。;Je devrais consulter un médecin au sujet de l'hystérie névrotique de ma femme.;8783
 甥[おい];わたし の おい は さんさい です;Mon neveu a 3 ans.;8784
 殊に[ことに];ろっく は ことに わかもの に にんき だ;La musique rock est particulièrement appréciée des jeunes.;8785
-励る[はげる];その 調子[ちょうし]で 勉強[べんきょう]を 続[つづ]けなさいと 先生[せんせい]が 励[はげ]ましてくれた。|かべ の ぺんき が はげて きた な|ちち が むすこ を はげました の;Mon professeur m'a encouragé dans mes études.;8793
+励る[はげる];その 調子[ちょうし]で 勉強[べんきょう]を 続[つづ]けなさいと 先生[せんせい]が 励[はげ]ましてくれた。;Mon professeur m'a encouragé dans mes études.;8793
 蛋白質[たんぱくしつ];たんぱくしつ は たいせつ な えいよう です;La protéine est un nutriment important.;8797
 扶養[ふよう];扶養の範囲内で働かせてください。;S'il vous plaît laissez-moi travailler à l'appui.;8815
 三番目[さんばんめ];この曲、ビートルズの中で三番目くらいにすき。;C'est probablement ma troisième chanson préférée des Beatles.;8823
@@ -6356,7 +6356,7 @@
 何度[なんど];あの みせ に は なんど も いきました;Je suis allé plusieurs fois dans cette boutique.;9240
 大将[たいしょう];大将が机の角に頭をぶつけて、たんこぶを作っちまったんだよ。;L'amiral s'est cogné la tête contre le coin du bureau et s'est fait une grosseur.;9242
 職場[しょくば];じたく から しょくば まで いちじかん かかります;Cela prend une heure de la maison au bureau.;9243
-被害者[ひがいしゃ];我々[われわれ]は 水害[すいがい]の 被害者[ひがいしゃ]に 食物[しょくもつ]と 衣類[いるい]を 支給[しきゅう]した。|事故[じこ]の 被害者[ひがいしゃ]は、 大怪我[おおけが]をしたらしい。;Nous avons fourni aux victimes des inondations de la nourriture et des vêtements.;9244
+被害者[ひがいしゃ];我々[われわれ]は 水害[すいがい]の 被害者[ひがいしゃ]に 食物[しょくもつ]と 衣類[いるい]を 支給[しきゅう]した。;Nous avons fourni aux victimes des inondations de la nourriture et des vêtements.;9244
 業界[ぎょうかい];この 会社[かいしゃ]は 石油[せきゆ] 業界[ぎょうかい]で ２位[にい]に 位[くらい]している。;Cette entreprise occupe la deuxième place dans le secteur du pétrole.;9245
 最強[さいきょう];かれ は さいきょう ちーむ の いちいん です;Il fait partie de l'équipe la plus forte.;9246
 引き継ぐ[ひきつぐ];私[わたし]の 息子[むすこ]が 仕事[しごと]を 引き継[ひきつ]ぐだろう。;Mon fils va reprendre le travail.;9247
@@ -6480,7 +6480,7 @@
 信念[しんねん];じぶん の しんねん に したがいたい と おもいます;Je pense que je veux suivre ma propre foi.;9396
 再度[さいど];相手は、埋め立て計画に反対する請願書を再度持ってくるかもしれませんよ。;Ils pourraient à nouveau présenter une pétition contre notre projet d'enfouissement.;9397
 真の[しんの];われわれ 我々の しん 真の こくせき 国籍は じんるい 人類である。;Our true nationality is mankind.;9398
-連れて来る[つれてくる];息子[むすこ]が 友達[ともだち]を 連[つ]れて 来[き]ました。|むすこ が ともだち を つれて きました;Mon fils a amené un ami.;9401
+連れて来る[つれてくる];息子[むすこ]が 友達[ともだち]を 連[つ]れて 来[き]ました。;Mon fils a amené un ami.;9401
 気分転換[きぶんてんかん];気分転換[きぶんてんかん]に 散歩[さんぽ]しよう。;Faisons une promenade pour changer.;9403
 科学者[かがくしゃ];彼[かれ]はとても 有名[ゆうめい]な 科学[かがく] 者[しゃ]だ。;Il est un scientifique très célèbre.;9404
 ラーメン;夕食[ゆうしょく]にラーメンを 食[た]べました。;J'ai mangé des ramen pour dîner.;9405
@@ -6501,7 +6501,7 @@
 放つ[はなつ];コウイチは、するどく変化するサーブを放つバレーボール選手として知られている。;Koichi est connu pour être un joueur de volley-ball qui peut servir une balle courbe très pointue.;9422
 間近[まぢか];ゆうめいじん を まぢか で みた よ;J'ai vu une célébrité de près.;9423
 目玉[めだま];このじゃがいもを、ゆきだるまの目玉にします。;Je vais utiliser ces pommes de terre pour les globes oculaires du bonhomme de neige.;9424
-見詰める[みつめる];いい加減[いいかげん]に 現実[げんじつ]をみつめろ。|その犬は、真っすぐ上へ上へと飛んで行く風船をじっと見詰めていた。;Ouvrez vos yeux sur la réalité.;9427
+見詰める[みつめる];いい加減[いいかげん]に 現実[げんじつ]をみつめろ。;Ouvrez vos yeux sur la réalité.;9427
 アイス;暑[あつ]いのでアイスを 食[た]べました。;J'ai mangé de la crème glacée parce qu'il faisait chaud.;9428
 何故か[なぜか];きょう は なぜか からだ が だるい;Je me sens lourd aujourd'hui pour une raison quelconque.;9429
 居酒屋[いざかや];この 町[まち]には、たくさん 居酒屋[いざかや]がある。;Il y a de nombreux pubs japonais dans cette ville.;9431
@@ -6513,7 +6513,7 @@
 カラオケ;会社[かいしゃ] 帰[がえ]りに 仲間[なかま]とカラオケに 行[い]きました。;Au retour du travail, je suis allé au karaoké avec mes collègues.;9441
 開店[かいてん];でぱーと は じゅうじ に かいてん します よ;Le grand magasin ouvre à dix heures.;9442
 お子さん[おこさん];"先生[せんせい;n3] の お子[おこ;h]さん は 今[いま;a] 中学生[ちゅうがくせい;n3,n4] です か 。";Votre enfant est maintenant au collège ?;9443
-昔話[むかしばなし];これは日本の昔話ですか。|子供[こども]に 昔話[むかしばなし]を 読[よ]んで 聞[き]かせた;J'ai lu le conte de fées à haute voix à l'enfant.;9444
+昔話[むかしばなし];これは日本の昔話ですか。;J'ai lu le conte de fées à haute voix à l'enfant.;9444
 ロボット;彼[かれ] は[わ]ロボットの 研究[けんきゅう]をしています。;Il fait des recherches sur les robots.;9447
 研究所[けんきゅうしょ];とあるアメリカの研究所が、日本語がペラペラになるくすりを開発したそうだ。;J'ai entendu dire qu'un certain laboratoire américain a fabriqué une pilule qui vous permettra de parler couramment le japonais.;9448
 和食[わしょく];私[わたし]は 和食[わしょく]が 好[す]きです。;J'aime la cuisine japonaise.;9449
@@ -6583,7 +6583,7 @@
 見習う[みならう];かれ を みならって もっと べんきょう します;Je vais suivre son exemple et étudier plus dur.;9539
 気力[きりょく];かれ は きりょく に あふれて います ね;Il a vraiment de l'énergie à revendre.;9540
 愛人[あいじん];コウイチの愛人は、少し鼻にかかったみ力的な声をしていました。;L'amant de Koichi avait une jolie voix légèrement nasillarde.;9542
-宇宙人[うちゅうじん];コウイチの写真は、火星で干ばつと大恐慌の犠牲となった宇宙人たちを正直に、かつ同情を込めてとらえている。|みんな 宇宙人[うちゅうじん]になったつもりで。;Faisons semblant d'être des étrangers.;9543
+宇宙人[うちゅうじん];コウイチの写真は、火星で干ばつと大恐慌の犠牲となった宇宙人たちを正直に、かつ同情を込めてとらえている。;Faisons semblant d'être des étrangers.;9543
 不可能[ふかのう];れぽーと を 1 にち で しあげる の は ふかのう です;Il est impossible de terminer le rapport en un jour.;9544
 後ろ姿[うしろすがた];暗闇[くらやみ]の 中[なか]、 俺[おれ]は 遠[とお]ざかる 後姿[うしろすがた]に 必死[ひっし]に 手[て]を 伸[の]ばす。;Dans l'obscurité, je perds mes moyens et souhaite fuir au loin.;9545
 一個[いっこ];おく歯に一個、大きな穴が空いているね。;Vous avez un gros trou dans vos dents du fond.;9546
@@ -6761,7 +6761,7 @@
 キャベツ;キャベツの 千切[せんぎ]りを 添[そ]えたよ。;Je l'ai garni de chou émincé.;9819
 ギョーザ;ぎょうざは 中国[ちゅうごく]のラビオリです。;Les Gyoza sont des raviolis Chinois.;9821
 大仏[だいぶつ];昨日、ならの大仏をおとずれました。;J'ai visité le Grand Bouddha à Nara hier.;9823
-日付け[ひづけ];きょう の ひづけ は 6 がつ 19 にち です|レポートに 日付[ひづけ]を 書[か]いてください。;La date d'aujourd'hui est le 19 juin.|Veuillez inscrire la date sur le rapport.;9824
+日付け[ひづけ];きょう の ひづけ は 6 がつ 19 にち です;La date d'aujourd'hui est le 19 juin.;9824
 オーナー;オーナーの 人達[ひとたち]は 彼[かれ]を 支配人[しはいにん]に 任命[にんめい]した。;Les propriétaires l'ont nommé directeur.;9825
 周年[しゅうねん];トーフグは、来年で十周年になるので、コウイチは周年プロジェクトをけい画しています。;L'année prochaine est le 10e anniversaire de Tofugu, alors Koichi prévoit un projet d'anniversaire.;9826
 ライト;突然[とつぜん]ライトが 消[き]えた。;Tout à coup, les lumières s'éteignirent.;9827
@@ -6809,7 +6809,7 @@
 京都[きょうと];JRの「そうだ、京都行こう」の広告を見て京都に行きたくなったが、そんなお金はなかった。;"La pub JR ""Ça y est ! Allons à Kyoto."" m'a donné envie d'aller à Kyoto, mais je n'avais pas ce genre d'argent.";9902
 時機[じき];あせらず に じき を まつ べき です;Vous devez attendre patiemment la bonne opportunité.;9903
 ショート;怪我[けが]をしたためにショートの 選手[せんしゅ]は 出場[しゅつじょう]できなくなった。;Une blessure a réduit le nombre d'athlète annulant la participation.;9904
-富士山[ふじさん];ここから 富士山[ふじさん]が 見[み]える。|ふじ山に、ごぜん十一じごろまでにつきたいです。;Le Mt Fuji peut être vu d'ici.;9907
+富士山[ふじさん];ここから 富士山[ふじさん]が 見[み]える。;Le Mt Fuji peut être vu d'ici.;9907
 無職[むしょく];今[いま]は 無職[むしょく]だが、 来月[らいげつ]から 働[はたら]く。;Je suis au chômage maintenant, mais je travaillerai à partir du mois prochain.;9909
 苺[いちご];この いちご は とても あまい;Cette fraise est très sucrée.;9912
 見抜く[みぬく];うちの母親は父親の嘘を見抜くのがうまい。;Ma mère est douée pour voir à travers les mensonges de mon père.;9913
@@ -7239,7 +7239,7 @@
 仮説[かせつ];この土地は、みかんやレモンのようなかんきつるいの果物に向いているんじゃないかという仮説を立てました。;J'ai émis l'hypothèse que ce sol est très bon pour les agrumes comme les clémentines et les citrons.;10831
 足りない[たりない];お金が十円足りないんです。;Il me manque dix yens.;10832
 古里[ふるさと];いつも ふるさと を なつかしく おもいだす の;Je me souviens toujours avec émotion de ma ville natale.;10834
-日本製[にほんせい];"その日本製の刀の柄には、美しい宝石が散りばめられている。|これ[;h] は 日本製[にっぽんせい;h] の テレビ[;a] です 。";La poignée de l'épée a été fabriquée au Japon et est parsemée de beaux bijoux. Il s'agit d'un téléviseur de fabrication japonaise.;10837
+日本製[にほんせい];"その日本製の刀の柄には、美しい宝石が散りばめられている。;h] は 日本製[にっぽんせい;h] の テレビ[;a] です 。";La poignée de l'épée a été fabriquée au Japon et est parsemée de beaux bijoux. Il s'agit d'un téléviseur de fabrication japonaise.;10837
 ミュージカル;この 間[このあいだ]ミュージカルに 見[みにい]に行ったんだ。;J'étais à une comédie musicale récemment.;10839
 プレイヤー;いつも 一人[ひとり]で 仕事[しごと]をしているから。 僕[ぼく]は、チームプレーヤーではない。;Je travaille toujours seul. Je ne suis tout simplement pas un joueur d'équipe.;10840
 発熱[はつねつ];むすめ が とつぜん はつねつ した ん だ;Ma fille a soudainement développé de la fièvre.;10842
@@ -7268,7 +7268,7 @@
 明朝[みょうちょう];みょうちょう 10 じ から また かいぎ です;Il y a une autre réunion à partir de dix heures demain matin.;10890
 長らく[ながらく];ながらく お またせ しました 。;Je suis désolé de vous avoir fait attendre si longtemps.;10892
 一体感[いったいかん];私[わたし]たちはだれでも、 他者[たしゃ]との 一体感[いったいかん]を 切望[せつぼう]する 何[なに]かをうちに 秘[ひめ]めている。;Chacun d'entre nous possède quelque chose en soi d'un désire de sentiment d'unité avec les autres.;10894
-三角形[さんかくけい];この さんかくけい の めんせき を だしなさい|どうすれば、三角形のオニギリをにぎれるんですか？;Déterminez les dimensions de ce triangle.|Comment transformer un onigiri en triangle ?;10896
+三角形[さんかくけい];この さんかくけい の めんせき を だしなさい;Déterminez les dimensions de ce triangle.;10896
 出席者[しゅっせきしゃ];会[かい]の 出席者[しゅっせきしゃ]は 多[おお]かった。;La réunion a été bien suivie.;10899
 リクエスト;らじお ばんぐみ に りくえすと を おくった の;J'ai envoyé une demande à l'émission de radio.;10904
 洗練[せんれん];コウイチの洗練されたおもかげを、二度と忘れることはないでしょう。;Je n'oublierai jamais l'apparence du visage raffiné de Koichi.;10906
@@ -7674,7 +7674,7 @@
 摘む[つむ];彼女は薔薇の花びらを一枚一枚丁寧に手で摘んでいきます。;Elle cueille soigneusement chaque pétale de rose à la main.;12056
 早乙女[さおとめ];昔は稲の苗を水田に植えつける女性のことを「早乙女」や「植女」と呼んでいました。;Autrefois, les femmes qui plantaient des plants de riz s'appelaient Saotome ou Ueme.;12061
 倫理[りんり];ちゃんと職業倫理を守ってください。;Veuillez respecter correctement l'éthique des affaires.;12062
-危篤[きとく];その 患者[かんじゃ]は 危篤[きとく] 状態[じょうたい]だった|父が危篤だという電話がありました。;Le patient était dans un état critique.;12063
+危篤[きとく];その 患者[かんじゃ]は 危篤[きとく] 状態[じょうたい]だった;Le patient était dans un état critique.;12063
 震災[しんさい];震災で、地面が穴ぼこだらけになってしまいました。;À cause du tremblement de terre, il y a beaucoup de nids-de-poule sur le sol maintenant.;12064
 没頭[ぼっとう];好きなことに没頭できるなんて、幸せですね。;Si vous pouvez vous immerger dans les choses que vous aimez, vous serez heureux.;12067
 非常識[ひじょうしき];かれ は ひじょうしき な じかん に でんわ して きた の;Il m'a appelé à une heure déraisonnable.;12071
@@ -7694,7 +7694,7 @@
 冷え込む[ひえこむ];あす から きゅう に ひえこむ そう です;J'entends qu'il va soudainement faire froid à partir de demain.;12107
 怪しむ[あやしむ];けいさつ は その ぐるーぷ を あやしんで います;La police soupçonne le groupe.;12109
 石碑[せきひ];津波が襲った高さの地点に石碑が建てられているのです。;Un monument en pierre a été construit sur le site où la hauteur du tsunami a frappé.;12111
-伯父[おじ];おじさんがぼくにカメラをくれました。|伯父は銀行員です。;Mon oncle m'a donné un appareil photo.;12112
+伯父[おじ];おじさんがぼくにカメラをくれました。;Mon oncle m'a donné un appareil photo.;12112
 添付[てんぷ];ファイルを 添付[てんぷ]して、 送信[そうしん]した。;J'ai joint un fichier et envoyé l'e-mail.;12114
 抱負[ほうふ];なに 何か しんねん 新年の ほうふ 抱負があるの？;Quelles bonnes résolutions du Nouvel An as-tu pris ?;12115
 悪霊[あくりょう];悪霊がいると聞いたので、トンネルの中ではスピードを上げて運転しました。;Elle a conduit à toute vitesse dans le tunnel parce qu'elle a entendu dire qu'il y avait un esprit maléfique à l'intérieur.;12121
@@ -7752,7 +7752,7 @@
 豆腐[とうふ];悪[わる]いけどお 豆腐[とうふ] 買[か]ってきてくれない？;Je ne devrais pas demander, mais pourriez-vous me trouver du tofu?;12296
 焼きそば[やきそば];おまつり で やきそば を たべた よ;J'ai mangé des nouilles sautées au festival.;12297
 広島[ひろしま];広島に、登山にいい山はありますか？;Y a-t-il de bonnes montagnes à gravir à Hiroshima ?;12298
-バス停[バスてい];次[つぎ]のバス 停[てい]で 降[お]ります。|つぎ の ばすてい で おります;Je descendrai à l'arrêt de bus suivant.;12301
+バス停[バスてい];次[つぎ]のバス 停[てい]で 降[お]ります。;Je descendrai à l'arrêt de bus suivant.;12301
 後片付け[あとかたづけ];しょくじ の あとかたづけ を てつだった の;J'ai aidé à nettoyer après le repas.;12302
 鼻血[はなぢ];鼻の下にひげをはやしていると、鼻血が出た時に大変ですね。;Si vous avez une moustache, ce sera une douleur si votre nez saigne, n'est-ce pas ?;12305
 覇気[はき];うちの息子は、若いのに覇気が無い。;Malgré son jeune âge, mon fils manque d'ambition.;12307
@@ -7886,7 +7886,7 @@
 摂理[せつり];誰も自然の摂理には逆らえないよ。;Personne ne peut défier les lois de la nature.;12701
 陸軍[りくぐん];私達は陸軍訓練を見に来たただの見学です。;Nous sommes juste ici pour observer l'entraînement de l'armée.;12705
 隅々[すみずみ];今日は部屋を隅々まで掃除しました。;Aujourd'hui, j'ai nettoyé tous les coins et recoins de ma chambre.;12709
-染み[しみ];この染みなんとか取れないかなあ。|ほほに 小[ちい]さなしみができた。;N'avez-vous pas trouvé un moyen d'enlever cette tache ? J'ai développé une petite tache sur ma joue.;12710
+染み[しみ];この染みなんとか取れないかなあ。;N'avez-vous pas trouvé un moyen d'enlever cette tache ? J'ai développé une petite tache sur ma joue.;12710
 木星[もくせい];あの うえ 上の ほう 方で ひか 光っている ほし 星は もくせい 木星です。;The star which shines up there is Jupiter.;12711
 天文[てんもん];かれ 彼は てんもんがく 天文学、 すなわ 即ち てんもん 天文の がくもん 学問の いだい 偉大な けんい 権威であった。;He was a great authority on astronomy, or the science of the heavenly bodies.;12714
 きれ;あまった きれ で にんぎょう を つくりましょう;Faisons une poupée avec le surplus de tissu.;12720
@@ -8078,7 +8078,7 @@
 外務省[がいむしょう];びざ に ついて がいむしょう に といあわせた;J'ai contacté le ministère des Affaires étrangères pour me renseigner sur le visa.;13365
 英会話[えいかいわ];英会話[えいかいわ]を 習[なら]っているが、なかなか 上手[うま]くならない。;J'entends des conversations en anglais, mais je n'y parviens pas du tout.;13370
 傷付ける[きずつける];あなた を きずつける つもり は ありませんでした;Je n'avais pas l'intention de te blesser.;13373
-叔父[おじ];おじ は ぎんこう に つとめて います|叔父はこの学校の校長です。;Mon oncle travaille pour une banque.|Mon oncle est le directeur de cette école.;13376
+叔父[おじ];おじ は ぎんこう に つとめて います;Mon oncle travaille pour une banque.;13376
 縁起[えんぎ];カラスは、日本だけでなくヨーロッパでも、縁起の悪い鳥とみなされます。;Le corbeau est considéré comme un oiseau menaçant non seulement au Japon mais aussi en Europe.;13378
 ナイジェリア;ナイジェリアはかつてイギリスの 植民地[しょくみんち]であった。;Autrefois, le Nigéria était une colonie britannique.;13382
 ひょっとしたら;ひょっとしたら かれ は その こと を しらない の かも しれない;Peut-être ne le savait-il pas.;13391
@@ -8119,7 +8119,7 @@
 余剰[よじょう];余剰資金で株を買いました。;J'ai acheté des actions avec des fonds excédentaires.;13558
 乞食[こじき];こじき が こうえん の べんち で ねて いる;Un mendiant dort sur le parc ben;13560
 姫様[ひめさま];お迎えにあがりましたよ、僕の小さなお姫様。;Je viens te chercher, ma petite princesse.;13571
-玉ねぎ[たまねぎ];わたし は たまねぎ が きらい です 。|玉ねぎをきっていたら、なみだが出てきた。;Je déteste les oignons.|Quand j'ai coupé les oignons, j'ai déchiré.;13578
+玉ねぎ[たまねぎ];わたし は たまねぎ が きらい です 。;Je déteste les oignons.;13578
 殺人者[さつじんしゃ];その殺人者は、とう走中に大変な失ぱいをおかしてしまった。;Ce tueur a fait une terrible erreur en s'enfuyant.;13582
 都立[とりつ];ここ は とりつ の びょういん です;C'est un hôpital métropolitain.;13585
 多量[たりょう];その じこ で たりょう の がすもれ が あった ね;Une grande quantité de gaz s'est échappée à cause de l'accident.;13586
@@ -8223,7 +8223,7 @@
 不人気[ふにんき];今年、もっとも不人気だったアニメは何だと思いますか。;Selon vous, quel est l'anime le plus impopulaire cette année ?;13912
 至上[しじょう];彼は名門大学を主席で卒業した頭のいい男性なんでしょうが、明らかに白人至上主義者なのでそこが嫌いなんですよ。;C'est peut-être un gars intelligent qui a obtenu son diplôme en tête de sa classe dans une université d'élite, mais il est évidemment un suprémaciste blanc et je déteste ça.;13915
 航空機[こうくうき];きょねん は こうくうき の じこ が おおかった;Il y a eu beaucoup d'accidents d'avion l'année dernière.;13917
-西瓜[すいか];なつ は すいか が おいしい|夏といえば西瓜ですよね。;La pastèque est délicieuse en été.|En parlant d'été, c'est une pastèque.;13921
+西瓜[すいか];なつ は すいか が おいしい;La pastèque est délicieuse en été.;13921
 搭乗[とうじょう];ご搭乗の際は、足元にお気をつけください。;Veuillez surveiller vos pieds lors de l'embarquement.;13922
 半導体[はんどうたい];はんどうたい は さまざま な せいひん に つかわれて いる よ;Les semi-conducteurs sont utilisés dans de nombreux produits.;13926
 統括[とうかつ];俺たちはいつもリスク統括部の奴らとは意見が合わないんだよ。;Nous ne sommes pas toujours d'accord avec les gens du service de gestion des risques.;13927
@@ -8404,7 +8404,7 @@
 主観的[しゅかんてき];それ は しゅかんてき な いけん だ;C'est un avis subjectif.;14567
 カレーライス;こども は かれーらいす が すき です;Les enfants aiment le curry et le riz.;14568
 揺する[ゆする];僕の伯父さんは、今まで蜂に刺されたことがなくて、どんなものか試してみたかったから、蜂の巣がある木を揺すったんだそうです。;Il paraît que mon oncle a secoué un arbre avec une ruche parce qu'il n'avait jamais été piqué par une abeille et voulait essayer.;14571
-叔母[おば];おば は おおさか に すんで います|叔母は学校の先生をしています。;Ma tante vit à Osaka.|Ma tante est institutrice.;14572
+叔母[おば];おば は おおさか に すんで います;Ma tante vit à Osaka.;14572
 脳死[のうし];母が脳死じょうたいになった時、父は「何が起きるか分からない、それが人生だ」と自分に言い聞かせるように言いました。;Quand ma mère est tombée en état de mort cérébrale, mon père a dit : « On ne sait jamais ce qui va se passer ensuite, c'est la vie », comme s'il essayait de se dire.;14575
 奉納[ほうのう];どうして首相が靖国神社に玉串料を奉納することが批判されるのですか。;Pourquoi le Premier ministre a-t-il été critiqué pour avoir fait une offrande au sanctuaire Yasukuni ?;14577
 餓死[がし];警察は、その寝たきりの老人は餓死したと考えている。;La police pense que le vieil homme alité est mort de faim.;14582
@@ -8431,7 +8431,7 @@
 枯渇[こかつ];もうすぐ石油は枯渇する。;Le pétrole va bientôt se tarir.;14636
 醜悪[しゅうあく];老婆の幽霊が、醜悪な顔でこちらを睨んでいた。;Le fantôme de la vieille femme m'a regardé avec son visage laid de là-bas.;14639
 形式的[けいしきてき];かれ は けいしきてき な しつもん を した だけ だった;Il n'a posé que des questions formelles.;14649
-ジェイアール;わたし は つうきん に じぇいあーる を つかう ん だ|私[わたし]は JR[ジェイアール]を、よく 利用[りよう]する。;Je fais la navette avec JR.|J'utilise souvent les lignes JR.;14650
+ジェイアール;わたし は つうきん に じぇいあーる を つかう ん だ;Je fais la navette avec JR.;14650
 地殻[ちかく];日本列島は、千年に一度の大地殻変動期に突入しています。;Les îles japonaises sont apparues après des milliers d'années de déformation de la croûte terrestre.;14653
 羅列[られつ];一見すると意味不明な文字の羅列のように見える。;À première vue, cela ressemble à une liste aléatoire de mots.;14672
 群衆[ぐんしゅう];かれ は まいく で ぐんしゅう に はなしかけた ん だ;Il a parlé aux masses à travers un microphone.;14673
@@ -8442,7 +8442,7 @@
 観る[みる];どっちの映画を観るか迷っています。;Je ne peux pas décider quel film regarder;14682
 渋谷[しぶや];私はよく渋谷駅で外国人を見ます。;Je vois habituellement des étrangers à la gare de Shibuya.;14686
 機敏[きびん];ウェイトレスってのは機敏に動くものなのに、彼女はとんでもなく鈍いんだよ。;Les serveuses sont censées se déplacer rapidement, mais elle est ridiculement lente.;14688
-包み紙[つつみがみ];この包み紙には点字が施してあるわ。|つつみがみ は たたんで ください;Il y a du braille sur ce papier d'emballage.|Veuillez plier le papier d'emballage.;14692
+包み紙[つつみがみ];この包み紙には点字が施してあるわ。;Il y a du braille sur ce papier d'emballage.;14692
 漬物[つけもの];この漬物は誰が漬けたんですか。;Qui a mariné ces tsukemono ?;14693
 盲目[もうもく];私達は、盲目の犬を飼っているんです。;Nous avons un chien aveugle.;14695
 原子炉[げんしろ];原子炉の建設について、政府に忠告をした人もいました。;Certaines personnes ont mis en garde le gouvernement contre la construction de réacteurs nucléaires.;14697
@@ -8466,7 +8466,7 @@
 毒ガス[どくガス];毒ガスは第一次世界大戦で使われ始めたらしいです。;J'ai lu que le gaz toxique avait été utilisé pour la première fois pendant la Première Guerre mondiale.;14741
 翌月[よくげつ];彼は翌月黄色いドアがある小さな家に引っ越しています。;Il emménage dans la petite maison à la porte jaune le mois prochain.;14742
 電子レンジ[でんしレンジ];電子[でんし]レンジの「チン」という 音[おと]が 聞[き]こえた。;J'ai entendu le micro-ondes sonner.;14749
-伯母[おば];私[わたし]の 伯母[おば]は、 無料[むりょう]ハワイ 旅行[りょこう]に 当[あ]たった。|伯母はどうして私達の結婚式に来ようとしなかったんだろう。;Ma tante a gagné un voyage gratuit tous frais payés à Hawaii.;14752
+伯母[おば];私[わたし]の 伯母[おば]は、 無料[むりょう]ハワイ 旅行[りょこう]に 当[あ]たった。;Ma tante a gagné un voyage gratuit tous frais payés à Hawaii.;14752
 運がいい[うんがいい];最近みょうに運がいいんだよな。;J'ai eu beaucoup de chance ces derniers temps pour une raison quelconque.;14765
 暑さ[あつさ];ことし の なつ は あつさ が きびしい;La chaleur de cet été est accablante.;14767
 鮪[まぐろ];まぐろ の さしみ を たべました;J'ai mangé du sashimi de thon.;14773
@@ -8582,7 +8582,7 @@
 公益[こうえき];私は公益法人で働いています。;Je travaille pour une fondation à but non lucratif.;15197
 献金[けんきん];政治献金としていくらかお金を包んだ。;J'ai emballé de l'argent comme don politique et je le leur ai donné.;15205
 ウェア;スポーツを 始[はじ]めるなら、まずウェアが 必要[ひつよう]だ。;Si vous allez commencer à faire du sport, vous aurez besoin de vêtements de sport pour commencer.;15213
-食べ放題[たべほうだい];"あの 店[みせ;o] は ２０００[;h] 円[えん;a] で 食[た,たべる;k2]べ 放題[ほうだい;a] です 。|一しょに食べ放題に行ったのが、とおい昔のような気がするよ。";Ce restaurant propose un menu à volonté pour 2 000 yens. J'ai l'impression que mon souvenir d'être allé au restaurant à volonté avec vous s'éloigne.;15216
+食べ放題[たべほうだい];"あの 店[みせ;o] は ２０００[;h] 円[えん;a] で 食[た,たべる;k2]べ 放題[ほうだい;a] です 。;Ce restaurant propose un menu à volonté pour 2 000 yens. J'ai l'impression que mon souvenir d'être allé au restaurant à volonté avec vous s'éloigne.;15216
 旅行社[りょこうしゃ];"駅[えき;a] の 近[ちか;n2,a]く の 旅行社[りょこうしゃ;n2] は とても[;h] 親切[しんせつ;a] です 。";L'agence de voyage près de la gare est vraiment gentille.;15219
 神髄[しんずい];プロの神髄を見せつけられました。;Il a su me montrer le vrai sens d'être un professionnel.;15221
 怪談[かいだん];アメリカで有名な学校の怪談はありますか。;Existe-t-il des histoires de fantômes scolaires célèbres en Amérique ?;15227
@@ -9002,7 +9002,7 @@
 象牙[ぞうげ];印鑑を高級な象牙の物に変えました。;J'ai remplacé mon tampon nominatif par un tampon ivoire coûteux.;16827
 燃え移る[もえうつる];火[ひ]がめらめらと 隣家[りんか]に 燃え移[もえうつ]っていった。;Le feu qui bûrlait la maison s'est répandu aux maisons voisines.;16839
 流行歌[りゅうこうか];今時は「流行りの歌」って言うよね。「流行歌」っていうとなんかしょう和の歌よう曲って感じがする。;"On dit ""pop song"" de nos jours, donc quand j'entends ""popular song"", ça me rappelle les chansons populaires de la période Showa.";16843
-ゴールデンウィーク;ごーるでんうぃーく に かいがい りょこう を します|４月[しがつ] 下旬[げじゅん]から ５月[ごがつ]の 初[はじ]めに、ゴールデンウイークという 連休[れんきゅう]がある。;Je voyagerai à l'étranger pendant la Golden Week.|Il y a un jour férié consécutif de fin avril à début mai appelé Golden Week.;16851
+ゴールデンウィーク;ごーるでんうぃーく に かいがい りょこう を します;Je voyagerai à l'étranger pendant la Golden Week.;16851
 国賓[こくひん];アメリカ大統領が国賓として来日しました。;Le président américain s'est rendu au Japon en tant qu'invité d'État.;16855
 不均衡[ふきんこう];先進国と新興国・発展途上国間の経常収支の不均衡は是正されるのでしょうか。;Les déséquilibres des comptes courants des pays en développement seront-ils corrigés entre pays développés et pays sous-développés ?;16864
 キャッシュカード;キャッシュカードでお 金[かね]を 下[お]ろした。;J'ai retiré de l'argent avec ma carte de paiement.;16869
@@ -10212,8 +10212,8 @@
 桑[くわ];桑の実と林檎と胡桃の組み合わせが最強に美味しいんだよね。;Les mûres, les pommes et les noix ont meilleur goût lorsqu'elles sont combinées.;22938
 茨[いばら];この程度の苦難で、茨の道を歩んでいるような人生だとか、よく言えるよね。;Comment osez-vous dire que vous avez dû marcher sur le chemin épineux de la vie juste pour suivre leur niveau de difficultés.;22955
 ゴクン（と）;くすり を ごくんと のみこんだ ん だ;J'ai avalé le médicament d'une traite.;22960
-バラバラな;せいとたち は ばらばら に きたく した ね|このシャツのボタンは、 色[いろ]もデザインもばらばらだ。;Les élèves sont rentrés chez eux séparément.|Le design et la couleur des boutons de cette chemise sont incohérents.;22963
-ガラガラな;えいがかん は がらがら でした|この 時間[じかん]のバスはガラガラだ。;La salle de cinéma était vide. | Le bus est vide en ce moment.;22964
+バラバラな;せいとたち は ばらばら に きたく した ね;Les élèves sont rentrés chez eux séparément.;22963
+ガラガラな;えいがかん は がらがら でした;La salle de cinéma était vide. ;22964
 舗[ほ];おかげ様で自分の舗を構えることができました。;Grâce à vous, j'ai pu créer ma propre boutique.;22976
 藻[も];藻が絡まってしまったみたいだ。;La lentille d'eau semble tordue.;22977
 グダグダな;毎日[まいにち] 仕事[しごと]が 忙[いそが]しくて、もうクタクタだ。;Je suis occupé au travail tous les jours, donc je suis épuisé.;22979
