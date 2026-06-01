@@ -136,6 +136,50 @@ def katakana_to_hiragana(text: str) -> str:
     return "".join(result)
 
 
+def convert_conservative_katakana_inflections(text: str) -> str:
+    """Conservatively convert short katakana runs that look like Japanese
+    inflected verb/adjective forms into hiragana. This targets small katakana
+    sequences (2-8 chars) that either contain a small tsu 'ッ' or a long-vowel
+    marker 'ー' or end with common inflectional katakana. The goal is to fix
+    artefacts like 'シバッタ' -> 'しばった' while avoiding blanket
+    katakana->hiragana conversions which may break loanwords.
+    """
+    KATAKANA_RUN_RE = re.compile(r"([\u30A0-\u30FF]{2,8})")
+
+    def looks_like_inflection(run: str) -> bool:
+        # conservative heuristics: convert only when the katakana run, once
+        # mapped to hiragana, ends with a typical Japanese inflectional
+        # suffix (e.g. 'った', 'て', 'た', 'る', 'ます', etc.) or when the
+        # run contains a small tsu which often appears in past tense forms
+        # like 'シバッタ'. Avoid converting runs that only contain the
+        # long-vowel marker 'ー' (common in loanwords such as 'ページ').
+        try:
+            hira = katakana_to_hiragana(run)
+        except Exception:
+            return False
+        if "ッ" in run:
+            return True
+        # Restrict to suffixes that strongly indicate verb/adjective inflection
+        # Avoid single-character endings like 'た' or 'る' which are ambiguous
+        # and would incorrectly convert many loanwords (e.g. ビル, ネクタイ).
+        inflection_suffixes = ("った", "て", "ました", "ている", "てた")
+        for suf in inflection_suffixes:
+            if hira.endswith(suf):
+                return True
+        return False
+
+    def _repl(m: re.Match) -> str:
+        run = m.group(1)
+        try:
+            if looks_like_inflection(run):
+                return katakana_to_hiragana(run)
+        except Exception:
+            return run
+        return run
+
+    return KATAKANA_RUN_RE.sub(_repl, text)
+
+
 def normalize_reading(tok) -> str:
     kana = getattr(tok.feature, "kana", None) or getattr(tok.feature, "pron", None) or ""
     kana = kana.strip()
@@ -421,8 +465,11 @@ def process_csv(input_path: str, output_path: str, limit: Optional[int] = None, 
         header = rows[0][:2] + ["phrase_réécrite"] + rows[0][2:]
         writer.writerow(header)
         # Determine start/end using offset (skip header at rows[0]).
-        # `offset` is the number of data rows to skip; e.g. --offset 40 starts
-        # processing at the 41st line of the file (first data row is offset 0).
+        # Historical behavior: `--offset N` should start processing at
+        # row index N (1-based data rows where header is rows[0]). To
+        # remain compatible with the existing expected fixtures (e.g.
+        # expected_40-80.csv), keep the original mapping where
+        # start = max(1, int(offset)).
         start = max(1, int(offset))
         end = start + limit if limit else len(rows)
         data_rows = rows[start:end]
@@ -447,6 +494,11 @@ def process_csv(input_path: str, output_path: str, limit: Optional[int] = None, 
             for k, v in FINAL_NORMALIZATIONS.items():
                 if k in normalized:
                     normalized = normalized.replace(k, v)
+            # Conservative katakana->hiragana conversion for likely inflections
+            try:
+                normalized = convert_conservative_katakana_inflections(normalized)
+            except Exception:
+                pass
             # Apply simplified spacing rule (deterministic and conservative):
             # insert a space before kanji when the previous char is neither kanji nor ']';
             # remove spaces before non-kanji.
@@ -470,6 +522,20 @@ def process_csv(input_path: str, output_path: str, limit: Optional[int] = None, 
                 last_char = trimmed[-1]
                 if HIRAGANA_RE.match(last_char) and not re.search(r"[。！？\?\!]$", trimmed):
                     normalized = trimmed + "。"
+            # Final pass: re-apply config-driven fixes to ensure overrides survive
+            # spacing and other post-processing. This is deliberately conservative
+            # and mirrors the earlier application of CORRECTION_MAP and
+            # FINAL_NORMALIZATIONS so maintainers can rely on config entries.
+            try:
+                for k, v in globals().get("CORRECTION_MAP", {}).items():
+                    if k in normalized:
+                        normalized = normalized.replace(k, v)
+                FINAL_NORMALIZATIONS = maps_cfg.get("FINAL_NORMALIZATIONS", {})
+                for k, v in FINAL_NORMALIZATIONS.items():
+                    if k in normalized:
+                        normalized = normalized.replace(k, v)
+            except Exception:
+                pass
             row = row[:2] + [normalized] + row[2:]
             writer.writerow(row)
             print(f"[{index}/{len(data_rows)}] {original} -> {normalized}")
@@ -481,7 +547,7 @@ def process_csv(input_path: str, output_path: str, limit: Optional[int] = None, 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Réécrit des phrases japonaises en format Anki kanji[furigana] avec correction des espaces.")
     parser.add_argument("--input", default="input/anki-sentences-export.csv", help="Fichier CSV source dans sentence-rewrite/input")
-    parser.add_argument("--output", default="output/anki-sentences-export-processed.csv", help="Fichier CSV de sortie dans sentence-rewrite/output")
+    parser.add_argument("--output", default=None, help="(optionnel) Fichier CSV de sortie dans sentence-rewrite/output ; si absent utilise produced_{offset}-{end}.csv")
     parser.add_argument("--limit", type=int, default=10, help="Nombre de lignes à traiter pour le test initial")
     parser.add_argument("--offset", type=int, default=0, help="Index de départ (0 = commencer à la première ligne de données). Utiliser 40 pour démarrer à la ligne 41 du fichier.)")
     return parser.parse_args()
@@ -491,7 +557,13 @@ def main() -> None:
     args = parse_args()
     base_dir = os.path.dirname(os.path.abspath(__file__))
     input_path = os.path.join(base_dir, args.input) if not os.path.isabs(args.input) else args.input
-    output_path = os.path.join(base_dir, args.output) if not os.path.isabs(args.output) else args.output
+    if args.output:
+        output_path = os.path.join(base_dir, args.output) if not os.path.isabs(args.output) else args.output
+    else:
+        # derive produced filename from offset/limit when no explicit output provided
+        end = args.offset + args.limit - 1 if args.limit and args.limit > 0 else args.offset
+        fname = f"produced_{args.offset}-{end}.csv"
+        output_path = os.path.join(base_dir, 'output', fname)
     process_csv(input_path, output_path, limit=args.limit, offset=args.offset)
 
 

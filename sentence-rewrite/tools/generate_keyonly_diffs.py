@@ -74,7 +74,8 @@ def main():
             base = f'diff_{m.group(1)}.txt'
         else:
             base = 'diff_keyonly.txt'
-        out_f = Path('sentence-rewrite/output') / base
+        script_dir = Path(__file__).resolve().parents[1]
+        out_f = script_dir / 'output' / base
 
     if not exp_p.exists():
         print('expected file missing:', exp_p, file=sys.stderr)
